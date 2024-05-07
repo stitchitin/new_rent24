@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from salreo.dexignzone.com/xhtml/ecom-product-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 02:01:01 GMT -->
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:title" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:image" content="social-image.png">
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>Dashboard</title>
+	<!-- FAVICONS ICON -->
+
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
+	<link rel="stylesheet" type="text/css" href="vendor/star-rating/star-rating-svg.css">
+	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<!--swiper-slider-->
+	<link rel="stylesheet" href="vendor/swiper/css/swiper-bundle.min.css">
+	<style>
+		.nav-text {
+			font-family: Nunito;
+			font-size: 20px;
+			font-weight: 700;
+			line-height: 27.28px;
+			text-align: center;
+			/* top: 404px; */
+			padding: 14px;
+
+
+
+		}
+
+		.logout {
+			margin-top: 300px;
+
+
+		}
+
+		/* Make the ul element a flex container */
+		.flex-list {
+			display: flex;
+			/* Use flexbox layout */
+			list-style: none;
+			/* Remove default list styling */
+			padding: 0;
+			/* Remove default padding */
+			margin: 0;
+			/* Remove default margin */
+		}
+
+		/* Optional: Add spacing between list items */
+		.flex-list li {
+			margin-right: 20px;
+			/* Adjust spacing as desired */
+		}
+
+		/* Optional: Additional styles for list items */
+		.flex-list li a {
+			text-decoration: none;
+			/* Remove underline from links */
+			color: black;
+			/* Customize link color */
+
+
+		}
+
+		.flex-list li {
+			font-size: 20px;
+			/* Adjust this value as desired */
+			margin-top: 5px;
+			/* margin-right: 30px; */
+			/* Add spacing between list items */
+			background-color: white;
+			border-radius: 15px;
+			border-color: white;
+
+			box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+
+			padding: 10px;
+		}
+
+		@media (max-width: 768px) {
+			.flex-list li {
+				font-size: 18px;
+				/* Adjust this value as desired */
+			}
+		}
+
+		@media (max-width: 768px) {
+
+			/* Adjust the flex layout for smaller screens */
+			.flex-list {
+				flex-direction: flex;
+				/* Stack list items vertically */
+				overflow: auto;
+			}
+
+			/* Adjust list item spacing */
+			.flex-list li {
+				margin: 10px;
+				/* Remove right margin */
+
+			}
+		}
+
+		.small-search {
+			display: none;
+		}
+
+		/* Increase the font size of text elements in the specified row */
+		.row .col-lg-12.col-xl-6.col-xxl-4 .card-body .new-arrival-content h4 {
+			font-size: 25px;
+			/* Increase the font size of h4 elements */
+		}
+
+		.row .col-lg-12.col-xl-6.col-xxl-4 .card-body .new-arrival-content p {
+			font-size: 20px;
+			/* Increase the font size of p elements */
+		}
+
+		/* Increase the font size of span elements */
+		.row .col-lg-12.col-xl-6.col-xxl-4 .card-body .new-arrival-content span {
+			font-size: 20px;
+			/* Increase the font size of span elements */
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="header"></div>
+
+	<!--********************************** Content body start ***********************************-->
+	<div class="content-body">
+		<div class="container-fluid mh-auto">
+			<div class="row">
+				<div class="col-xl-12">
+
+
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="page-titles">
+								<ul class="flex-list">
+									<li>Accomodation</li>
+									<li>Ride</li>
+									<li>EventCenter</li>
+									<li>Electronics</li>
+									<li>Fashion</li>
+									<li>Games</li>
+									<li>Others</li>
+								</ul>
+								<div class="input-group search-area me-3">
+									<input type="text" class="form-control" placeholder="Search">
+									<span class="input-group-text"><a href="javascript:void(0)">
+											<svg class="me-3 mb-1 user-search" width="15" height="15"
+												viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M8.625 16.3125C4.3875 16.3125 0.9375 12.8625 0.9375 8.625C0.9375 4.3875 4.3875 0.9375 8.625 0.9375C12.8625 0.9375 16.3125 4.3875 16.3125 8.625C16.3125 12.8625 12.8625 16.3125 8.625 16.3125ZM8.625 2.0625C5.0025 2.0625 2.0625 5.01 2.0625 8.625C2.0625 12.24 5.0025 15.1875 8.625 15.1875C12.2475 15.1875 15.1875 12.24 15.1875 8.625C15.1875 5.01 12.2475 2.0625 8.625 2.0625Z"
+													fill="#2696FD" />
+												<path
+													d="M16.5001 17.0626C16.3576 17.0626 16.2151 17.0101 16.1026 16.8976L14.6026 15.3976C14.3851 15.1801 14.3851 14.8201 14.6026 14.6026C14.8201 14.3851 15.1801 14.3851 15.3976 14.6026L16.8976 16.1026C17.1151 16.3201 17.1151 16.6801 16.8976 16.8976C16.7851 17.0101 16.6426 17.0626 16.5001 17.0626Z"
+													fill="var(--primary)" />
+											</svg>
+										</a></span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/product/13.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Duplex Home</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/mdi_bed-outline.png" alt="" srcset="">: <span
+														class="item">2
+														bedroom</span> </p>
+												<p><img src="images/Vector.png" alt="" srcset="">: <span class="item">3
+														bathroom</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/product/13.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Duplex Home</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/mdi_bed-outline.png" alt="" srcset="">: <span
+														class="item">2
+														bedroom</span> </p>
+												<p><img src="images/Vector.png" alt="" srcset="">: <span class="item">3
+														bathroom</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/product/16.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Duplex Home</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/mdi_bed-outline.png" alt="" srcset="">: <span
+														class="item">2
+														bedroom</span> </p>
+												<p><img src="images/Vector.png" alt="" srcset="">: <span class="item">3
+														bathroom</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/product/16.jpg" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Duplex Home</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/mdi_bed-outline.png" alt="" srcset="">: <span
+														class="item">2
+														bedroom</span> </p>
+												<p><img src="images/Vector.png" alt="" srcset="">: <span class="item">3
+														bathroom</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/Rectangle 37.png" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Laptop</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/ps_ram.png" alt="" srcset="">: <span class="item">8
+														gig</span> </p>
+												<p><img src="images/uil_processor.png" alt="" srcset="">: <span
+														class="item">core i7</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-xl-6 col-xxl-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="row m-b-30">
+										<div class="col-md-5 col-xxl-12">
+											<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+												<div class="new-arrivals-img-contnent">
+													<img class="img-fluid" src="images/Rectangle 37.png" alt="">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-7 col-xxl-12">
+											<div class="new-arrival-content position-relative">
+												<h4><a href="ecom-product-detail.html">Laptop</a>
+												</h4>
+												<p class="price">$320.00</p>
+												<p>Location: <span class="item"> udoka estate <i
+															class="fa fa-check-circle text-success"></i></span></p>
+												<p><img src="images/ps_ram.png" alt="" srcset="">: <span class="item">16
+														gig</span> </p>
+												<p><img src="images/uil_processor.png" alt="" srcset="">: <span
+														class="item">core i5</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- review -->
+
+					</div>
+				</div>
+			</div>
+			<!--**********************************
+            Content body end
+        ***********************************-->
+
+			<!--**********************************
+			Footer start
+		***********************************-->
+			<div class="footer">
+				<div class="copyright">
+
+				</div>
+
+			</div>
+			<!--**********************************
+			Footer end
+		***********************************-->
+			<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+			<!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+		</div>
+		<!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+		<!--**********************************
+        Scripts
+    ***********************************-->
+		<!-- Required vendors -->
+		<script src="vendor/global/global.min.js"></script>
+
+		<!-- Rating -->
+		<script src="js/extend.js"></script>
+
+		<script src="vendor/star-rating/jquery.star-rating-svg.js"></script>
+		<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+		<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+		<script src="js/custom.min.js"></script>
+		<script src="js/deznav-2-init.js"></script>
+		<script src="js/demo-2.js"></script>
+		<script src="js/styleSwitcher.js"></script>
+		<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+		<script src="vendor/peity/jquery.peity.min.js"></script>
+		<script src="js/user.js"></script>
+
+
+		<script>
+			// Function to load HTML from a file into an element
+
+
+		</script>
+</body>
+
+
+</html>
