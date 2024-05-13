@@ -149,10 +149,10 @@
 					<div class="row">
 						<!--column-->
 						<div class="col-xl-12">
-							<div class="user card  ">
+							<div class="user card ">
 								<div class="user-head">
 									<!-- i added -->
-									<div class="payment-bx" style="margin: 0;">
+									<div class="payment-bx mx-0">
 										<div class="d-flex  justify-content-between flex-wrap">
 
 											<div class="mb-4 mb-xl-0">
@@ -204,7 +204,7 @@
 													<div class="card-body py-4 pt-md-2">
 														<div class="progress default-progress mb-3">
 															<div class="progress-bar bg-vigit progress-animated"
-																style="width: 80%; height:8px;" role="progressbar">
+																style="width: 100%; height:8px;" role="progressbar">
 																<span class="sr-only">90% Complete</span>
 															</div>
 														</div>
@@ -279,8 +279,9 @@
 											</div>
 											<div class="side-detail">
 												<div class="edit-profiil">
-													<button class="btn light btn-primary btn-sm text-nowrap">Edit
-														Profile</button>
+													<button class="btn light btn-primary btn-sm text-nowrap"><a
+															href="edit-profile.html">Edit
+															Profile</a></button>
 												</div>
 
 											</div>
@@ -302,8 +303,8 @@
 										<div class="coman-btn me-2">
 
 											<button type="button" class="btn light btn-primary btn-sm mx-1"><i
-													class="fa-solid fa-plus me-3"></i>Add
-												item</button>
+													class="fa-solid fa-plus me-3"></i><a href="additem.html">Add
+													item</a></button>
 										</div>
 
 									</div>
@@ -349,88 +350,382 @@
 								</div>
 							</div>
 						</div>
+
+					</div>
+					<!-- rent history -->
+					<div class="card lastest_trans h-auto">
+						<div class="card-header dz-border flex-wrap pb-3">
+							<div>
+								<h2 class="heading">Rent History</h2>
+							</div>
+							<div class="d-flex align-items-center">
+								<select class="image-select default-select dashboard-select me-2 bg-white"
+									aria-label="Default">
+									<option selected>This Month</option>
+									<option value="1">This Weeks</option>
+									<option value="2">Today</option>
+								</select>
+
+							</div>
+						</div>
+						<div class="card-body p-0">
+							<!--list-->
+							<div class="table-responsive">
+								<table class="table table-sm mb-0">
+									<thead>
+										<tr>
+											<th class="align-middle">
+												<div class="form-check custom-checkbox">
+													<input type="checkbox" class="form-check-input" id="checkAll">
+													<label class="form-check-label" for="checkAll"></label>
+												</div>
+											</th>
+											<th class="align-middle">Name</th>
+											<th class="align-middle ">Item</th>
+											<th class="align-middle">start Date</th>
+											<th class="align-middle ">End Date</th>
+											<th class="align-middle text-end">Status</th>
+
+											<th class="no-sort">Edit</th>
+										</tr>
+									</thead>
+									<tbody id="orders">
+										<tr class="btn-reveal-trigger">
+											<td class="py-2">
+												<div class="form-check custom-checkbox checkbox-success">
+													<input type="checkbox" class="form-check-input" id="checkbox">
+													<label class="form-check-label" for="checkbox"></label>
+												</div>
+											</td>
+											<td class="py-2">
+												<a href="#">
+													<h4>Ricky Antony</h4>
+
+											</td>
+											<td class="py-2">hall</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2 text-end"><span
+													class="badge light badge-success badge-lg">Completed<span
+														class="ms-1 fa fa-check"></span></span>
+											</td>
+
+											<td class="py-2 text-end">
+												<div class="dropdown text-sans-serif"><button
+														class="btn btn-primary tp-btn-light sharp" type="button"
+														id="order-dropdown-0" data-bs-toggle="dropdown"
+														data-boundary="viewport" aria-haspopup="true"
+														aria-expanded="false"><span>
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M8.47908 4.58333C8.47908 3.19 9.60659 2.0625 10.9999 2.0625C12.3933 2.0625 13.5208 3.19 13.5208 4.58333C13.5208 5.97667 12.3933 7.10417 10.9999 7.10417C9.60658 7.10417 8.47908 5.97667 8.47908 4.58333ZM12.1458 4.58333C12.1458 3.95083 11.6324 3.4375 10.9999 3.4375C10.3674 3.4375 9.85408 3.95083 9.85408 4.58333C9.85408 5.21583 10.3674 5.72917 10.9999 5.72917C11.6324 5.72917 12.1458 5.21583 12.1458 4.58333Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 17.4163C8.47908 16.023 9.60659 14.8955 10.9999 14.8955C12.3933 14.8955 13.5208 16.023 13.5208 17.4163C13.5208 18.8097 12.3933 19.9372 10.9999 19.9372C9.60658 19.9372 8.47908 18.8097 8.47908 17.4163ZM12.1458 17.4163C12.1458 16.7838 11.6324 16.2705 10.9999 16.2705C10.3674 16.2705 9.85408 16.7838 9.85408 17.4163C9.85408 18.0488 10.3674 18.5622 10.9999 18.5622C11.6324 18.5622 12.1458 18.0488 12.1458 17.4163Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 11.0003C8.47908 9.60699 9.60659 8.47949 10.9999 8.47949C12.3933 8.47949 13.5208 9.60699 13.5208 11.0003C13.5208 12.3937 12.3933 13.5212 10.9999 13.5212C9.60658 13.5212 8.47908 12.3937 8.47908 11.0003ZM12.1458 11.0003C12.1458 10.3678 11.6324 9.85449 10.9999 9.85449C10.3674 9.85449 9.85408 10.3678 9.85408 11.0003C9.85408 11.6328 10.3674 12.1462 10.9999 12.1462C11.6324 12.1462 12.1458 11.6328 12.1458 11.0003Z"
+																	fill="var(--primary)" />
+															</svg>
+														</span></button>
+													<div class="dropdown-menu dropdown-menu-end border py-0"
+														aria-labelledby="order-dropdown-0">
+														<div class="py-2"><a class="dropdown-item"
+																href="javascript:void(0);">Completed</a><a
+																class="dropdown-item"
+																href="javascript:void(0);">Processing</a><a
+																class="dropdown-item" href="javascript:void(0);">On
+																Hold</a><a class="dropdown-item"
+																href="javascript:void(0);">Pending</a>
+															<div class="dropdown-divider"></div><a
+																class="dropdown-item text-danger"
+																href="javascript:void(0);">Delete</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr class="btn-reveal-trigger">
+											<td class="py-2">
+												<div class="form-check custom-checkbox checkbox-success">
+													<input type="checkbox" class="form-check-input" id="checkbox">
+													<label class="form-check-label" for="checkbox"></label>
+												</div>
+											</td>
+											<td class="py-2">
+												<a href="#">
+													<h4>Ricky Antony</h4>
+
+											</td>
+											<td class="py-2">hall</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2 text-end"><span
+													class="badge light badge-primary badge-lg">Processing<span
+														class="ms-1 fa fa-redo"></span></span>
+											</td>
+
+											<td class="py-2 text-end">
+												<div class="dropdown text-sans-serif"><button
+														class="btn btn-primary tp-btn-light sharp" type="button"
+														id="order-dropdown-0" data-bs-toggle="dropdown"
+														data-boundary="viewport" aria-haspopup="true"
+														aria-expanded="false"><span>
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M8.47908 4.58333C8.47908 3.19 9.60659 2.0625 10.9999 2.0625C12.3933 2.0625 13.5208 3.19 13.5208 4.58333C13.5208 5.97667 12.3933 7.10417 10.9999 7.10417C9.60658 7.10417 8.47908 5.97667 8.47908 4.58333ZM12.1458 4.58333C12.1458 3.95083 11.6324 3.4375 10.9999 3.4375C10.3674 3.4375 9.85408 3.95083 9.85408 4.58333C9.85408 5.21583 10.3674 5.72917 10.9999 5.72917C11.6324 5.72917 12.1458 5.21583 12.1458 4.58333Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 17.4163C8.47908 16.023 9.60659 14.8955 10.9999 14.8955C12.3933 14.8955 13.5208 16.023 13.5208 17.4163C13.5208 18.8097 12.3933 19.9372 10.9999 19.9372C9.60658 19.9372 8.47908 18.8097 8.47908 17.4163ZM12.1458 17.4163C12.1458 16.7838 11.6324 16.2705 10.9999 16.2705C10.3674 16.2705 9.85408 16.7838 9.85408 17.4163C9.85408 18.0488 10.3674 18.5622 10.9999 18.5622C11.6324 18.5622 12.1458 18.0488 12.1458 17.4163Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 11.0003C8.47908 9.60699 9.60659 8.47949 10.9999 8.47949C12.3933 8.47949 13.5208 9.60699 13.5208 11.0003C13.5208 12.3937 12.3933 13.5212 10.9999 13.5212C9.60658 13.5212 8.47908 12.3937 8.47908 11.0003ZM12.1458 11.0003C12.1458 10.3678 11.6324 9.85449 10.9999 9.85449C10.3674 9.85449 9.85408 10.3678 9.85408 11.0003C9.85408 11.6328 10.3674 12.1462 10.9999 12.1462C11.6324 12.1462 12.1458 11.6328 12.1458 11.0003Z"
+																	fill="var(--primary)" />
+															</svg>
+														</span></button>
+													<div class="dropdown-menu dropdown-menu-end border py-0"
+														aria-labelledby="order-dropdown-0">
+														<div class="py-2"><a class="dropdown-item"
+																href="javascript:void(0);">Completed</a><a
+																class="dropdown-item"
+																href="javascript:void(0);">Processing</a><a
+																class="dropdown-item" href="javascript:void(0);">On
+																Hold</a><a class="dropdown-item"
+																href="javascript:void(0);">Pending</a>
+															<div class="dropdown-divider"></div><a
+																class="dropdown-item text-danger"
+																href="javascript:void(0);">Delete</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr class="btn-reveal-trigger">
+											<td class="py-2">
+												<div class="form-check custom-checkbox checkbox-success">
+													<input type="checkbox" class="form-check-input" id="checkbox">
+													<label class="form-check-label" for="checkbox"></label>
+												</div>
+											</td>
+											<td class="py-2">
+												<a href="#">
+													<h4>Cristofer Henric</h4>
+
+											</td>
+											<td class="py-2">Band</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2 text-end"><span
+													class="badge light badge-secondary badge-lg">On
+													Hold<span class="ms-1 fa fa-ban"></span></span>
+											</td>
+
+											<td class="py-2 text-end">
+												<div class="dropdown text-sans-serif"><button
+														class="btn btn-primary tp-btn-light sharp" type="button"
+														id="order-dropdown-0" data-bs-toggle="dropdown"
+														data-boundary="viewport" aria-haspopup="true"
+														aria-expanded="false"><span>
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M8.47908 4.58333C8.47908 3.19 9.60659 2.0625 10.9999 2.0625C12.3933 2.0625 13.5208 3.19 13.5208 4.58333C13.5208 5.97667 12.3933 7.10417 10.9999 7.10417C9.60658 7.10417 8.47908 5.97667 8.47908 4.58333ZM12.1458 4.58333C12.1458 3.95083 11.6324 3.4375 10.9999 3.4375C10.3674 3.4375 9.85408 3.95083 9.85408 4.58333C9.85408 5.21583 10.3674 5.72917 10.9999 5.72917C11.6324 5.72917 12.1458 5.21583 12.1458 4.58333Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 17.4163C8.47908 16.023 9.60659 14.8955 10.9999 14.8955C12.3933 14.8955 13.5208 16.023 13.5208 17.4163C13.5208 18.8097 12.3933 19.9372 10.9999 19.9372C9.60658 19.9372 8.47908 18.8097 8.47908 17.4163ZM12.1458 17.4163C12.1458 16.7838 11.6324 16.2705 10.9999 16.2705C10.3674 16.2705 9.85408 16.7838 9.85408 17.4163C9.85408 18.0488 10.3674 18.5622 10.9999 18.5622C11.6324 18.5622 12.1458 18.0488 12.1458 17.4163Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 11.0003C8.47908 9.60699 9.60659 8.47949 10.9999 8.47949C12.3933 8.47949 13.5208 9.60699 13.5208 11.0003C13.5208 12.3937 12.3933 13.5212 10.9999 13.5212C9.60658 13.5212 8.47908 12.3937 8.47908 11.0003ZM12.1458 11.0003C12.1458 10.3678 11.6324 9.85449 10.9999 9.85449C10.3674 9.85449 9.85408 10.3678 9.85408 11.0003C9.85408 11.6328 10.3674 12.1462 10.9999 12.1462C11.6324 12.1462 12.1458 11.6328 12.1458 11.0003Z"
+																	fill="var(--primary)" />
+															</svg>
+														</span></button>
+													<div class="dropdown-menu dropdown-menu-end border py-0"
+														aria-labelledby="order-dropdown-0">
+														<div class="py-2"><a class="dropdown-item"
+																href="javascript:void(0);">Completed</a><a
+																class="dropdown-item"
+																href="javascript:void(0);">Processing</a><a
+																class="dropdown-item" href="javascript:void(0);">On
+																Hold</a><a class="dropdown-item"
+																href="javascript:void(0);">Pending</a>
+															<div class="dropdown-divider"></div><a
+																class="dropdown-item text-danger"
+																href="javascript:void(0);">Delete</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr class="btn-reveal-trigger">
+											<td class="py-2">
+												<div class="form-check custom-checkbox checkbox-success">
+													<input type="checkbox" class="form-check-input" id="checkbox">
+													<label class="form-check-label" for="checkbox"></label>
+												</div>
+											</td>
+											<td class="py-2">
+												<a href="#">
+													<h4>Bucky Robert</h4>
+
+											</td>
+											<td class="py-2">Room</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2 text-end"><span
+													class="badge light badge-warning badge-lg badge-lg">Pending<span
+														class="ms-1 fas fa-stream"></span></span>
+											</td>
+
+											<td class="py-2 text-end">
+												<div class="dropdown text-sans-serif"><button
+														class="btn btn-primary tp-btn-light sharp" type="button"
+														id="order-dropdown-0" data-bs-toggle="dropdown"
+														data-boundary="viewport" aria-haspopup="true"
+														aria-expanded="false"><span>
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M8.47908 4.58333C8.47908 3.19 9.60659 2.0625 10.9999 2.0625C12.3933 2.0625 13.5208 3.19 13.5208 4.58333C13.5208 5.97667 12.3933 7.10417 10.9999 7.10417C9.60658 7.10417 8.47908 5.97667 8.47908 4.58333ZM12.1458 4.58333C12.1458 3.95083 11.6324 3.4375 10.9999 3.4375C10.3674 3.4375 9.85408 3.95083 9.85408 4.58333C9.85408 5.21583 10.3674 5.72917 10.9999 5.72917C11.6324 5.72917 12.1458 5.21583 12.1458 4.58333Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 17.4163C8.47908 16.023 9.60659 14.8955 10.9999 14.8955C12.3933 14.8955 13.5208 16.023 13.5208 17.4163C13.5208 18.8097 12.3933 19.9372 10.9999 19.9372C9.60658 19.9372 8.47908 18.8097 8.47908 17.4163ZM12.1458 17.4163C12.1458 16.7838 11.6324 16.2705 10.9999 16.2705C10.3674 16.2705 9.85408 16.7838 9.85408 17.4163C9.85408 18.0488 10.3674 18.5622 10.9999 18.5622C11.6324 18.5622 12.1458 18.0488 12.1458 17.4163Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 11.0003C8.47908 9.60699 9.60659 8.47949 10.9999 8.47949C12.3933 8.47949 13.5208 9.60699 13.5208 11.0003C13.5208 12.3937 12.3933 13.5212 10.9999 13.5212C9.60658 13.5212 8.47908 12.3937 8.47908 11.0003ZM12.1458 11.0003C12.1458 10.3678 11.6324 9.85449 10.9999 9.85449C10.3674 9.85449 9.85408 10.3678 9.85408 11.0003C9.85408 11.6328 10.3674 12.1462 10.9999 12.1462C11.6324 12.1462 12.1458 11.6328 12.1458 11.0003Z"
+																	fill="var(--primary)" />
+															</svg>
+														</span></button>
+													<div class="dropdown-menu dropdown-menu-end border py-0"
+														aria-labelledby="order-dropdown-0">
+														<div class="py-2"><a class="dropdown-item"
+																href="javascript:void(0);">Completed</a><a
+																class="dropdown-item"
+																href="javascript:void(0);">Processing</a><a
+																class="dropdown-item" href="javascript:void(0);">On
+																Hold</a><a class="dropdown-item"
+																href="javascript:void(0);">Pending</a>
+															<div class="dropdown-divider"></div><a
+																class="dropdown-item text-danger"
+																href="javascript:void(0);">Delete</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr class="btn-reveal-trigger">
+											<td class="py-2">
+												<div class="form-check custom-checkbox checkbox-success">
+													<input type="checkbox" class="form-check-input" id="checkbox">
+													<label class="form-check-label" for="checkbox"></label>
+												</div>
+											</td>
+											<td class="py-2">
+												<a href="#">
+													<h4>Cristofer Henric</h4>
+
+											</td>
+											<td class="py-2">Band</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2">30/04/2020
+
+											</td>
+											<td class="py-2 text-end"><span
+													class="badge light badge-secondary badge-lg">On
+													Hold<span class="ms-1 fa fa-ban"></span></span>
+											</td>
+
+											<td class="py-2 text-end">
+												<div class="dropdown text-sans-serif"><button
+														class="btn btn-primary tp-btn-light sharp" type="button"
+														id="order-dropdown-0" data-bs-toggle="dropdown"
+														data-boundary="viewport" aria-haspopup="true"
+														aria-expanded="false"><span>
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M8.47908 4.58333C8.47908 3.19 9.60659 2.0625 10.9999 2.0625C12.3933 2.0625 13.5208 3.19 13.5208 4.58333C13.5208 5.97667 12.3933 7.10417 10.9999 7.10417C9.60658 7.10417 8.47908 5.97667 8.47908 4.58333ZM12.1458 4.58333C12.1458 3.95083 11.6324 3.4375 10.9999 3.4375C10.3674 3.4375 9.85408 3.95083 9.85408 4.58333C9.85408 5.21583 10.3674 5.72917 10.9999 5.72917C11.6324 5.72917 12.1458 5.21583 12.1458 4.58333Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 17.4163C8.47908 16.023 9.60659 14.8955 10.9999 14.8955C12.3933 14.8955 13.5208 16.023 13.5208 17.4163C13.5208 18.8097 12.3933 19.9372 10.9999 19.9372C9.60658 19.9372 8.47908 18.8097 8.47908 17.4163ZM12.1458 17.4163C12.1458 16.7838 11.6324 16.2705 10.9999 16.2705C10.3674 16.2705 9.85408 16.7838 9.85408 17.4163C9.85408 18.0488 10.3674 18.5622 10.9999 18.5622C11.6324 18.5622 12.1458 18.0488 12.1458 17.4163Z"
+																	fill="var(--primary)" />
+																<path
+																	d="M8.47908 11.0003C8.47908 9.60699 9.60659 8.47949 10.9999 8.47949C12.3933 8.47949 13.5208 9.60699 13.5208 11.0003C13.5208 12.3937 12.3933 13.5212 10.9999 13.5212C9.60658 13.5212 8.47908 12.3937 8.47908 11.0003ZM12.1458 11.0003C12.1458 10.3678 11.6324 9.85449 10.9999 9.85449C10.3674 9.85449 9.85408 10.3678 9.85408 11.0003C9.85408 11.6328 10.3674 12.1462 10.9999 12.1462C11.6324 12.1462 12.1458 11.6328 12.1458 11.0003Z"
+																	fill="var(--primary)" />
+															</svg>
+														</span></button>
+													<div class="dropdown-menu dropdown-menu-end border py-0"
+														aria-labelledby="order-dropdown-0">
+														<div class="py-2"><a class="dropdown-item"
+																href="javascript:void(0);">Completed</a><a
+																class="dropdown-item"
+																href="javascript:void(0);">Processing</a><a
+																class="dropdown-item" href="javascript:void(0);">On
+																Hold</a><a class="dropdown-item"
+																href="javascript:void(0);">Pending</a>
+															<div class="dropdown-divider"></div><a
+																class="dropdown-item text-danger"
+																href="javascript:void(0);">Delete</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="table-pagenation mt-0 pt-3 mt-0">
+
+							<nav>
+								<ul class="pagination pagination-gutter pagination-primary no-bg me-3">
+									<li class="page-item page-indicator">
+										<a class="page-link" href="javascript:void(0)">
+											<i class="fa-solid fa-angle-left"></i></a>
+									</li>
+									<li class="page-item "><a class="page-link" href="javascript:void(0)">1</a>
+									</li>
+									<li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+									<li class="page-item page-indicator">
+										<a class="page-link" href="javascript:void(0)">
+											<i class="fa-solid fa-angle-right"></i></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
 					</div>
 
+					<!-- end rent history -->
+
 				</div>
-				<!--column-->
+
 				<div class="col-xl-3 col-xxl-4">
 					<!--row-->
 					<div class="row">
-						<!--column-->
-						<!-- <div class="col-xl-12">
-							<div class="card">
-								<div class="">
-									<div class="prot-blog">
-										<div class="d-flex post justify-content-between mb-3 align-items-center">
-											<h3 class="text d-inline mb-0">Transactions</h3>
-											<div class="dropdown">
-												<a href="javascrit:viod(0);" data-bs-toggle="dropdown"
-													aria-expanded="false"><svg width="22" height="22"
-														viewBox="0 0 22 22" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-														<path
-															d="M4.58333 13.5207C3.19 13.5207 2.0625 12.3932 2.0625 10.9998C2.0625 9.6065 3.19 8.479 4.58333 8.479C5.97667 8.479 7.10417 9.6065 7.10417 10.9998C7.10417 12.3932 5.97667 13.5207 4.58333 13.5207ZM4.58333 9.854C3.95083 9.854 3.4375 10.3673 3.4375 10.9998C3.4375 11.6323 3.95083 12.1457 4.58333 12.1457C5.21583 12.1457 5.72917 11.6323 5.72917 10.9998C5.72917 10.3673 5.21583 9.854 4.58333 9.854Z"
-															fill="white" />
-														<path
-															d="M17.4168 13.5207C16.0235 13.5207 14.896 12.3932 14.896 10.9998C14.896 9.6065 16.0235 8.479 17.4168 8.479C18.8102 8.479 19.9377 9.6065 19.9377 10.9998C19.9377 12.3932 18.8102 13.5207 17.4168 13.5207ZM17.4168 9.854C16.7843 9.854 16.271 10.3673 16.271 10.9998C16.271 11.6323 16.7843 12.1457 17.4168 12.1457C18.0493 12.1457 18.5627 11.6323 18.5627 10.9998C18.5627 10.3673 18.0493 9.854 17.4168 9.854Z"
-															fill="white" />
-														<path
-															d="M10.9998 13.5207C9.6065 13.5207 8.479 12.3932 8.479 10.9998C8.479 9.6065 9.6065 8.479 10.9998 8.479C12.3932 8.479 13.5207 9.6065 13.5207 10.9998C13.5207 12.3932 12.3932 13.5207 10.9998 13.5207ZM10.9998 9.854C10.3673 9.854 9.854 10.3673 9.854 10.9998C9.854 11.6323 10.3673 12.1457 10.9998 12.1457C11.6323 12.1457 12.1457 11.6323 12.1457 10.9998C12.1457 10.3673 11.6323 9.854 10.9998 9.854Z"
-															fill="white" />
 
-													</svg>
-												</a>
-												<div class="dropdown-menu dropdown-menu-end" style="">
-													<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-												</div>
-											</div>
-										</div>
-										<div class="d-flex fill justify-content-between align-items-center">
-											<h2 class="text">Free</h2>
-											<a href="javascript:void(0);">Upgrade Plan</a>
-										</div>
-										<h4><a href="post-details.html" class="text-bla"><svg class="me-1" width="9"
-													height="9" viewBox="0 0 9 9" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<circle cx="4.5" cy="4.5" r="4.5" fill="#FCFCFC" />
-												</svg>
-												50 GB Storage</a></h4>
-										<h4><a href="post-details.html" class="text-bla"><svg class="me-1" width="9"
-													height="9" viewBox="0 0 9 9" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<circle cx="4.5" cy="4.5" r="4.5" fill="#FCFCFC" />
-												</svg>
-												Limited Features</a></h4>
-										<p class="mb-0">Upgrade to Premium Plan to get more Features & Storage memory
-										</p>
-										<div class="shape">
-											<svg width="488" height="353" viewBox="0 0 488 353" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<mask id="mask0_51_1209" style="mask-type:alpha"
-													maskUnits="userSpaceOnUse" x="0" y="0" width="438" height="283">
-													<rect width="438" height="283" fill="url(#paint0_linear_51_1209)" />
-												</mask>
-												<g mask="url(#mask0_51_1209)">
-													<path d="M165 410.5H15L465.5 88H487.5L165 410.5Z" fill="#ccecff" />
-													<path d="M264 369.5H114L564.5 47H586.5L264 369.5Z" fill="#ccecff" />
-												</g>
-												<defs>
-													<linearGradient id="paint0_linear_51_1209" x1="308.075"
-														y1="-143.042" x2="316.634" y2="468.334"
-														gradientUnits="userSpaceOnUse">
-														<stop offset="1" stop-color="#363B64" />
-														<stop offset="1" stop-color="#4CBC9A" />
-													</linearGradient>
-												</defs>
-											</svg>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> -->
-						<!--/column-->
-						<!--column-->
 						<div class="col-xl-12">
 							<div class="card messages ">
 								<div class="card-header border-0 p-4 pb-0 ">
