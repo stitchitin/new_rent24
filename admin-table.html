@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:title" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:image" content="social-image.png">
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>Rent24</title>
+	<!-- FAVICONS ICON -->
+
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
+	<!-- Custom Stylesheet -->
+	<link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!--*******************
+        Preloader start
+    ********************-->
+
+	<div id="header2"></div>
+	<!--*******************
+        Preloader end
+    ********************-->
+
+
+	<!--**********************************
+        Main wrapper start
+    ***********************************-->
+	<div id="main-wrapper" class=" show">
+
+
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+		<div class="content-body">
+			<div class="container-fluid">
+				<!-- row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Admin Table</h4>
+								<div class="right-area folder-layout-tab">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+										data-bs-target="#exampleModal">New Admin <svg width="22" height="22"
+											viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M12 3C7.05 3 3 7.05 3 12C3 16.95 7.05 21 12 21C16.95 21 21 16.95 21 12C21 7.05 16.95 3 12 3ZM12 19.125C8.1 19.125 4.875 15.9 4.875 12C4.875 8.1 8.1 4.875 12 4.875C15.9 4.875 19.125 8.1 19.125 12C19.125 15.9 15.9 19.125 12 19.125Z"
+												fill="#FCFCFC" />
+											<path
+												d="M16.3498 11.0251H12.9748V7.65009C12.9748 7.12509 12.5248 6.67509 11.9998 6.67509C11.4748 6.67509 11.0248 7.12509 11.0248 7.65009V11.0251H7.6498C7.1248 11.0251 6.6748 11.4751 6.6748 12.0001C6.6748 12.5251 7.1248 12.9751 7.6498 12.9751H11.0248V16.3501C11.0248 16.8751 11.4748 17.3251 11.9998 17.3251C12.5248 17.3251 12.9748 16.8751 12.9748 16.3501V12.9751H16.3498C16.8748 12.9751 17.3248 12.5251 17.3248 12.0001C17.3248 11.4751 16.8748 11.0251 16.3498 11.0251Z"
+												fill="#FCFCFC" />
+										</svg>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-responsive-md">
+										<thead>
+											<tr>
+												<th style="width:80px;"><strong>#</strong></th>
+												<th><strong>UserName</strong></th>
+												<th><strong>Email</strong></th>
+												<th><strong>Phone Number</strong></th>
+												<th><strong>STATUS</strong></th>
+												<th><strong>Action</strong></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><strong>01</strong></td>
+												<td>Mr. Bobby</td>
+												<td>Jackson@gmail.com</td>
+												<td>+2340987645</td>
+												<td>Maneger</td>
+												<!-- <td>$21.56</td> -->
+												<td>
+													<div class="dropdown">
+														<button type="button" class="btn btn-success light sharp"
+															data-bs-toggle="dropdown">
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M4.58333 13.5205C3.19 13.5205 2.0625 12.393 2.0625 10.9997C2.0625 9.60629 3.19 8.47879 4.58333 8.47879C5.97667 8.47879 7.10417 9.60629 7.10417 10.9997C7.10417 12.393 5.97667 13.5205 4.58333 13.5205ZM4.58333 9.85379C3.95083 9.85379 3.4375 10.3672 3.4375 10.9997C3.4375 11.6322 3.95083 12.1455 4.58333 12.1455C5.21583 12.1455 5.72917 11.6322 5.72917 10.9997C5.72917 10.3672 5.21583 9.85379 4.58333 9.85379Z"
+																	fill="#28BE9D" />
+																<path
+																	d="M17.4163 13.5205C16.023 13.5205 14.8955 12.393 14.8955 10.9997C14.8955 9.60629 16.023 8.47879 17.4163 8.47879C18.8097 8.47879 19.9372 9.60629 19.9372 10.9997C19.9372 12.393 18.8097 13.5205 17.4163 13.5205ZM17.4163 9.85379C16.7838 9.85379 16.2705 10.3672 16.2705 10.9997C16.2705 11.6322 16.7838 12.1455 17.4163 12.1455C18.0488 12.1455 18.5622 11.6322 18.5622 10.9997C18.5622 10.3672 18.0488 9.85379 17.4163 9.85379Z"
+																	fill="#28BE9D" />
+																<path
+																	d="M11.0003 13.5205C9.60699 13.5205 8.47949 12.393 8.47949 10.9997C8.47949 9.60629 9.60699 8.47879 11.0003 8.47879C12.3937 8.47879 13.5212 9.60629 13.5212 10.9997C13.5212 12.393 12.3937 13.5205 11.0003 13.5205ZM11.0003 9.85379C10.3678 9.85379 9.85449 10.3672 9.85449 10.9997C9.85449 11.6322 10.3678 12.1455 11.0003 12.1455C11.6328 12.1455 12.1462 11.6322 12.1462 10.9997C12.1462 10.3672 11.6328 9.85379 11.0003 9.85379Z"
+																	fill="#28BE9D" />
+															</svg>
+
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="#">Edit</a>
+															<a class="dropdown-item" href="#">Delete</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td><strong>02</strong></td>
+												<td>Mr. Bobby</td>
+												<td>DrJackson@gmail.com</td>
+												<td>+345983678</td>
+												<td>Secretory</td>
+												<!-- <td>$21.56</td> -->
+												<td>
+													<div class="dropdown">
+														<button type="button" class="btn btn-danger light sharp"
+															data-bs-toggle="dropdown">
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M4.58333 13.5205C3.19 13.5205 2.0625 12.393 2.0625 10.9997C2.0625 9.60629 3.19 8.47879 4.58333 8.47879C5.97667 8.47879 7.10417 9.60629 7.10417 10.9997C7.10417 12.393 5.97667 13.5205 4.58333 13.5205ZM4.58333 9.85379C3.95083 9.85379 3.4375 10.3672 3.4375 10.9997C3.4375 11.6322 3.95083 12.1455 4.58333 12.1455C5.21583 12.1455 5.72917 11.6322 5.72917 10.9997C5.72917 10.3672 5.21583 9.85379 4.58333 9.85379Z"
+																	fill="#fd5353" />
+																<path
+																	d="M17.4163 13.5205C16.023 13.5205 14.8955 12.393 14.8955 10.9997C14.8955 9.60629 16.023 8.47879 17.4163 8.47879C18.8097 8.47879 19.9372 9.60629 19.9372 10.9997C19.9372 12.393 18.8097 13.5205 17.4163 13.5205ZM17.4163 9.85379C16.7838 9.85379 16.2705 10.3672 16.2705 10.9997C16.2705 11.6322 16.7838 12.1455 17.4163 12.1455C18.0488 12.1455 18.5622 11.6322 18.5622 10.9997C18.5622 10.3672 18.0488 9.85379 17.4163 9.85379Z"
+																	fill="#fd5353" />
+																<path
+																	d="M11.0003 13.5205C9.60699 13.5205 8.47949 12.393 8.47949 10.9997C8.47949 9.60629 9.60699 8.47879 11.0003 8.47879C12.3937 8.47879 13.5212 9.60629 13.5212 10.9997C13.5212 12.393 12.3937 13.5205 11.0003 13.5205ZM11.0003 9.85379C10.3678 9.85379 9.85449 10.3672 9.85449 10.9997C9.85449 11.6322 10.3678 12.1455 11.0003 12.1455C11.6328 12.1455 12.1462 11.6322 12.1462 10.9997C12.1462 10.3672 11.6328 9.85379 11.0003 9.85379Z"
+																	fill="#fd5353" />
+															</svg>
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="#">Edit</a>
+															<a class="dropdown-item" href="#">Delete</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td><strong>03</strong></td>
+												<td>Mr. Bobby</td>
+												<td>kson@gmail.com</td>
+												<td>=345987635738</td>
+												<td>Super Admin</td>
+												<!-- <td>$21.56</td> -->
+												<td>
+													<div class="dropdown">
+														<button type="button" class="btn btn-warning light sharp"
+															data-bs-toggle="dropdown">
+															<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+																xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M4.58333 13.5205C3.19 13.5205 2.0625 12.393 2.0625 10.9997C2.0625 9.60629 3.19 8.47879 4.58333 8.47879C5.97667 8.47879 7.10417 9.60629 7.10417 10.9997C7.10417 12.393 5.97667 13.5205 4.58333 13.5205ZM4.58333 9.85379C3.95083 9.85379 3.4375 10.3672 3.4375 10.9997C3.4375 11.6322 3.95083 12.1455 4.58333 12.1455C5.21583 12.1455 5.72917 11.6322 5.72917 10.9997C5.72917 10.3672 5.21583 9.85379 4.58333 9.85379Z"
+																	fill="#FFAB2D" />
+																<path
+																	d="M17.4163 13.5205C16.023 13.5205 14.8955 12.393 14.8955 10.9997C14.8955 9.60629 16.023 8.47879 17.4163 8.47879C18.8097 8.47879 19.9372 9.60629 19.9372 10.9997C19.9372 12.393 18.8097 13.5205 17.4163 13.5205ZM17.4163 9.85379C16.7838 9.85379 16.2705 10.3672 16.2705 10.9997C16.2705 11.6322 16.7838 12.1455 17.4163 12.1455C18.0488 12.1455 18.5622 11.6322 18.5622 10.9997C18.5622 10.3672 18.0488 9.85379 17.4163 9.85379Z"
+																	fill="#FFAB2D" />
+																<path
+																	d="M11.0003 13.5205C9.60699 13.5205 8.47949 12.393 8.47949 10.9997C8.47949 9.60629 9.60699 8.47879 11.0003 8.47879C12.3937 8.47879 13.5212 9.60629 13.5212 10.9997C13.5212 12.393 12.3937 13.5205 11.0003 13.5205ZM11.0003 9.85379C10.3678 9.85379 9.85449 10.3672 9.85449 10.9997C9.85449 11.6322 10.3678 12.1455 11.0003 12.1455C11.6328 12.1455 12.1462 11.6322 12.1462 10.9997C12.1462 10.3672 11.6328 9.85379 11.0003 9.85379Z"
+																	fill="#FFAB2D" />
+															</svg>
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="#">Edit</a>
+															<a class="dropdown-item" href="#">Delete</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+		<!--**********************************
+            Content body end
+        ***********************************-->
+		<!--**********************************
+			Footer start
+		***********************************-->
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="mb-3 d-block">
+								<label class="form-label d-block mb-2">User Name</label>
+								<input type="text" class="form-control" placeholder="User Name">
+							</div>
+							<div class="mb-3 d-block">
+								<label class="form-label d-block mb-2">Email</label>
+								<input type="text" class="form-control" placeholder="Jhon@gmail.com">
+							</div>
+							<div class="mb-3 d-block">
+								<label class="form-label d-block mb-2">Password</label>
+								<input type="password" class="form-control">
+							</div>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+
+		</div>
+		<!--**********************************
+			Footer end
+		***********************************-->
+		<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+		<!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+	</div>
+	<!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+	<!--**********************************
+        Scripts
+    ***********************************-->
+	<!-- Required vendors -->
+	<script src="js/extend.js"></script>
+	<script src="vendor/global/global.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="js/custom.min.js"></script>
+	<script src="js/deznav-2-init.js"></script>
+	<script src="js/demo-2.js"></script>
+	<script src="js/styleSwitcher.js"></script>
+</body>
+
+
+</html>
