@@ -23,6 +23,12 @@
 	<!--swiper-slider-->
 	<link rel="stylesheet" href="vendor/swiper/css/swiper-bundle.min.css">
 
+	<!-- Include Bootstrap CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Include Flatpickr CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
 	<!-- Style css -->
 	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
@@ -36,30 +42,7 @@
             Content body start
         ***********************************-->
 	<div class="content-body mh-auto">
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header ">
-						<h5 class="modal-title">Make Payment</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label class="form-label">Seller Mobile Number</label>
-							<input type="number" class="form-control mb-3" id="exampleInputEmail1" placeholder="Number">
-							<label class="form-label">product Name</label>
-							<input type="email" class="form-control mb-3" id="exampleInputEmail2" placeholder=" Name">
-							<label class="form-label">Amount</label>
-							<input type="number" class="form-control mb-3" id="exampleInputEmail3" placeholder="Amount">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
+
 		<div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -91,54 +74,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="exampleModal3" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header ">
-						<h5 class="modal-title">Enter Debit or Credit card Details</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<label class="form-label">Card Number</label>
-						<input type="number" class="form-control mb-3" id="exampleInputEmail7" placeholder="card no.">
-						<label class="form-label">Expiry/Validity</label>
-						<input type="number" class="form-control mb-3" id="exampleInputEmail8" placeholder="Year/Month">
-						<label class="form-label">CVV</label>
-						<input type="number" class="form-control mb-3" id="exampleInputEmail9" placeholder="123">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="exampleModal4" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header ">
-						<h5 class="modal-title">Send invoice</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<label class="form-label">Send email to</label>
-						<input type="email" class="form-control mb-3" id="exampleInputEmail10"
-							placeholder="Art Vandelay<art@vandelay.com>">
-						<label class="form-label">Subject</label>
-						<input type="number" class="form-control mb-3" id="exampleInputEmai11"
-							placeholder="invoice Vi-001 from America">
-						<div class="mb-3">
-							<label for="exampleFormControlTextarea1" class="form-label">Body</label>
-							<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div>
+
+
 		<div class="container-fluid">
 
 			<!-- Row -->
@@ -157,8 +94,8 @@
 											<div class="mb-4 mb-xl-0">
 												<!-- Button trigger modal -->
 												<button type="button" class="btn btn-primary me-3"
-													data-bs-toggle="modal" data-bs-target="#exampleModal">
-													Make a payment
+													data-bs-toggle="modal" data-bs-target="#exampleModal1">
+													Account Statment
 												</button>
 												<button type="button" class="btn btn-white" data-bs-toggle="modal"
 													data-bs-target="#exampleModal2">
@@ -1149,7 +1086,7 @@
 	<!--**********************************
 		Modal
 ***********************************-->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -1172,8 +1109,41 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
+
+
+	<!-- your statment modal -->
+
+	<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Select Dates</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3 d-block">
+						<label class="form-label d-block mb-2">Start</label>
+						<input type="text" id="start-date" class="form-control w-100 mb-0">
+					</div>
+
+					<div class="mb-3 d-block">
+						<label class="form-label d-block mb-2">End</label>
+						<input type="text" id="end-date" class="form-control w-100 mb-0">
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class=" btn btn-danger light" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary"><a href="statment.html"> Done </a></button>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
 	<!--**********************************
 	Modal
 ***********************************-->
@@ -1201,6 +1171,26 @@
 	<script src="js/deznav-2-init.js"></script>
 	<script src="js/demo-2.js"></script>
 	<script src="js/styleSwitcher.js"></script>
+
+	<!-- Include jQuery, Popper.js, and Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Include Flatpickr JS -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<script>
+		// Initialize Flatpickr on the date input fields
+		flatpickr("#start-date", {
+			enableTime: false,
+			dateFormat: "Y-m-d"
+		});
+
+		flatpickr("#end-date", {
+			enableTime: false,
+			dateFormat: "Y-m-d"
+		});
+	</script>
 
 
 

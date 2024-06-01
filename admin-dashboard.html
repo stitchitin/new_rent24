@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from salreo.dexignzone.com/xhtml/ticketing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 01:59:19 GMT -->
 
 <head>
 
@@ -263,6 +262,14 @@
 														<div>
 															<h2 class="heading mb-1">Your Balance</h2>
 															<span>June 1, 2020, 08:22 AM</span>
+
+														</div>
+														<div class="invoice-btn ">
+															<!-- Button trigger modal -->
+															<button type="button" class="btn btn-primary"
+																data-bs-toggle="modal"
+																data-bs-target="#exampleModal1">Your Statment
+															</button>
 														</div>
 													</div>
 													<div class="card-body pt-0 custome-tooltip pb-xl-3 pb-0">
@@ -746,7 +753,7 @@
 															<th><strong>DATE</strong></th>
 															<th><strong>Amount</strong></th>
 															<th><strong>Action</strong></th>
-															
+
 														</tr>
 													</thead>
 													<tbody>
@@ -757,7 +764,7 @@
 															<td>09765343345</td>
 															<td>01 August 2020</td>
 															<td>78000</td>
-															
+
 															<td>
 																<div class="dropdown">
 																	<button type="button"
@@ -779,7 +786,8 @@
 
 																	</button>
 																	<div class="dropdown-menu">
-																		<a class="dropdown-item" href="#">Make Payment</a>
+																		<a class="dropdown-item" href="#">Make
+																			Payment</a>
 																		<a class="dropdown-item" href="#">Decline</a>
 																	</div>
 																</div>
@@ -792,7 +800,7 @@
 															<td>09765343345</td>
 															<td>01 August 2020</td>
 															<td>78000</td>
-															
+
 															<td>
 																<div class="dropdown">
 																	<button type="button"
@@ -814,7 +822,8 @@
 
 																	</button>
 																	<div class="dropdown-menu">
-																		<a class="dropdown-item" href="#">Make Payment</a>
+																		<a class="dropdown-item" href="#">Make
+																			Payment</a>
 																		<a class="dropdown-item" href="#">Decline</a>
 																	</div>
 																</div>
@@ -827,7 +836,7 @@
 															<td>09765343345</td>
 															<td>01 August 2020</td>
 															<td>78000</td>
-															
+
 															<td>
 																<div class="dropdown">
 																	<button type="button"
@@ -849,7 +858,8 @@
 
 																	</button>
 																	<div class="dropdown-menu">
-																		<a class="dropdown-item" href="#">Make Payment</a>
+																		<a class="dropdown-item" href="#">Make
+																			Payment</a>
 																		<a class="dropdown-item" href="#">Decline</a>
 																	</div>
 																</div>
@@ -1172,127 +1182,146 @@
 			</div>
 		</div>
 
-		<!--**********************************
+
+
+	</div>
+
+	<!-- end statment modal -->
+
+	<!--**********************************
 	Modal
 ***********************************-->
-		<div class="modal fade" id="exampleModalCenter">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Modal title</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal">
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="basic-form">
-							<form>
-								<div class="mb-3">
-									<label class="form-label">Account Name</label>
-									<input type="text" class="form-control input-default ">
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Account Number</label>
-									<input type="text" class="form-control input-default ">
-								</div>
+	<div class="modal fade" id="exampleModalCenter">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="basic-form">
+						<form>
+							<div class="mb-3">
+								<label class="form-label">Account Name</label>
+								<input type="text" class="form-control input-default ">
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Account Number</label>
+								<input type="text" class="form-control input-default ">
+							</div>
 
-							</form>
-						</div>
+						</form>
+					</div>
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!--**********************************
+
+
+	<!--**********************************
         Scripts
     ***********************************-->
 
 
-		<script>
-			// Function to toggle the visibility of an element
-			function toggleElement(id) {
-				// Get all elements with the class 'toggleable'
-				var elements = document.getElementsByClassName('toggleable');
-				for (var i = 0; i < elements.length; i++) {
-					// Hide all elements except the one with the specified id
-					if (elements[i].id === id) {
-						elements[i].style.display = "block";
-					} else {
-						elements[i].style.display = "none";
-					}
+	<script>
+		// Function to toggle the visibility of an element
+		function toggleElement(id) {
+			// Get all elements with the class 'toggleable'
+			var elements = document.getElementsByClassName('toggleable');
+			for (var i = 0; i < elements.length; i++) {
+				// Hide all elements except the one with the specified id
+				if (elements[i].id === id) {
+					elements[i].style.display = "block";
+				} else {
+					elements[i].style.display = "none";
 				}
 			}
-		</script>
-		<!-- Required vendors -->
-		<script src="js/extend.js"></script>
-		<script src="vendor/global/global.min.js"></script>
-		<script src="vendor/chart.js/Chart.bundle.min.js"></script>
-		<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-		<script src="vendor/owl-carousel/owl.carousel.js"></script>
-		<!--datatables-->
-		<!-- Apex Chart -->
+		}
+	</script>
+	<!-- Required vendors -->
+	<script src="js/extend.js"></script>
+	<script src="vendor/global/global.min.js"></script>
+	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="vendor/owl-carousel/owl.carousel.js"></script>
+	<!--datatables-->
+	<!-- Apex Chart -->
 
-		<!-- Chart piety plugin files -->
-		<script src="vendor/apexchart/apexchart.js"></script>
-		<script src="vendor/chart.js/Chart.bundle.min.js"></script>
-		<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-		<script src="vendor/swiper/js/swiper-bundle.min.js"></script>
-		<!--swiper-slider-->
-		<!-- Chart piety plugin files -->
-		<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-		<script src="vendor/peity/jquery.peity.min.js"></script>
-		<!-- Dashboard 1 -->
-		<script src="js/dashboard/banking.js"></script>
-		<script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
-		<script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-		<script src="vendor/wow-master/dist/wow.min.js"></script>
-		<script src="js/custom.min.js"></script>
-		<script src="js/deznav-2-init.js"></script>
-		<script src="js/demo-2.js"></script>
-		<script src="js/styleSwitcher.js"></script>
-		<script>
-			var swiper = new Swiper('.ticketing-Swiper', {
-				speed: 1500,
-				slidesPerView: 4,
-				spaceBetween: 40,
-				parallax: true,
-				loop: false,
-				autoplay: {
-					delay: 1000,
+	<!-- Chart piety plugin files -->
+	<script src="vendor/apexchart/apexchart.js"></script>
+	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendor/swiper/js/swiper-bundle.min.js"></script>
+	<!--swiper-slider-->
+	<!-- Chart piety plugin files -->
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendor/peity/jquery.peity.min.js"></script>
+	<!-- Dashboard 1 -->
+	<script src="js/dashboard/banking.js"></script>
+	<script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
+	<script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="vendor/wow-master/dist/wow.min.js"></script>
+	<script src="js/custom.min.js"></script>
+	<script src="js/deznav-2-init.js"></script>
+	<script src="js/demo-2.js"></script>
+	<script src="js/styleSwitcher.js"></script>
+
+	<script>
+		var swiper = new Swiper('.ticketing-Swiper', {
+			speed: 1500,
+			slidesPerView: 4,
+			spaceBetween: 40,
+			parallax: true,
+			loop: false,
+			autoplay: {
+				delay: 1000,
+			},
+			breakpoints: {
+
+				300: {
+					slidesPerView: 1,
+					spaceBetween: 30,
 				},
-				breakpoints: {
-
-					300: {
-						slidesPerView: 1,
-						spaceBetween: 30,
-					},
-					576: {
-						slidesPerView: 2,
-						spaceBetween: 30,
-					},
-					991: {
-						slidesPerView: 3,
-						spaceBetween: 30,
-					},
-					1200: {
-						slidesPerView: 3,
-						spaceBetween: 30,
-					},
-					1600: {
-						slidesPerView: 4,
-						spaceBetween: 30,
-					},
+				576: {
+					slidesPerView: 2,
+					spaceBetween: 30,
 				},
-			});
-		</script>
+				991: {
+					slidesPerView: 3,
+					spaceBetween: 30,
+				},
+				1200: {
+					slidesPerView: 3,
+					spaceBetween: 30,
+				},
+				1600: {
+					slidesPerView: 4,
+					spaceBetween: 30,
+				},
+			},
+		});
+	</script>
 
+	<script>
+		// Initialize Flatpickr on the date input fields
+		flatpickr("#start-date", {
+			enableTime: false,
+			dateFormat: "Y-m-d"
+		});
 
+		flatpickr("#end-date", {
+			enableTime: false,
+			dateFormat: "Y-m-d"
+		});
+	</script>
 </body>
 
-<!-- Mirrored from salreo.dexignzone.com/xhtml/ticketing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 01:59:20 GMT -->
 
 </html>
