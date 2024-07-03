@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script src="js/checkcookies.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:title" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
+	<meta property="og:image" content="social-image.png">
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>Rent24</title>
+	<!-- FAVICONS ICON -->
+
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png">
+	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="vendor/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="header"></div>
+	<!--**********************************
+            Content body start
+        ***********************************-->
+	<div class="content-body">
+		<div class="container-fluid">
+			<!-- row -->
+			<div class="row">
+				<div class="col-xl-3 col-lg-4">
+					<div class="clearfix h-100">
+						<div class="card card-bx profile-card author-profile m-b30">
+							<div class="card-body">
+								<div class="p-5">
+									<div class="author-profile">
+										<div class="author-media">
+											<img id="profilePic2" src="images/avatar.png" alt="">
+											<div class="upload-link" title="" data-toggle="tooltip"
+												data-placement="right" data-original-title="update">
+												<input type="file" class="update-flie">
+												<i class="fa fa-camera"></i>
+											</div>
+										</div>
+										<div class="author-info">
+											<h6 class="title" ><b id="firstname1"></b> <b id="lastname1"></b></h6>
+											<span>Developer</span>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="info-list">
+									<ul>
+										<li><a href="user-profile.html">Models</a><span>36</span></li>
+										<li><a href="uc-lightgallery.html">Gallery</a><span>3</span></li>
+										<li><a href="user-profile.html">Lessons</a><span>1</span></li>
+									</ul>
+								</div> -->
+							</div>
+							<div class="card-footer">
+								<div class="input-group mb-3">
+									<div class="form-control rounded text-center bg-white">Portfolio</div>
+								</div>
+								<!-- <div class="input-group">
+									<a href="https://www.dexignlab.com/"
+										class="form-control text-primary rounded text-start bg-white">https://www.dexignzone.com/</a>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-9 col-lg-8">
+					<div class="card profile-card card-bx m-b30">
+						<div class="card-header">
+							<h6 class="title">Account setup</h6>
+						</div>
+						<form class="profile-form" id="updateForm" enctype="multipart/form-data">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Name</label>
+										<input type="text" class="form-control" id="firstname" name="firstname"  >
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Surname</label>
+										<input type="text" name="lastname" id="lastname" class="form-control">
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Address</label>
+										<input type="text" class="form-control" id="address" name="address"  >
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">NIN</label>
+										<input type="text" name="nin"  id="nin" class="form-control" >
+									</div>
+
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Gender</label>
+										<select id="sex" name="sex" class="selectpicker form-control">
+											<option  value="Male">Male</option>
+											<option value="Female">Female</option>
+										</select>
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Birth</label>
+										<input type="date" name="birth" id="birth" class="form-control" placeholder="dd. mm .yyyy">
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">Phone</label>
+										<input type="text" name="phone_number" id="phone_number" class="form-control" >
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">State</label>
+										<select name="state"  class="selectpicker form-control">
+												<option  id="state" selected></option>
+												<option value="abia">Abia</option>
+												<option value="adamawa">Adamawa</option>
+												<option value="akwa-ibom">Akwa Ibom</option>
+												<option value="anambra">Anambra</option>
+												<option value="bauchi">Bauchi</option>
+												<option value="bayelsa">Bayelsa</option>
+												<option value="benue">Benue</option>
+												<option value="borno">Borno</option>
+												<option value="cross-river">Cross River</option>
+												<option value="delta">Delta</option>
+												<option value="ebonyi">Ebonyi</option>
+												<option value="edo">Edo</option>
+												<option value="ekiti">Ekiti</option>
+												<option value="enugu">Enugu</option>
+												<option value="gombe">Gombe</option>
+												<option value="imo">Imo</option>
+												<option value="jigawa">Jigawa</option>
+												<option value="kaduna">Kaduna</option>
+												<option value="kano">Kano</option>
+												<option value="katsina">Katsina</option>
+												<option value="kebbi">Kebbi</option>
+												<option value="kogi">Kogi</option>
+												<option value="kwara">Kwara</option>
+												<option value="lagos">Lagos</option>
+												<option value="nasarawa">Nasarawa</option>
+												<option value="niger">Niger</option>
+												<option value="ogun">Ogun</option>
+												<option value="ondo">Ondo</option>
+												<option value="osun">Osun</option>
+												<option value="oyo">Oyo</option>
+												<option value="plateau">Plateau</option>
+												<option value="rivers">Rivers</option>
+												<option value="sokoto">Sokoto</option>
+												<option value="taraba">Taraba</option>
+												<option value="yobe">Yobe</option>
+												<option value="zamfara">Zamfara</option>
+												<option value="fct">Federal Capital Territory (FCT)</option>
+										</select>
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">City</label>
+										<input type="text" name="city" id="city" class="form-control" >
+									</div>
+									<div class="col-sm-6 m-b30">
+										<label class="form-label">LGA</label>
+										<input type="text" name="localgovt" id="localgovt" class="form-control" >
+									</div>
+
+									<div class="col-lg-12 m-b-30">
+										<label class="form-label">Upload your profile Picture</label>
+										<input type="file" name="profile_pic" id="profile_pic" class="update-flie">
+										<i class="fa fa-camera"></i>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="card-footer">
+								<input type="hidden" id="status" name="status" value="inactive">
+								<input type="hidden" id="userInfoId" name="user_id">
+								<button class="btn btn-primary" onclick="submitForm()">UPDATE</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	// Assuming `user` is an object with a `user_id` property
+		const user2 = {
+			user_id: 12345 // Example user ID
+		};
+
+		// Set the value of the input field
+		document.getElementById('userInfoId2').value = user.email;
+	</script>
+	<!--**********************************
+            Content body end
+        ***********************************-->
+
+	<!--**********************************
+				Footer start
+			***********************************-->
+	<div class="footer style-1">
+		<div class="copyright">
+			<p>Copyright © Designed &amp; Developed by <a href="" target="_blank">DexignZone</a>
+				2023</p>
+		</div>
+	</div>
+	<!--**********************************
+				Footer end
+			***********************************-->
+	<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+	<!--**********************************
+           Support ticket button end
+        ***********************************-->
+	</div>
+	<!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+	<!--removeIf(production)-->
+	<script>
+		// usage of the fetchUserByEmail function
+		document.addEventListener("DOMContentLoaded", function () {
+	  const email = user.email; // Replace with the email you want to fetch
+	  fetchUserByEmail(email); // Call the function with the email
+	});
+
+	</script>
+
+	<script>
+
+		function submitForm() {
+			const form = document.getElementById('updateForm');
+			const formData = new FormData(form);
+
+			fetch('backend/updateVendor.php', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert('Users information has been updated successfully.');
+				} else {
+					alert('Failed to update vendor information: ' + data.message);
+				}
+			})
+			.catch(error => {
+				console.error('Fetch error:', error);
+				alert('An error occurred while updating vendor information.');
+			});
+		}
+
+	</script>
+
+	<!--**********************************
+        Scripts
+    ***********************************-->
+	<!-- Required vendors -->
+	<script src="js/extend.js"></script>
+	<script src="vendor/global/global.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="vendor/lightgallery/js/lightgallery-all.min.js"></script>
+	<script src="js/custom.min.js"></script>
+	<script src="js/deznav-2-init.js"></script>
+	<script src="js/demo-2.js"></script>
+	<script src="js/styleSwitcher.js"></script>
+
+
+</body>
+
+
+</html>

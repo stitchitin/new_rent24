@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>No Internet Connection</title>
+    <!-- CSS for styling -->
+    <style>
+        /* Responsive design setup */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #5851cf; /* Background color */
+            color: white; /* White text for contrast */
+            height: 100vh; /* Full viewport height */
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Align text to the center */
+            flex-direction: column; /* Stack content vertically */
+        }
+
+        /* Larger font size for better readability */
+        .no-connection {
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            font-size: 2.2em; /* Larger base font size */
+        }
+
+        /* Styling for the Rent 24 branding */
+        .brand {
+            font-size: 4em; /* Larger font size for branding */
+            font-weight: bold; /* Bold text */
+            margin-bottom: 20px; /* Space between brand and message */
+        }
+
+        /* Button styling */
+        .redirect-button {
+            background-color: white; /* White background for contrast */
+            color: #5851cf; /* Same as page background for coherence */
+            font-size: 1.2em; /* Button font size */
+            padding: 10px 20px; /* Padding around the button */
+            border: none; /* No border */
+            border-radius: 5px; /* Slightly rounded corners */
+            cursor: pointer; /* Cursor change on hover */
+            margin-top: 20px; /* Space between text and button */
+        }
+
+        .redirect-button:hover {
+            background-color: lightgray; /* Change background on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="no-connection">
+        <div class="brand">Rent 24</div> <!-- Brand or logo -->
+        <p>No internet connection</p>
+        <p>Check your connection and try again</p>
+
+        <!-- Button to redirect to a website -->
+        <button class="redirect-button" onclick="window.location.href='https://rent24ng.com/'">
+            Retry
+        </button>
+    </div>
+</body>
+</html>
