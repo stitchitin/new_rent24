@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-	<!-- Mirrored from salreo.dexignzone.com/xhtml/ecom-product-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 02:01:03 GMT -->
-
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,9 +21,6 @@
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
 
-		<script type="module" src="js/checkcookies.js"></script>
-		<!-- <script type="module" src="js/ecom-product-details.js"></script> -->
-
 		<link href="vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
 		<!-- Clockpicker -->
 		<link href="vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet" />
@@ -43,6 +38,9 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 		<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 		<!-- Custom Stylesheet -->
+
+		<script type="module" src="js/checkcookies.js"></script>
+		<script type="module" src="js/ecom-product-details.js"></script>
 
 		<style>
 			/* Increase the font size for text elements in the specified structure */
@@ -79,168 +77,28 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row">
-									<div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
-										<div class="tab-content" id="myTabContent">
-											<div
-												class="tab-pane fade show active"
-												id="home-tab-pane"
-												role="tabpanel"
-												aria-labelledby="home-tab"
-												tabindex="0"
-											>
-												<img class="img-fluid rounded" src="images/uni.jpg" alt="" />
-											</div>
-											<div
-												class="tab-pane fade"
-												id="profile-tab-pane"
-												role="tabpanel"
-												aria-labelledby="profile-tab"
-												tabindex="0"
-											>
-												<img class="img-fluid rounded" src="images/Rectangle 37.png" alt="" />
-											</div>
-											<div
-												class="tab-pane fade"
-												id="contact-tab-pane"
-												role="tabpanel"
-												aria-labelledby="contact-tab"
-												tabindex="0"
-											>
-												<img class="img-fluid rounded" src="images/Rectangle 37.png" alt="" />
-											</div>
-											<div
-												class="tab-pane fade"
-												id="end-tab-pane"
-												role="tabpanel"
-												aria-labelledby="end-tab"
-												tabindex="0"
-											>
-												<img class="img-fluid rounded" src="images/Rectangle 37.png" alt="" />
-											</div>
-										</div>
-										<ul class="nav nav-tabs product-detail" id="myTab" role="tablist">
-											<li class="nav-item" role="presentation">
-												<button
-													class="nav-link active"
-													id="home-tab"
-													data-bs-toggle="tab"
-													data-bs-target="#home-tab-pane"
-													type="button"
-													role="tab"
-													aria-controls="home-tab-pane"
-													aria-selected="true"
-												>
-													<img
-														class="img-fluid me-2 rounded"
-														src="images/uni.jpg"
-														alt=""
-														width="80"
-													/>
-												</button>
-											</li>
-											<li class="nav-item" role="presentation">
-												<button
-													class="nav-link"
-													id="profile-tab"
-													data-bs-toggle="tab"
-													data-bs-target="#profile-tab-pane"
-													type="button"
-													role="tab"
-													aria-controls="profile-tab-pane"
-													aria-selected="false"
-												>
-													<img
-														class="img-fluid me-2 rounded"
-														src="images/uni.jpg"
-														alt=""
-														width="80"
-													/>
-												</button>
-											</li>
-											<li class="nav-item" role="presentation">
-												<button
-													class="nav-link"
-													id="contact-tab"
-													data-bs-toggle="tab"
-													data-bs-target="#contact-tab-pane"
-													type="button"
-													role="tab"
-													aria-controls="contact-tab-pane"
-													aria-selected="false"
-												>
-													<img
-														class="img-fluid me-2 rounded"
-														src="images/uni.jpg"
-														alt=""
-														width="80"
-													/>
-												</button>
-											</li>
-											<li class="nav-item" role="presentation">
-												<button
-													class="nav-link"
-													id="end-tab"
-													data-bs-toggle="tab"
-													data-bs-target="#end-tab-pane"
-													type="button"
-													role="tab"
-													aria-controls="end-tab-pane"
-													aria-selected="false"
-												>
-													<img
-														class="img-fluid rounded"
-														src="images/uni.jpg"
-														alt=""
-														width="80"
-													/>
-												</button>
-											</li>
-										</ul>
+									<div
+										id="product-images-container"
+										class="col-xl-3 col-lg-6 col-md-6 col-xxl-5"
+									>
+										<!-- Filled in by JS -->
 									</div>
+
 									<!--Tab slider End-->
 									<div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
 										<div class="product-detail-content">
-											<!--Product details-->
 											<div class="new-arrival-content pr">
-												<h4>Duplex Home</h4>
-												<div class="comment-review star-rating d-flex">
-													<ul>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-													</ul>
-													<span class="review-text ms-3">(34 reviews) / </span
-													><a
-														class="product-review"
-														href="#"
-														data-bs-toggle="modal"
-														data-bs-target="#reviewModal"
-														>Write a review?</a
-													>
+												<div id="product-details">
+													<!-- Filled in by JS -->
 												</div>
-												<div class="d-table mb-2">
-													<p class="price float-start d-block">325.00</p>
-												</div>
-												<p>
-													Availability:
-													<span class="item">
-														available <i class="fa fa-shopping-basket"></i
-													></span>
-												</p>
-												<div class="d-flex align-items-end flex-wrap mt-4">
-													<!--Quantity start-->
 
-													<!--Quanatity End-->
-													<div type="button" class="shopping-cart mb-2 me-3">
-														<a
-															class="btn btn-primary"
-															href="javascript:void(0);"
-															data-bs-toggle="modal"
-															data-bs-target="#exampleModalpopover"
-															><i class="me-2" style="font-size: 20px"></i>Rent</a
-														>
+												<div class="d-flex align-items-end flex-wrap mt-4">
+													<div
+														id="rent-button"
+														type="button"
+														class="shopping-cart mb-2 me-3"
+													>
+														<!-- Filled in by JS -->
 													</div>
 													<div class="modal fade" id="exampleModalpopover">
 														<div class="modal-dialog modal-dialog-centered" role="document">
@@ -481,6 +339,9 @@
         Main wrapper end
     ***********************************-->
 
+		<!--**********************************
+        Scripts
+    ***********************************-->
 		<script>
 			// Function to open the modal
 			function openModal() {
@@ -507,16 +368,22 @@
 			}
 		</script>
 
-		<!--**********************************
-        Scripts
-    ***********************************-->
 		<!-- Required vendors -->
 		<script src="vendor/global/global.min.js"></script>
 		<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 		<!-- Rating -->
 		<script src="vendor/chart.js/Chart.bundle.min.js"></script>
 		<!-- pickdate -->
+		<script src="vendor/pickadate/picker.js"></script>
+		<script src="vendor/pickadate/picker.time.js"></script>
+		<script src="vendor/pickadate/picker.date.js"></script>
 
+		<!-- Daterangepicker -->
+		<script src="js/plugins-init/bs-daterange-picker-init.js"></script>
+		<!-- Pickdate -->
+		<script src="js/plugins-init/pickadate-init.js"></script>
+		<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+		<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 		<!-- Apex Chart -->
 		<script src="vendor/apexchart/apexchart.js"></script>
 		<script src="js/extend.js"></script>
@@ -528,6 +395,4 @@
 		<script src="vendor/moment/moment.min.js"></script>
 		<script src="vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
 	</body>
-
-	<!-- Mirrored from salreo.dexignzone.com/xhtml/ecom-product-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 02:01:07 GMT -->
 </html>

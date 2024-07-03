@@ -1,7 +1,4 @@
 import { callApi } from "./lib.js";
-import { user } from "./checkcookies.js";
-
-console.log(user);
 
 const fetchDetails = async () => {
 	const item_id = new URLSearchParams(window.location.search).get("item_id");
@@ -15,22 +12,23 @@ const fetchDetails = async () => {
 		return;
 	}
 
-	// displayDetails(data);
+	displayDetails(data);
 };
 
-fetchDetails();
+document.addEventListener("DOMContentLoaded", fetchDetails);
 
 const displayDetails = (data) => {
-	const detailsContainer = document.querySelector("#detail-container");
 	const productImagesContainer = document.querySelector("#product-images-container");
+
+	const productDetails = document.querySelector("#product-details");
+
+	const rentButton = document.querySelector("#rent-button");
 
 	if (!data.success) {
 		detailsContainer.innerHTML = "<p>No details provided.</p>";
 
 		return;
 	}
-
-	const nairaSymbol = "&#8358;";
 
 	productImagesContainer.innerHTML = `<div class="tab-content" id="myTabContent">
 												<div
@@ -58,7 +56,7 @@ const displayDetails = (data) => {
 													aria-labelledby="contact-tab"
 													tabindex="0"
 												>
-													<img class="img-fluid rounded" src="images/Rectangle 37.png" alt="" />
+													<img class="img-fluid rounded" src=${data.data.images[2]} alt="" />
 												</div>
 												<div
 													class="tab-pane fade"
@@ -67,7 +65,7 @@ const displayDetails = (data) => {
 													aria-labelledby="end-tab"
 													tabindex="0"
 												>
-													<img class="img-fluid rounded" src="images/Rectangle 37.png" alt="" />
+													<img class="img-fluid rounded" src=${data.data.images[3]} alt="" />
 												</div>
 											</div>
 											<ul class="nav nav-tabs product-detail" id="myTab" role="tablist">
@@ -122,7 +120,7 @@ const displayDetails = (data) => {
 													>
 														<img
 															class="img-fluid me-2 rounded"
-															src="images/uni.jpg"
+															src=${data.data.images[2]}
 															alt=""
 															width="80"
 														/>
@@ -141,7 +139,7 @@ const displayDetails = (data) => {
 													>
 														<img
 															class="img-fluid rounded"
-															src="images/uni.jpg"
+															src=${data.data.images[3]}
 															alt=""
 															width="80"
 														/>
@@ -149,4 +147,38 @@ const displayDetails = (data) => {
 												</li>
 											</ul>
 										</div>`;
+
+	const nairaSymbol = "&#8358;";
+
+	productDetails.innerHTML = `
+													<h4>${data.data.ItemName}</h4>
+													<div class="d-table mb-2">
+														<p class="price float-start d-block">${nairaSymbol} ${data.data.Price}</p>
+													</div>
+													<p>
+														Availability:
+														<span class="item">
+															${data.data.Availability} <i class="fa fa-shopping-basket"></i
+														></span>
+													</p>
+													<p>Vendor: <span class="item">John</span></p>
+													<p>Number of items: <span class="item">${data.data.number_of_items}</span></p>
+
+													<div class="text-content">
+														<h3> Description </h3>
+														<p>
+															${data.data.Description ?? "No description provided"}
+														</p>
+													</div>
+													`;
+
+	rentButton.innerHTML = `<a
+										class="btn btn-primary"
+										href="javascript:void(0);"
+										data-bs-toggle="modal"
+										data-bs-target="#exampleModalpopover"
+										>
+											<i class="me-2" style="font-size: 20px"></i>Rent
+										</a>
+								`;
 };
