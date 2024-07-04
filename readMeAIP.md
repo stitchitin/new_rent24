@@ -1,5 +1,4 @@
-
-AIP
+# API Docs
 
 Here is the documentation for the "Register" API endpoint:
 
@@ -8,24 +7,31 @@ Here is the documentation for the "Register" API endpoint:
 ## Register Endpoint
 
 ### URL
+
 `/backend/register.php`
 
 ### Method
+
 `POST`
 
 ### Description
+
 Registers a new user with a username, email, and password.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Body
+
 The request body should be a JSON object containing the following fields:
+
 - `username` (string, required): The desired username for the new user.
 - `email` (string, required): The email address of the new user.
 - `password` (string, required): The password for the new user.
 
 #### Example Request Body
+
 ```json
 {
     "username": "exampleUser",
@@ -35,14 +41,18 @@ The request body should be a JSON object containing the following fields:
 ```
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the registration process.
 
 #### Success Response
+
 If the registration is successful, the response will contain:
+
 - `success` (boolean): `true`
 - `message` (string): Success message.
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -51,26 +61,34 @@ If the registration is successful, the response will contain:
 ```
 
 #### Error Responses
+
 If the registration fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. Missing required fields:
+
     ```json
     {
         "success": false,
         "message": "Missing required fields."
     }
     ```
+
 2. Invalid email format:
+
     ```json
     {
         "success": false,
         "message": "Invalid email format."
     }
     ```
+
 3. Invalid request method (not POST):
+
     ```json
     {
         "success": false,
@@ -79,13 +97,13 @@ If the registration fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - All input data is sanitized to avoid code injection and spam.
 - The email is validated to ensure it follows the proper format.
 - Passwords are hashed using `password_hash` for security before storing them in the database.
 - The database connection is closed after the operation is complete.
 
 ---
-
 
 ====================================================================================================
 
@@ -96,23 +114,30 @@ If the registration fails, the response will contain:
 ## Login Endpoint
 
 ### URL
+
 `/backend/login.php`
 
 ### Method
+
 `POST`
 
 ### Description
+
 Authenticates a user using an identifier (username or email) and password.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Body
+
 The request body should be a JSON object containing the following fields:
+
 - `identifier` (string, required): The username or email of the user.
 - `password` (string, required): The password of the user.
 
 #### Example Request Body
+
 ```json
 {
     "identifier": "exampleUser",
@@ -121,12 +146,15 @@ The request body should be a JSON object containing the following fields:
 ```
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the login attempt.
 
 #### Success Response
+
 If the login is successful, the response will contain the appropriate user details and a success message. (Note: The exact structure of a successful response may vary based on implementation.)
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -140,19 +168,25 @@ If the login is successful, the response will contain the appropriate user detai
 ```
 
 #### Error Responses
+
 If the login fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. Missing required fields:
+
     ```json
     {
         "success": false,
         "message": "Missing required fields."
     }
     ```
+
 2. Invalid request method (not POST):
+
     ```json
     {
         "success": false,
@@ -161,11 +195,11 @@ If the login fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - All input data is sanitized to avoid code injection and spam.
 - The database connection is closed after the operation is complete.
 
 ---
-
 
 ===================================================================================
 
@@ -176,32 +210,41 @@ Here is the documentation for the "Get All Categories" API endpoint:
 ## Get All Categories Endpoint
 
 ### URL
+
 `/backend/getAllCategories.php`
 
 ### Method
+
 `GET`
 
 ### Description
+
 Fetches all categories from the database.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Parameters
+
 None.
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the request, along with the category details if available.
 
 #### Success Response
+
 If categories are found, the response will contain:
+
 - `success` (boolean): `true`
 - `categories` (array): An array of category objects
-    - `category_id` (int): The category ID
-    - `category_name` (string): The category name
-    - `add_date` (string): The date the category was added
+  - `category_id` (int): The category ID
+  - `category_name` (string): The category name
+  - `add_date` (string): The date the category was added
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -221,19 +264,25 @@ If categories are found, the response will contain:
 ```
 
 #### Error Responses
+
 If the request fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. No categories found:
+
     ```json
     {
         "success": false,
         "message": "No categories found."
     }
     ```
+
 2. Database error:
+
     ```json
     {
         "success": false,
@@ -242,13 +291,13 @@ If the request fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - The database connection is closed after the operation is complete.
 - If no categories are found, an appropriate message is returned.
 
 ---
 
 ================================================================================
-
 
 Here is the documentation for the "Update Vendor" API endpoint:
 
@@ -257,19 +306,25 @@ Here is the documentation for the "Update Vendor" API endpoint:
 ## Update Vendor Endpoint
 
 ### URL
+
 `/backend/updateVendor.php`
 
 ### Method
+
 `POST`
 
 ### Description
+
 Updates the vendor's information based on the provided user ID, profile picture, and other details.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Parameters
+
 The request body should include the following fields:
+
 - `user_id` (int, required): The user ID of the vendor.
 - `profile_pic` (file, optional): The profile picture file to be uploaded.
 - `phone_number` (string, optional): The phone number of the vendor.
@@ -284,6 +339,7 @@ The request body should include the following fields:
 - `lastname` (string, optional): The last name of the vendor.
 
 #### Example Request Body (Form Data)
+
 ```plaintext
 user_id: 1
 profile_pic: (file)
@@ -300,14 +356,18 @@ lastname: Doe
 ```
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the request.
 
 #### Success Response
+
 If the vendor information is updated successfully, the response will contain:
+
 - `success` (boolean): `true`
 - `message` (string): Success message.
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -316,47 +376,61 @@ If the vendor information is updated successfully, the response will contain:
 ```
 
 #### Error Responses
+
 If the request fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. Missing required fields or file upload error:
+
     ```json
     {
         "success": false,
         "message": "Missing required fields or file upload error."
     }
     ```
+
 2. Invalid request method (not POST):
+
     ```json
     {
         "success": false,
         "message": "Invalid request method."
     }
     ```
+
 3. Database error:
+
     ```json
     {
         "success": false,
         "message": "Database error."
     }
     ```
+
 4. Failed to create upload directory:
+
     ```json
     {
         "success": false,
         "message": "Failed to create upload directory."
     }
     ```
+
 5. Upload directory is not writable:
+
     ```json
     {
         "success": false,
         "message": "Upload directory is not writable."
     }
     ```
+
 6. Failed to upload profile picture:
+
     ```json
     {
         "success": false,
@@ -365,6 +439,7 @@ If the request fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - The profile picture path is converted to a URL.
 - The database connection is closed after the operation is complete.
 - The profile picture file is uploaded to a specific directory on the server.
@@ -380,19 +455,25 @@ Here is the documentation for the "Add Rental Item" API endpoint:
 ## Add Rental Item Endpoint
 
 ### URL
+
 `/backend/addRentalItem.php`
 
 ### Method
+
 `POST`
 
 ### Description
+
 Adds a new rental item along with an image and other relevant details.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Parameters
+
 The request body should include the following fields:
+
 - `category` (string, required): The category of the rental item.
 - `itemName` (string, required): The name of the rental item.
 - `description` (string, required): A description of the rental item.
@@ -405,6 +486,7 @@ The request body should include the following fields:
 - `item_location` (string, required): The location of the rental item.
 
 #### Example Request Body (Form Data)
+
 ```plaintext
 category: Electronics
 itemName: Projector
@@ -419,14 +501,18 @@ item_location: New York
 ```
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the request.
 
 #### Success Response
+
 If the rental item is added successfully, the response will contain:
+
 - `success` (boolean): `true`
 - `message` (string): Success message.
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -435,61 +521,79 @@ If the rental item is added successfully, the response will contain:
 ```
 
 #### Error Responses
+
 If the request fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. Missing required fields or file upload error:
+
     ```json
     {
         "success": false,
         "message": "Missing required fields or file upload error."
     }
     ```
+
 2. Invalid request method (not POST):
+
     ```json
     {
         "success": false,
         "message": "Invalid request method."
     }
     ```
+
 3. No file uploaded or invalid file upload:
+
     ```json
     {
         "success": false,
         "message": "No file uploaded or invalid file upload."
     }
     ```
+
 4. Failed to create upload directory:
+
     ```json
     {
         "success": false,
         "message": "Failed to create upload directory."
     }
     ```
+
 5. Upload directory is not writable:
+
     ```json
     {
         "success": false,
         "message": "Upload directory is not writable."
     }
     ```
+
 6. Failed to upload image:
+
     ```json
     {
         "success": false,
         "message": "Failed to upload image."
     }
     ```
+
 7. Failed to add rental item:
+
     ```json
     {
         "success": false,
         "message": "Failed to add rental item."
     }
     ```
+
 8. Failed to add image path:
+
     ```json
     {
         "success": false,
@@ -498,6 +602,7 @@ If the request fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - The profile picture path is converted to a URL.
 - The database connection is closed after the operation is complete.
 - The profile picture file is uploaded to a specific directory on the server.
@@ -513,37 +618,50 @@ Here is the documentation for the "Get Rental Items" API endpoint:
 ## Get Rental Items Endpoint
 
 ### URL
+
 `/backend/getRentalItems.php`
 
 ### Method
+
 `GET`
 
 ### Description
+
 Retrieves a paginated list of rental items, optionally filtered by category.
 
 ### Request Headers
+
 - `Content-Type: application/json`
 
 ### Request Parameters
+
 The request parameters should be provided as query parameters in the URL:
+
 - `page` (int, optional): The page number for pagination (default is 1).
 - `category_id` (int, optional): The ID of the category to filter items by.
 
 #### Example Request URL
+
 - Retrieve all items (page 1):
+
   ```
   /backend/getRentalItems.php?page=1
   ```
+
 - Retrieve items from a specific category (page 1):
+
   ```
   /backend/getRentalItems.php?page=1&category_id=5
   ```
 
 ### Response
+
 The response will be a JSON object indicating the success or failure of the request, along with the rental items data if successful.
 
 #### Success Response
+
 If rental items are retrieved successfully, the response will contain:
+
 - `success` (boolean): `true`
 - `data` (array): An array of rental items, each containing:
   - `ItemName` (string): The name of the item.
@@ -559,6 +677,7 @@ If rental items are retrieved successfully, the response will contain:
   - `images` (array): An array of image paths for the item.
 
 #### Example Success Response
+
 ```json
 {
     "success": true,
@@ -584,19 +703,25 @@ If rental items are retrieved successfully, the response will contain:
 ```
 
 #### Error Responses
+
 If the request fails, the response will contain:
+
 - `success` (boolean): `false`
 - `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
+
 1. Invalid request method (not GET):
+
     ```json
     {
         "success": false,
         "message": "Invalid request method."
     }
     ```
+
 2. Failed to retrieve rental items:
+
     ```json
     {
         "success": false,
@@ -605,6 +730,7 @@ If the request fails, the response will contain:
     ```
 
 ### Additional Notes
+
 - The function supports pagination, with 20 items per page.
 - When retrieving rental items by category, the category ID must be provided.
 - The database connection is closed after the operation is complete.
@@ -612,9 +738,7 @@ If the request fails, the response will contain:
 
 ---
 
-
 ====================================================================================================
-
 
 ### API Documentation for `rentItem` Endpoint
 

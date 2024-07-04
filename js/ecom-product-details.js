@@ -182,3 +182,17 @@ const displayDetails = (data) => {
 										</a>
 								`;
 };
+
+const productForm = document.querySelector("#product-form");
+
+/**
+ *
+ * @param {SubmitEvent} event
+ */
+const handleSubmit = async (event) => {
+	event.preventDefault();
+
+	console.log(event);
+};
+
+productForm.addEventListener("submit", handleSubmit);
