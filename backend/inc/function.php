@@ -523,109 +523,120 @@ class User {
 
     // Get Item by id
     // Get all Items, get items by category, or get a single item by ID
-public function getItemById($page = 1, $category_id = null, $item_id = null) {
-    // Calculate the offset for pagination
-    $itemsPerPage = 20;
-    $offset = ($page - 1) * $itemsPerPage;
-
-    // Check if an item ID is provided
-    if ($item_id !== null) {
-        // Prepare the SQL statement to retrieve a single rental item with all images
-        $stmt = $this->db->getConnection()->prepare(
-            "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath
-             FROM RentalItem r
-             LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
-             WHERE r.ItemID = ?"
-        );
-        $stmt->bind_param("i", $item_id);
-    } elseif ($category_id === null) {
-        // Prepare the SQL statement to retrieve all rental items with pagination
-        $stmt = $this->db->getConnection()->prepare(
-            "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath
-             FROM RentalItem r
-             LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
-             LIMIT ? OFFSET ?"
-        );
-        $stmt->bind_param("ii", $itemsPerPage, $offset);
-    } else {
-        // Prepare the SQL statement to retrieve rental items by category with pagination
-        $stmt = $this->db->getConnection()->prepare(
-            "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath
-             FROM RentalItem r
-             LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
-             WHERE r.category = ?
-             LIMIT ? OFFSET ?"
-        );
-        $stmt->bind_param("iii", $category_id, $itemsPerPage, $offset);
-    }
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        // Fetch the results
-        $result = $stmt->get_result();
+    public function getItemById($page = 1, $category_id = null, $item_id = null) {
+        // Calculate the offset for pagination
+        $itemsPerPage = 20;
+        $offset = ($page - 1) * $itemsPerPage;
+    
+        // Check if an item ID is provided
         if ($item_id !== null) {
-            // Single item case
-            $row = $result->fetch_assoc();
-            if ($row) {
-                $item = [
-                    "ItemID" => $row["ItemID"],
-                    "ItemName" => $row["ItemName"],
-                    "category" => $row["category"],
-                    "Description" => $row["Description"],
-                    "Price" => $row["Price"],
-                    "Availability" => $row["Availability"],
-                    "user_id" => $row["user_id"],
-                    "Video" => $row["Video"],
-                    "number_of_items" => $row["number_of_items"],
-                    "location" => $row["location"],
-                    "slogo" => $row["slogo"],
-                    "images" => []
-                ];
-
-                // Iterate over result to fetch all images
-                do {
-                    if ($row['ImagePath']) {
-                        $item['images'][] = $row['ImagePath'];
-                    }
-                } while ($row = $result->fetch_assoc());
-
-                return json_encode(["success" => true, "data" => $item]);
-            } else {
-                return json_encode(["success" => false, "message" => "Item not found."]);
-            }
+            // Prepare the SQL statement to retrieve a single rental item with all images and vendor name
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath,
+                 v.firstname, v.lastname
+                 FROM RentalItem r
+                 LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
+                 LEFT JOIN Vendor v ON r.user_id = v.user_id
+                 WHERE r.ItemID = ?"
+            );
+            $stmt->bind_param("i", $item_id);
+        } elseif ($category_id === null) {
+            // Prepare the SQL statement to retrieve all rental items with pagination and vendor name
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath,
+                 v.firstname, v.lastname
+                 FROM RentalItem r
+                 LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
+                 LEFT JOIN Vendor v ON r.user_id = v.user_id
+                 LIMIT ? OFFSET ?"
+            );
+            $stmt->bind_param("ii", $itemsPerPage, $offset);
         } else {
-            // Multiple items case
-            $items = [];
-            while ($row = $result->fetch_assoc()) {
-                $rentalItemId = $row['ItemID'];
-                if (!isset($items[$rentalItemId])) {
-                    $items[$rentalItemId] = [
+            // Prepare the SQL statement to retrieve rental items by category with pagination and vendor name
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.ItemID, r.ItemName, r.category, r.Description, r.Price, r.Availability, r.user_id, r.Video, r.number_of_items, r.location, r.slogo, i.ImagePath,
+                 v.firstname, v.lastname
+                 FROM RentalItem r
+                 LEFT JOIN ItemImage i ON r.ItemID = i.RentalItem_id
+                 LEFT JOIN Vendor v ON r.user_id = v.user_id
+                 WHERE r.category = ?
+                 LIMIT ? OFFSET ?"
+            );
+            $stmt->bind_param("iii", $category_id, $itemsPerPage, $offset);
+        }
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Fetch the results
+            $result = $stmt->get_result();
+            if ($item_id !== null) {
+                // Single item case
+                $row = $result->fetch_assoc();
+                if ($row) {
+                    $item = [
                         "ItemID" => $row["ItemID"],
                         "ItemName" => $row["ItemName"],
                         "category" => $row["category"],
                         "Description" => $row["Description"],
                         "Price" => $row["Price"],
                         "Availability" => $row["Availability"],
-                        "user_id" => $row["user_id"],
+                        "vendor_id" => $row["user_id"],
                         "Video" => $row["Video"],
                         "number_of_items" => $row["number_of_items"],
                         "location" => $row["location"],
                         "slogo" => $row["slogo"],
+                        "vendor_firstname" => $row["firstname"],
+                        "vendor_lastname" => $row["lastname"],
                         "images" => []
                     ];
+    
+                    // Iterate over result to fetch all images
+                    do {
+                        if ($row['ImagePath']) {
+                            $item['images'][] = $row['ImagePath'];
+                        }
+                    } while ($row = $result->fetch_assoc());
+    
+                    return json_encode(["success" => true, "data" => $item]);
+                } else {
+                    return json_encode(["success" => false, "message" => "Item not found."]);
                 }
-
-                if ($row['ImagePath']) {
-                    $items[$rentalItemId]['images'][] = $row['ImagePath'];
+            } else {
+                // Multiple items case
+                $items = [];
+                while ($row = $result->fetch_assoc()) {
+                    $rentalItemId = $row['ItemID'];
+                    if (!isset($items[$rentalItemId])) {
+                        $items[$rentalItemId] = [
+                            "ItemID" => $row["ItemID"],
+                            "ItemName" => $row["ItemName"],
+                            "category" => $row["category"],
+                            "Description" => $row["Description"],
+                            "Price" => $row["Price"],
+                            "Availability" => $row["Availability"],
+                            "vendor_id" => $row["user_id"],
+                            "Video" => $row["Video"],
+                            "number_of_items" => $row["number_of_items"],
+                            "location" => $row["location"],
+                            "slogo" => $row["slogo"],
+                            "vendor_firstname" => $row["firstname"],
+                            "vendor_lastname" => $row["lastname"],
+                            "images" => []
+                        ];
+                    }
+    
+                    if ($row['ImagePath']) {
+                        $items[$rentalItemId]['images'][] = $row['ImagePath'];
+                    }
                 }
+    
+                return json_encode(["success" => true, "data" => array_values($items)]);
             }
-
-            return json_encode(["success" => true, "data" => array_values($items)]);
+        } else {
+            return json_encode(["success" => false, "message" => "Failed to retrieve rental items."]);
         }
-    } else {
-        return json_encode(["success" => false, "message" => "Failed to retrieve rental items."]);
     }
-}
+    
 
 
     // check if slogo exit
@@ -646,7 +657,21 @@ public function getItemById($page = 1, $category_id = null, $item_id = null) {
     }
 
 
-
+    // submit a rental items
+    public function rentItem($paymentId, $startDate, $endDate, $quantity, $itemId, $userId, $vendorId, $totalPrice) {
+        // Prepare the SQL statement for inserting a new rental item
+        $stmt = $this->db->getConnection()->prepare("INSERT INTO rentals (payment_id, start_date, end_date, quantity, item_id, user_id, vendor_id, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssiissi", $paymentId, $startDate, $endDate, $quantity, $itemId, $userId, $vendorId, $totalPrice);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            return json_encode(["success" => true, "message" => "Item rented successfully."]);
+        } else {
+            return json_encode(["success" => false, "message" => "Failed to rent item."]);
+        }
+    }
+    
+    
 
 
 
