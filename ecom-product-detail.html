@@ -38,7 +38,10 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 		<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 		<!-- Custom Stylesheet -->
+		<link href="vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
+		<script src="vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+		<script src="https://js.paystack.co/v1/inline.js"></script>
 		<script type="module" src="js/checkcookies.js"></script>
 		<script type="module" src="js/ecom-product-details.js"></script>
 
@@ -72,7 +75,7 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="container-fluid mh-auto">
-				<div class="row">
+				<div class="row" id="product-details-container">
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-body">
@@ -112,133 +115,35 @@
 																	></button>
 																</div>
 																<form id="product-form" class="modal-body">
-																	<p class="mb-1">Start Date</p>
+																	<label class="mb-1">Start Date</label>
 																	<input
-																		name="datepicker"
+																		name="startDate"
 																		class="datepicker-default form-control"
 																		id="datepicker"
 																	/>
+
 																	<br />
 
-																	<p class="mb-1">End Date</p>
+																	<label class="mb-1">End Date</label>
 																	<input
-																		name="datepicker"
+																		name="endDate"
 																		class="datepicker-default form-control"
 																		id="datepicker"
 																	/>
 
-																	<hr />
-																	<h4 class="mb-3">Payment</h4>
-
-																	<div class="d-block my-3">
-																		<div class="form-check custom-radio mb-2 ps-3">
-																			<input
-																				id="credit"
-																				name="paymentMethod"
-																				type="radio"
-																				class="form-check-input"
-																				checked=""
-																				required=""
-																			/>
-																			<label class="form-check-label" for="credit"
-																				>Credit card</label
-																			>
-																		</div>
-																		<div class="form-check custom-radio mb-2 ps-3">
-																			<input
-																				id="debit"
-																				name="paymentMethod"
-																				type="radio"
-																				class="form-check-input"
-																				required=""
-																			/>
-																			<label class="form-check-label" for="debit"
-																				>Debit card</label
-																			>
-																		</div>
-																		<div class="form-check custom-radio mb-2 ps-3">
-																			<input
-																				id="paypal"
-																				name="paymentMethod"
-																				type="radio"
-																				class="form-check-input"
-																				required=""
-																			/>
-																			<label class="form-check-label" for="paypal"
-																				>Paypal</label
-																			>
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="col-md-6 mb-3">
-																			<label for="cc-name" class="form-label"
-																				>Name on card</label
-																			>
-																			<input
-																				type="text"
-																				class="form-control"
-																				id="cc-name"
-																				placeholder=""
-																				required=""
-																			/>
-																			<small class="text-muted"
-																				>Full name as displayed on card</small
-																			>
-																			<div class="invalid-feedback">
-																				Name on card is required
-																			</div>
-																		</div>
-																		<div class="col-md-6 mb-3">
-																			<label for="cc-number" class="form-label"
-																				>Credit card number</label
-																			>
-																			<input
-																				type="text"
-																				class="form-control"
-																				id="cc-number"
-																				placeholder=""
-																				required=""
-																			/>
-																			<div class="invalid-feedback">
-																				Credit card number is required
-																			</div>
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="col-md-3 mb-3">
-																			<label for="cc-expiration" class="form-label"
-																				>Expiration</label
-																			>
-																			<input
-																				type="text"
-																				class="form-control"
-																				id="cc-expiration"
-																				placeholder=""
-																				required=""
-																			/>
-																			<div class="invalid-feedback">
-																				Expiration date required
-																			</div>
-																		</div>
-																		<div class="col-md-3 mb-3">
-																			<label for="cc-expiration" class="form-label"
-																				>CVV</label
-																			>
-																			<input
-																				type="text"
-																				class="form-control"
-																				id="cc-cvv"
-																				placeholder=""
-																				required=""
-																			/>
-																			<div class="invalid-feedback">
-																				Security code required
-																			</div>
-																		</div>
-																	</div>
+																	<label class="mb-1">Quantity</label>
+																	<input
+																		value="1"
+																		min="1"
+																		type="number"
+																		name="quantity"
+																		class="form-control"
+																		required
+																	/>
 																</form>
 																<div class="modal-footer">
 																	<button
+																		id="close-btn"
 																		type="button"
 																		class="btn btn-danger light"
 																		data-bs-dismiss="modal"
@@ -250,7 +155,7 @@
 																		type="submit"
 																		class="btn btn-primary"
 																	>
-																		Done
+																		Submit
 																	</button>
 																</div>
 															</div>

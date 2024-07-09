@@ -1,3 +1,5 @@
+import { callApi } from "./lib.js";
+
 // Function to get a cookie by name
 function getCookie(name) {
 	const nameEQ = name + "=";
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to fetch user information by email
-export function fetchUserByEmail(email) {
+function fetchUserByEmail(email) {
 	// Define the endpoint URL, including the email parameter in the GET request
 	const endpoint = `backend/user_files.php?email=${email}`;
 
@@ -141,8 +143,55 @@ export function fetchUserByEmail(email) {
 }
 var userCookie = getCookie("user");
 export const user = userCookie ? JSON.parse(userCookie) : null;
+/**
+ * @typedef {{
+ * success: boolean;
+ * user: {
+ * 	user_id: number;
+ * 	username: string;
+ * 	privilege: string;
+ * 	email: string;
+ *  };
+ * vendor: {
+ * 	status: string;
+ * 	firstname: string;
+ * 	lastname: string;
+ * 	profile_pic: string;
+ * 	address: string;
+ * 	nin: string;
+ * 	sex: string;
+ * 	birth: string;
+ * 	phone_number: string;
+ * 	state: string;
+ * 	city: string;
+ * 	localgovt: string;
+ * }} UserInfo
+ */
 
-document.addEventListener("DOMContentLoaded", function () {
-	const email = user.email; // Replace with the email you want to fetch
+/**
+ *
+ * @param {string} email
+ * @returns {Promise<UserInfo>}
+ */
+export const getUserInfoByEmail = async (email) => {
+	/**
+	 * @type {{ data:UserInfo }}
+	 */
+	const { data, error } = await callApi("backend/user_files.php", {
+		query: email && { email },
+	});
+
+	if (error) {
+		console.error("Error fetching user:", error);
+		return;
+	}
+
+	return data;
+};
+
+/** @type {UserInfo} */
+
+document.addEventListener("DOMContentLoaded", async () => {
+	const { email } = user; // Replace with the email you want to fetch
 	fetchUserByEmail(email); // Call the function with the email
 });
