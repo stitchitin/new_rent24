@@ -1,5 +1,7 @@
-import { callApi, dateFns } from "./lib.js";
+import { callApi, dateFns, sweetAlert } from "./lib.js";
 import { getUserInfoByEmail, user } from "./checkcookies.js";
+
+// sweetAlert("Hello World!");
 
 /**
  *  @typedef {{
@@ -277,13 +279,19 @@ const onFormSubmit = async (event) => {
 		callback: (response) => {
 			sweetAlert(`Payment complete! Reference: ${response.reference}`);
 
-			setTimeout(() => {
-				window.location.href = "user-profile.html";
-			}, 3000);
+			// setTimeout(() => {
+			// 	window.location.href = "user-profile.html";
+			// }, 2500);
 
-			callApi("backend/callbackrentalitems.php", {
+			callApi("backend/callbackrentitem.php", {
 				method: "POST",
-				body: { paymentId },
+				body: {
+					email,
+					amount: totalPrice,
+					callbackUrl: "https://www.google.com",
+					metadata: "cancel-page.html",
+					paymentId,
+				},
 			});
 		},
 	});
