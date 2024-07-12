@@ -38,7 +38,7 @@ function initializePaystackPayment($email, $amount, $callbackUrl, $metadata) {
 }
 
 // Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POsk_test_3dacadf6f6545d7b3220b57f9cc3cfec1a03a766ST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Read the incoming raw data
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
