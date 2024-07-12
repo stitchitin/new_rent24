@@ -670,6 +670,22 @@ class User {
             return json_encode(["success" => false, "message" => "Failed to rent item."]);
         }
     }
+
+
+    // approve payment
+    public function callbackRentItem($paymentId) {
+        // Prepare the SQL statement for updating the rental status
+        $stmt = $this->db->getConnection()->prepare("UPDATE rentals SET status = 'Approved' WHERE payment_id = ?");
+        $stmt->bind_param("s", $paymentId);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            return json_encode(["success" => true, "message" => "Item status updated to Approved."]);
+        } else {
+            return json_encode(["success" => false, "message" => "Failed to update item status."]);
+        }
+    }
+    
     
     
 
