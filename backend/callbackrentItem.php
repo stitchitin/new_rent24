@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Call Paystack API to initialize the payment
         $paystackResponse = initializePaystackPayment($email, $amount, $callbackUrl, ["cancel_action" => $metadata]);
 
-        if ($paystackResponse['status']) {
+        if ($paystackResponse) {
             // Payment initialization was successful, now update the rental status
             $result = $rentalManager->callbackRentItem($paymentId);
             echo $result;
