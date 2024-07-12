@@ -1,7 +1,5 @@
 import { callApi, dateFns, sweetAlert } from "./lib.js";
-import { getUserInfoByEmail, user } from "./checkcookies.js";
-
-// sweetAlert("Hello World!");
+import { getUserInfo } from "./checkcookies.js";
 
 /**
  *  @typedef {{
@@ -224,7 +222,7 @@ const displayDetails = (data) => {
 
 const productForm = document.querySelector("#product-form");
 
-const userInfo = await getUserInfoByEmail(user.email);
+const { user } = await getUserInfo();
 
 /**
  *
@@ -245,7 +243,8 @@ const onFormSubmit = async (event) => {
 	const paymentId = `PAY-${crypto.randomUUID().slice(0, 10)}`;
 
 	const { vendor_id, ItemID, Price } = productItem;
-	const { user_id, email } = userInfo.user;
+
+	const { user_id, email } = user;
 	const totalPrice = Price * formObject.quantity;
 
 	const { data } = await callApi("backend/rentitem.php", {
@@ -279,10 +278,6 @@ const onFormSubmit = async (event) => {
 		callback: (response) => {
 			sweetAlert(`Payment complete! Reference: ${response.reference}`);
 
-			// setTimeout(() => {
-			// 	window.location.href = "user-profile.html";
-			// }, 2500);
-
 			callApi("backend/callbackrentitem.php", {
 				method: "POST",
 				body: {
@@ -291,6 +286,9 @@ const onFormSubmit = async (event) => {
 					callbackUrl: "https://www.google.com",
 					metadata: "cancel-page.html",
 					paymentId,
+				},
+				onResponse: () => {
+					window.location.href = "user-profile.html";
 				},
 			});
 		},

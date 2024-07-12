@@ -141,15 +141,22 @@ function fetchUserByEmail(email) {
 			// alert("An error occurred while fetching user information.");
 		});
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+	const { email } = user; // Replace with the email you want to fetch
+	fetchUserByEmail(email); // Call the function with the email
+});
+
 var userCookie = getCookie("user");
 export const user = userCookie ? JSON.parse(userCookie) : null;
+
 /**
  * @typedef {{
  * success: boolean;
  * user: {
  * 	user_id: number;
  * 	username: string;
- * 	privilege: string;
+ * 	privilege: "user"|"vender";
  * 	email: string;
  *  };
  * vendor: {
@@ -173,7 +180,9 @@ export const user = userCookie ? JSON.parse(userCookie) : null;
  * @param {string} email
  * @returns {Promise<UserInfo>}
  */
-export const getUserInfoByEmail = async (email) => {
+export const getUserInfo = async () => {
+	const { email } = user;
+
 	/**
 	 * @type {{ data:UserInfo }}
 	 */
@@ -189,9 +198,14 @@ export const getUserInfoByEmail = async (email) => {
 	return data;
 };
 
-/** @type {UserInfo} */
+// Protection
+
+const vendorMenu = document.getElementById("vendorMenu");
 
 document.addEventListener("DOMContentLoaded", async () => {
-	const { email } = user; // Replace with the email you want to fetch
-	fetchUserByEmail(email); // Call the function with the email
+	const userInfo = await getUserInfo(user.email);
+
+	if (userInfo.user.privilege !== "vendor") {
+		vendorMenu.style.display = "none";
+	}
 });
