@@ -1,4 +1,4 @@
-import { callApi } from "./lib.js";
+import { callApi, sweetAlert } from "./lib.js";
 
 // Function to get a cookie by name
 function getCookie(name) {
@@ -199,13 +199,26 @@ export const getUserInfo = async () => {
 };
 
 // Protection
-
 const vendorMenu = document.getElementById("vendorMenu");
 
-document.addEventListener("DOMContentLoaded", async () => {
+const protectPage = async () => {
+	const inaccessiblePages = ["additem.html", "user.html"];
+
 	const userInfo = await getUserInfo(user.email);
 
 	if (userInfo.user.privilege !== "vendor") {
 		vendorMenu.style.display = "none";
 	}
-});
+
+	inaccessiblePages.forEach((page) => {
+		if (userInfo.user.privilege !== "vendor" && window.location.pathname.endsWith(page)) {
+			sweetAlert("You are not authorized to view this page!");
+
+			document.body.style.display = "none";
+
+			window.location.href = "404.html";
+		}
+	});
+};
+
+protectPage();
