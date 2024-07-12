@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($request->paymentId)) {
         // Sanitize inputs to avoid code spam and injections
         $paymentId = filter_var($request->paymentId, FILTER_SANITIZE_STRING);
-        $email = filter_var($request->email, FILTER_SANITIZE_EMAI);
+        $email = filter_var($request->email, FILTER_SANITIZE_EMAIL);
         $amount = filter_var($request->amount, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $callbackUrl = filter_var($request->callbackUrl, FILTER_SANITIZE_STRING);
         $metadata = filter_var($request->metadata, FILTER_SANITIZE_STRING);
