@@ -273,10 +273,10 @@ const onFormSubmit = async (event) => {
 		amount: totalPrice * 100,
 		ref: paymentId,
 		onClose: () => {
-			sweetAlert("Window closed.");
+			sweetAlert("Payment window closed");
 		},
 		callback: (response) => {
-			sweetAlert(`Payment complete! Reference: ${response.reference}`);
+			sweetAlert({ icon: "success", text: `Payment complete! Reference: ${response.reference}` });
 
 			callApi("backend/callbackrentitem.php", {
 				method: "POST",
