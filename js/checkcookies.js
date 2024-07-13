@@ -58,10 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to fetch user information by email
-function fetchUserByEmail(email) {
+const fetchUserByEmail = async (email) => {
 	// Define the endpoint URL, including the email parameter in the GET request
 
-	const { data, error } = callApi("backend/user_files.php", {
+	const { data, error } = await callApi("backend/user_files.php", {
 		query: { email },
 	});
 
@@ -132,16 +132,16 @@ function fetchUserByEmail(email) {
 		document.getElementById("userInfoemail").innerText = user.email;
 		document.getElementById("userlocalgovt").innerText = vendor.localgovt;
 	}
-}
+};
 
-document.addEventListener("DOMContentLoaded", async () => {
+var userCookie = getCookie("user");
+
+export const user = userCookie ? JSON.parse(userCookie) : null;
+
+document.addEventListener("DOMContentLoaded", () => {
 	const { email } = user; // Replace with the email you want to fetch
 	fetchUserByEmail(email); // Call the function with the email
 });
-
-const userCookie = getCookie("user");
-
-export const user = userCookie ? JSON.parse(userCookie) : null;
 
 /**
  * @typedef {{
@@ -214,4 +214,4 @@ const protectPages = async () => {
 	});
 };
 
-protectPages();
+document.addEventListener("DOMContentLoaded", protectPages);

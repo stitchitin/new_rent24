@@ -1,4 +1,8 @@
-export { callApi } from "https://esm.run/@zayne-labs/callapi@0.4.2";
+import { createFetchClient } from "https://esm.run/@zayne-labs/callapi@0.4.3";
+
+export const callApi = createFetchClient({
+	cancelRedundantRequests: false,
+});
 
 export * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.6.0/+esm";
 
