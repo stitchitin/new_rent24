@@ -1,5 +1,5 @@
-import { callApi, dateFns, sweetAlert } from "./lib.js";
-import { getUserInfo } from "./checkcookies.js";
+import { callApi, dateFns, sweetAlert, waitUntil } from "./lib.js";
+import { getUserInformation } from "./checkcookies.js";
 
 /**
  *  @typedef {{
@@ -222,8 +222,6 @@ const displayDetails = (data) => {
 
 const productForm = document.querySelector("#product-form");
 
-const { user } = await getUserInfo();
-
 /**
  *
  * @param {SubmitEvent} event
@@ -231,10 +229,22 @@ const { user } = await getUserInfo();
 const onFormSubmit = async (event) => {
 	event.preventDefault();
 
+	const data = await getUserInformation();
+
+	const user = data?.user;
+
 	const formObject = Object.fromEntries(new FormData(event.target));
 
-	Reflect.set(formObject, "endDate", dateFns.format(new Date(formObject.endDate), "yyyy-MM-dd"));
-	Reflect.set(formObject, "startDate", dateFns.format(new Date(formObject.startDate), "yyyy-MM-dd"));
+	try {
+		const formattedStartDate = dateFns.format(new Date(formObject.startDate), "yyyy-MM-dd");
+		const formattedEndDate = dateFns.format(new Date(formObject.endDate), "yyyy-MM-dd");
+
+		Reflect.set(formObject, "startDate", formattedStartDate);
+		Reflect.set(formObject, "endDate", formattedEndDate);
+	} catch (error) {
+		sweetAlert({ icon: "info", text: "Please select a valid date" });
+		return;
+	}
 
 	formObject.quantity === ""
 		? Reflect.set(formObject, "quantity", 1)
@@ -245,9 +255,10 @@ const onFormSubmit = async (event) => {
 	const { vendor_id, ItemID, Price } = productItem;
 
 	const { user_id, email } = user;
+
 	const totalPrice = Price * formObject.quantity;
 
-	const { data } = await callApi("backend/rentitem.php", {
+	const { data: dataInfo } = await callApi("backend/rentitem.php", {
 		method: "POST",
 		body: {
 			...formObject,
@@ -259,8 +270,8 @@ const onFormSubmit = async (event) => {
 		},
 	});
 
-	if (!data.success) {
-		console.error("Error adding product:", data.message);
+	if (!dataInfo.success) {
+		console.error("Error adding product:", dataInfo.message);
 		return;
 	}
 
@@ -287,7 +298,9 @@ const onFormSubmit = async (event) => {
 					metadata: "cancel-page.html",
 					paymentId,
 				},
-				onResponse: () => {
+
+				onResponse: async () => {
+					waitUntil(1000);
 					window.location.href = "user-profile.html";
 				},
 			});

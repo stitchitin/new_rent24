@@ -1,52 +1,57 @@
 import { callApi, sweetAlert } from "./lib.js";
 
 // Function to get a cookie by name
-function getCookie(name) {
+const getCookie = (name) => {
 	const nameEQ = name + "=";
+
 	const cookies = document.cookie.split(";");
-	for (let i = 0; i < cookies.length; i++) {
-		let cookie = cookies[i].trim();
-		if (cookie.startsWith(nameEQ)) {
-			return cookie.substring(nameEQ.length);
-		}
+
+	for (const cookie of cookies) {
+		const trimmedCookie = cookie.trim();
+
+		if (!trimmedCookie.startsWith(nameEQ)) continue;
+
+		return trimmedCookie.substring(nameEQ.length);
 	}
+
 	return null;
-}
+};
+
+const userCookie = getCookie("user");
 
 // Check if the "user" cookie is set
-function checkUserCookie() {
-	const userCookie = getCookie("user");
+const checkUserCookie = () => {
 	if (!userCookie) {
 		// If the cookie is not set, redirect to the login page
 		window.location.href = "login.html"; // Change to your login page
 	}
-}
+};
 
 // Execute the check on page load
-document.addEventListener("DOMContentLoaded", checkUserCookie);
-
-// Function to set a cookie with an expiration in the past to delete it
-function deleteCookie(name) {
-	document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-}
+checkUserCookie();
 
 // Function to delete all cookies
-function deleteAllCookies() {
+const deleteAllCookies = () => {
+	// Function to set a cookie with an expiration in the past to delete it
+	const deleteCookie = (name) => {
+		document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	};
+
 	const cookies = document.cookie.split(";");
 	for (let i = 0; i < cookies.length; i++) {
 		const cookie = cookies[i].split("=");
 		const cookieName = cookie[0].trim();
 		deleteCookie(cookieName); // Delete each cookie
 	}
-}
+};
 
 // Function to handle logout
-function logout() {
+const logout = () => {
 	// Clear all cookies to ensure a clean logout
 	deleteAllCookies();
 	// Redirect to the login page (or home page, depending on your design)
 	window.location.href = "login.html"; // Adjust to your login page
-}
+};
 
 // Attach the logout function to the logout buttons
 document.addEventListener("DOMContentLoaded", () => {
@@ -57,26 +62,41 @@ document.addEventListener("DOMContentLoaded", () => {
 	logoutButtons.forEach((btn) => btn.addEventListener("click", logout));
 });
 
-// Function to fetch user information by email
-const fetchUserByEmail = async (email) => {
-	// Define the endpoint URL, including the email parameter in the GET request
+// Get user information via email
+export const getUserInformation = async () => {
+	const user = userCookie ? JSON.parse(userCookie) : null;
 
+	const { email } = user ?? {};
+
+	/**
+	 * @type {{ data:UserInfo }}
+	 */
 	const { data, error } = await callApi("backend/user_files.php", {
 		query: { email },
+		cancelRedundantRequests: false,
 	});
 
 	if (error) {
-		console.error("Error fetching user:", error); // Log the error message
-		sweetAlert({ icon: "error", text: "An error occurred while fetching user information." }); // Display an error message
+		console.error(error.errorData); // Log the error message
+
 		return;
 	}
 
 	if (!data.success) {
 		// Handle error messages from the API
 		console.error("API Error:", data.message); // Log the error message
+
 		sweetAlert({ icon: "error", text: `Error fetching user data: ${data.message}` }); // Display an error message
+
 		return;
 	}
+
+	return data;
+};
+
+// Function to fetch user information and update necessary elements
+const fetchUserAndUpdateElements = async () => {
+	const data = await getUserInformation();
 
 	// Handle the success case
 	const vendor = data.vendor;
@@ -134,14 +154,8 @@ const fetchUserByEmail = async (email) => {
 	}
 };
 
-var userCookie = getCookie("user");
-
-export const user = userCookie ? JSON.parse(userCookie) : null;
-
-document.addEventListener("DOMContentLoaded", () => {
-	const { email } = user; // Replace with the email you want to fetch
-	fetchUserByEmail(email); // Call the function with the email
-});
+// Call the function to fetch user information on page load
+fetchUserAndUpdateElements();
 
 /**
  * @typedef {{
@@ -173,31 +187,14 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {string} email
  * @returns {Promise<UserInfo>}
  */
-export const getUserInfo = async () => {
-	const { email } = user;
 
-	/**
-	 * @type {{ data:UserInfo }}
-	 */
-	const { data, error } = await callApi("backend/user_files.php", {
-		query: email && { email },
-	});
-
-	if (error) {
-		console.error("Error fetching user:", error);
-		return;
-	}
-
-	return data;
-};
-
-// Page Protection
+// Page Protection and hiding of vendor menu from regular user
 const vendorMenu = document.getElementById("vendorMenu");
 
-const protectPages = async () => {
+const protectPagesAndHideVendorMenu = async () => {
 	const inaccessiblePages = ["additem.html", "user.html"];
 
-	const userInfo = await getUserInfo(user.email);
+	const userInfo = await getUserInformation();
 
 	if (userInfo.user.privilege !== "vendor") {
 		vendorMenu.style.display = "none";
@@ -214,4 +211,5 @@ const protectPages = async () => {
 	});
 };
 
-document.addEventListener("DOMContentLoaded", protectPages);
+// Call function on page load
+protectPagesAndHideVendorMenu();
