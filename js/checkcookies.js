@@ -17,6 +17,7 @@ const getCookie = (name) => {
 	return null;
 };
 
+// Store user cookie in variable
 const userCookie = getCookie("user");
 
 // Check if the "user" cookie is set
@@ -53,14 +54,10 @@ const logout = () => {
 	window.location.href = "login.html"; // Adjust to your login page
 };
 
-// Attach the logout function to the logout buttons
-document.addEventListener("DOMContentLoaded", () => {
-	const logoutButtons = document.querySelectorAll("[data-id=logout]");
+// Attach the logout function to all logout buttons
+const everyLogoutButtons = document.querySelectorAll("[data-id=logout]");
 
-	if (!logoutButtons) return;
-
-	logoutButtons.forEach((btn) => btn.addEventListener("click", logout));
-});
+everyLogoutButtons.forEach((btn) => btn.addEventListener("click", logout));
 
 // Get user information via email
 export const getUserInformation = async () => {
@@ -69,7 +66,9 @@ export const getUserInformation = async () => {
 	const { email } = user ?? {};
 
 	/**
-	 * @type {{ data:UserInfo }}
+	 * @import { UserInfo } from "./global.d"
+	 *
+	 * @type {{ data: UserInfo }}
 	 */
 	const { data, error } = await callApi("backend/user_files.php", {
 		query: { email },
@@ -98,7 +97,6 @@ export const getUserInformation = async () => {
 const fetchUserAndUpdateElements = async () => {
 	const data = await getUserInformation();
 
-	// Handle the success case
 	const vendor = data.vendor;
 	const user = data.user; // User information from the API
 
@@ -111,8 +109,8 @@ const fetchUserAndUpdateElements = async () => {
 
 	if (window.location.pathname.endsWith("edit-profile.html")) {
 		document.getElementById("userInfoId").value = user.user_id;
-		const profilePicElement = document.getElementById("profilePic2");
-		profilePicElement.src = vendor.profile_pic;
+		const profilePicElement2 = document.getElementById("profilePic2");
+		profilePicElement2.src = vendor.profile_pic;
 		document.getElementById("firstname1").innerText = vendor.firstname;
 		document.getElementById("lastname1").innerText = vendor.lastname;
 		document.getElementById("firstname").value = vendor.firstname;
@@ -128,8 +126,8 @@ const fetchUserAndUpdateElements = async () => {
 	}
 
 	if (window.location.pathname.endsWith("user-profile.html")) {
-		const profilePicElement = document.getElementById("profilePic2");
-		profilePicElement.src = vendor.profile_pic;
+		const profilePicElement2 = document.getElementById("profilePic2");
+		profilePicElement2.src = vendor.profile_pic;
 		document.getElementById("firstname1").innerText = vendor.firstname;
 		document.getElementById("lastname1").innerText = vendor.lastname;
 		document.getElementById("userInfoPrivilege").innerText = user.privilege;
@@ -143,8 +141,8 @@ const fetchUserAndUpdateElements = async () => {
 	}
 
 	if (window.location.pathname.endsWith("user.html")) {
-		const profilePicElement = document.getElementById("profilePic2");
-		profilePicElement.src = vendor.profile_pic;
+		const profilePicElement2 = document.getElementById("profilePic2");
+		profilePicElement2.src = vendor.profile_pic;
 		document.getElementById("firstname1").innerText = vendor.firstname;
 		document.getElementById("lastname1").innerText = vendor.lastname;
 		document.getElementById("userInfoPrivilege").innerText = user.privilege;
@@ -157,41 +155,10 @@ const fetchUserAndUpdateElements = async () => {
 // Call the function to fetch user information on page load
 fetchUserAndUpdateElements();
 
-/**
- * @typedef {{
- * success: boolean;
- * user: {
- * 	user_id: number;
- * 	username: string;
- * 	privilege: "user"|"vender";
- * 	email: string;
- *  };
- * vendor: {
- * 	status: string;
- * 	firstname: string;
- * 	lastname: string;
- * 	profile_pic: string;
- * 	address: string;
- * 	nin: string;
- * 	sex: string;
- * 	birth: string;
- * 	phone_number: string;
- * 	state: string;
- * 	city: string;
- * 	localgovt: string;
- * }} UserInfo
- */
-
-/**
- *
- * @param {string} email
- * @returns {Promise<UserInfo>}
- */
-
 // Page Protection and hiding of vendor menu from regular user
-const vendorMenu = document.getElementById("vendorMenu");
-
 const protectPagesAndHideVendorMenu = async () => {
+	const vendorMenu = document.getElementById("vendorMenu");
+
 	const inaccessiblePages = ["additem.html", "user.html"];
 
 	const userInfo = await getUserInformation();

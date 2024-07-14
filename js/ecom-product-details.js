@@ -2,26 +2,12 @@ import { callApi, dateFns, sweetAlert, waitUntil } from "./lib.js";
 import { getUserInformation } from "./checkcookies.js";
 
 /**
- *  @typedef {{
- * success: boolean;
- * data: {
- * 	ItemID: number;
- * 	ItemName: string;
- * 	category: string;
- * 	Description: string;
- * 	Price: number;
- * 	number_of_items: number;
- * 	images: string[];
- * 	Availability: string;
- * 	location: string;
- * 	vendor_id: number;
- *		vendor_firstname: string;
- * 	vendor_lastname: string;
- *  }
- * }} SuccessData
+ *
  */
 
 /**
+ * @import {SuccessData} from "./global.d"
+ *
  * @type {SuccessData["data"]}
  */
 let productItem;
@@ -51,7 +37,6 @@ const fetchDetails = async () => {
 document.addEventListener("DOMContentLoaded", fetchDetails);
 
 /**
- *
  * @param {SuccessData["data"]} data
  */
 const displayDetails = (data) => {
@@ -224,7 +209,7 @@ const productForm = document.querySelector("#product-form");
 
 /**
  *
- * @param {SubmitEvent} event
+ * @param { SubmitEvent } event
  */
 const onFormSubmit = async (event) => {
 	event.preventDefault();
@@ -300,7 +285,7 @@ const onFormSubmit = async (event) => {
 				},
 
 				onResponse: async () => {
-					waitUntil(1000);
+					await waitUntil(1000);
 					window.location.href = "user-profile.html";
 				},
 			});
