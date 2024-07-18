@@ -1,4 +1,5 @@
-import ""; // == Using this to break ambience in this d.ts file (Prevent types from being global)
+// == Using exports in this d.ts file to in order break ambience (Prevent types from being global)
+// == Doing this: `import ""` or this: `export {}` would also achieve the same effect
 
 type Prettify<TObject> = { [Key in keyof TObject]: TObject[Key] } & {};
 

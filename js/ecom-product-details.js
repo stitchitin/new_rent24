@@ -2,13 +2,9 @@ import { callApi, dateFns, sweetAlert, waitUntil } from "./lib.js";
 import { getUserInformation } from "./checkcookies.js";
 
 /**
+ * @import { SuccessData } from "./global.d"
  *
- */
-
-/**
- * @import {SuccessData} from "./global.d"
- *
- * @type {SuccessData["data"]}
+ * @type { SuccessData["data"] }
  */
 let productItem;
 
@@ -170,31 +166,31 @@ const displayDetails = (data) => {
 
 	const nairaSymbol = "&#8358;";
 
-	productDetails.innerHTML = `
-             <h4>${data.ItemName}</h4>
-             <div class="d-table mb-2">
-              <p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
-             </div>
-             <p>
-              Availability:
-              <span class="item">
-               ${data.Availability} <i class="fa fa-shopping-basket"></i
-              ></span>
-             </p>
+	productDetails.innerHTML = /*html*/ `
+<h4>${data.ItemName}</h4>
+<div class="d-table mb-2">
+	<p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
+</div>
+<p>
+	Availability:
+	<span class="item">
+		${data.Availability} <i class="fa fa-shopping-basket"></i></span>
+</p>
 
-             <p>Vendor: <span class="item">${data.vendor_firstname}</span></p>
+<p>Vendor: <span class="item">${data.vendor_firstname}</span></p>
 
-             <p>Number of items: <span class="item">${data.number_of_items}</span></p>
+<p>Number of items: <span class="item">${data.number_of_items}</span></p>
 
-             <div class="text-content">
-              <h3> Description </h3>
-              <p>
-               ${data.Description ?? "No description provided"}
-              </p>
-             </div>
-             `;
+<div class="text-content">
+	<h3> Description </h3>
+	<p>
+		${data.Description ?? "No description provided"}
+	</p>
+</div>
+        `;
 
-	rentButton.innerHTML = `<a
+	rentButton.innerHTML = /*html*/ `
+	<a
           class="btn btn-primary"
           href="javascript:void(0);"
           data-bs-toggle="modal"
@@ -285,7 +281,7 @@ const onFormSubmit = async (event) => {
 				},
 
 				onResponse: async () => {
-					await waitUntil(1000);
+					await waitUntil(500);
 					window.location.href = "user-profile.html";
 				},
 			});
