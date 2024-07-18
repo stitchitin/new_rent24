@@ -239,7 +239,7 @@ const onFormSubmit = async (event) => {
 
 	const totalPrice = Price * formObject.quantity;
 
-	const { data: dataInfo } = await callApi("backend/rentitem.php", {
+	const { data: dataInfo } = await callApi("backend/rentItem.php", {
 		method: "POST",
 		body: {
 			...formObject,
