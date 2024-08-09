@@ -270,7 +270,7 @@ const onFormSubmit = async (event) => {
 		callback: (response) => {
 			sweetAlert({ icon: "success", text: `Payment complete! Reference: ${response.reference}` });
 
-			callApi("backend/callbackrentitem.php", {
+			callApi("backend/callbackrentItem.php", {
 				method: "POST",
 				body: {
 					email,

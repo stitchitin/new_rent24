@@ -875,3 +875,163 @@ fetch('http://example.com/backend/rentitem.php', {
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
 ```
+
+
+
+
+# Rentals Transaction API Documentation
+
+## Overview
+The `backend/rentalsTransaction.php` provides endpoints to retrieve rental transaction details based on user or vendor IDs. The API supports pagination and returns data in JSON format.
+
+## Base URL
+```
+http://yourdomain.com/backend/rentalsTransaction.php
+```
+
+## HTTP Methods
+- `GET` - Retrieve rental transaction data.
+
+## Endpoints
+
+### 1. Get Rental Transactions by User ID
+Retrieve rental transactions for a specific user.
+
+**Endpoint:**
+```
+GET /backend/rentalsTransaction.php?user_id={user_id}
+```
+
+**Query Parameters:**
+- `user_id` (optional): The ID of the user whose transactions you want to retrieve.
+- `page` (optional): The page number for pagination (default is `1`).
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "payment_id": "ABC123",
+            "start_date": "2024-01-01",
+            "end_date": "2024-01-07",
+            "quantity": 2,
+            "ItemName": "Camera",
+            "user_firstname": "John",
+            "user_lastname": "Doe",
+            "vendor_firstname": "Alice",
+            "vendor_lastname": "Smith",
+            "total_price": "500.00",
+            "status": "Approved"
+        },
+        ...
+    ]
+}
+```
+
+### 2. Get Rental Transactions by Vendor ID
+Retrieve rental transactions for a specific vendor.
+
+**Endpoint:**
+```
+GET /backend/rentalsTransaction.php?vendor_id={vendor_id}
+```
+
+**Query Parameters:**
+- `vendor_id` (optional): The ID of the vendor whose transactions you want to retrieve.
+- `page` (optional): The page number for pagination (default is `1`).
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "payment_id": "XYZ456",
+            "start_date": "2024-02-01",
+            "end_date": "2024-02-05",
+            "quantity": 1,
+            "ItemName": "Projector",
+            "user_firstname": "Jane",
+            "user_lastname": "Smith",
+            "vendor_firstname": "Bob",
+            "vendor_lastname": "Johnson",
+            "total_price": "150.00",
+            "status": "Pending"
+        },
+        ...
+    ]
+}
+```
+
+### 3. Get All Rental Transactions (Paginated)
+Retrieve all rental transactions, with support for pagination.
+
+**Endpoint:**
+```
+GET /backend/rentalsTransaction.php
+```
+
+**Query Parameters:**
+- `page` (optional): The page number for pagination (default is `1`).
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "payment_id": "LMN789",
+            "start_date": "2024-03-10",
+            "end_date": "2024-03-15",
+            "quantity": 3,
+            "ItemName": "Sound System",
+            "user_firstname": "Jake",
+            "user_lastname": "White",
+            "vendor_firstname": "Anna",
+            "vendor_lastname": "Lee",
+            "total_price": "300.00",
+            "status": "Approved"
+        },
+        ...
+    ]
+}
+```
+
+## Error Handling
+
+If an invalid request method is used or the request cannot be processed, the API will return an error response:
+
+**Response:**
+```json
+{
+    "success": false,
+    "message": "Invalid request method."
+}
+```
+
+## Example Requests
+
+### 1. Retrieve Transactions for a User (User ID: 123)
+```sh
+GET /backend/rentalsTransaction.php?user_id=123
+```
+
+### 2. Retrieve Transactions for a Vendor (Vendor ID: 456)
+```sh
+GET /backend/rentalsTransaction.php?vendor_id=456
+```
+
+### 3. Retrieve All Transactions (Page 2)
+```sh
+GET /backend/rentalsTransaction.php?page=2
+```
+
+---
+
+### Notes for the Frontend Developer:
+- **Pagination**: If you want to retrieve the next set of transactions, increment the `page` parameter in the request.
+- **Handling Responses**: Always check the `success` field in the response to ensure the request was successful.
+- **Error Handling**: Ensure proper error handling on the frontend by checking the `message` field in case of an error response.
+
+This documentation should now provide the frontend developer with the necessary details to work with the `rentalsTransaction` API.

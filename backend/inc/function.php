@@ -637,6 +637,82 @@ class User {
         }
     }
     
+    // rental transaction
+
+    public function rentalsTransaction($page = 1, $user_id = null, $vendor_id = null) {
+        // Calculate the offset for pagination
+        $itemsPerPage = 20;
+        $offset = ($page - 1) * $itemsPerPage;
+    
+        // Determine which ID to filter by
+        if ($user_id !== null) {
+            // Prepare the SQL statement to retrieve transactions by user_id with pagination
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
+                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                 FROM rentals r
+                 LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
+                 LEFT JOIN Vendor u ON r.user_id = u.user_id
+                 LEFT JOIN Vendor v ON r.vendor_id = v.user_id
+                 WHERE r.user_id = ?
+                 LIMIT ? OFFSET ?"
+            );
+            $stmt->bind_param("iii", $user_id, $itemsPerPage, $offset);
+        } elseif ($vendor_id !== null) {
+            // Prepare the SQL statement to retrieve transactions by vendor_id with pagination
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
+                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                 FROM rentals r
+                 LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
+                 LEFT JOIN Vendor u ON r.user_id = u.user_id
+                 LEFT JOIN Vendor v ON r.vendor_id = v.user_id
+                 WHERE r.vendor_id = ?
+                 LIMIT ? OFFSET ?"
+            );
+            $stmt->bind_param("iii", $vendor_id, $itemsPerPage, $offset);
+        } else {
+            // Prepare the SQL statement to retrieve all rental transactions with pagination
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
+                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                 FROM rentals r
+                 LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
+                 LEFT JOIN Vendor u ON r.user_id = u.user_id
+                 LEFT JOIN Vendor v ON r.vendor_id = v.user_id
+                 LIMIT ? OFFSET ?"
+            );
+            $stmt->bind_param("ii", $itemsPerPage, $offset);
+        }
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Fetch the results
+            $result = $stmt->get_result();
+            // Multiple transactions case
+            $transactions = [];
+            while ($row = $result->fetch_assoc()) {
+                $transactions[] = [
+                    "payment_id" => $row["payment_id"],
+                    "start_date" => $row["start_date"],
+                    "end_date" => $row["end_date"],
+                    "quantity" => $row["quantity"],
+                    "ItemName" => $row["ItemName"],
+                    "user_firstname" => $row["user_firstname"],
+                    "user_lastname" => $row["user_lastname"],
+                    "vendor_firstname" => $row["vendor_firstname"],
+                    "vendor_lastname" => $row["vendor_lastname"],
+                    "total_price" => $row["total_price"],
+                    "status" => $row["status"]
+                ];
+            }
+    
+            return json_encode(["success" => true, "data" => $transactions]);
+        } else {
+            return json_encode(["success" => false, "message" => "Failed to retrieve rental transactions."]);
+        }
+    }
+    
 
 
     // check if slogo exit
