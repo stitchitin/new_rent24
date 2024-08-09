@@ -1,4 +1,5 @@
-import { callApi, sweetAlert } from "./lib.js";
+import { callApi, sweetAlert } from "./lib/index.js";
+import { userStore, userStoreActions } from "./store/userStore.js";
 
 // Function to get a cookie by name
 const getCookie = (name) => {
@@ -59,46 +60,13 @@ const everyLogoutButtons = document.querySelectorAll("[data-id=logout]");
 
 everyLogoutButtons.forEach((btn) => btn.addEventListener("click", logout));
 
-// Get user information via email
-export const getUserInformation = async () => {
-	const user = userCookie ? JSON.parse(userCookie) : null;
-
-	const { email } = user ?? {};
-
-	/**
-	 * @import { UserInfo } from "./global.d"
-	 *
-	 * @type {{ data: UserInfo }}
-	 */
-	const { data, error } = await callApi("backend/user_files.php", {
-		query: { email },
-		cancelRedundantRequests: false,
-	});
-
-	if (error) {
-		console.error(error.errorData); // Log the error message
-
-		return;
-	}
-
-	if (!data.success) {
-		// Handle error messages from the API
-		console.error("API Error:", data.message); // Log the error message
-
-		sweetAlert({ icon: "error", text: `Error fetching user data: ${data.message}` }); // Display an error message
-
-		return;
-	}
-
-	return data;
-};
+// Get user information and store in the user store
+userStoreActions.getUserInformation(userCookie);
 
 // Function to fetch user information and update necessary elements
-const fetchUserAndUpdateElements = async () => {
-	const data = await getUserInformation();
-
-	const vendor = data.vendor;
-	const user = data.user; // User information from the API
+const fetchUserAndUpdateElements = async (userInfo) => {
+	const vendor = userInfo.vendor;
+	const user = userInfo.user; // User information from the API
 
 	// Update the UI with user information (example)
 	document.getElementById("userInfoUsername").innerText = user.username;
@@ -153,15 +121,13 @@ const fetchUserAndUpdateElements = async () => {
 };
 
 // Call the function to fetch user information on page load
-fetchUserAndUpdateElements();
+userStore.subscribe(({ userInfo }) => fetchUserAndUpdateElements(userInfo));
 
 // Page Protection and hiding of vendor menu from regular user
-const protectPagesAndHideVendorMenu = async () => {
+const protectPagesAndHideVendorMenu = async (userInfo) => {
 	const vendorMenu = document.getElementById("vendorMenu");
 
 	const inaccessiblePages = ["additem.html", "user.html"];
-
-	const userInfo = await getUserInformation();
 
 	if (userInfo.user.privilege !== "vendor") {
 		vendorMenu.style.display = "none";
@@ -179,4 +145,4 @@ const protectPagesAndHideVendorMenu = async () => {
 };
 
 // Call function on page load
-protectPagesAndHideVendorMenu();
+userStore.subscribe(({ userInfo }) => protectPagesAndHideVendorMenu(userInfo));

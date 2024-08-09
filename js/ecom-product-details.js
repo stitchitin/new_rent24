@@ -1,4 +1,4 @@
-import { callApi, dateFns, sweetAlert, waitUntil } from "./lib.js";
+import { callApi, dateFns, sweetAlert, waitUntil } from "./lib/index.js";
 import { getUserInformation } from "./checkcookies.js";
 
 /**

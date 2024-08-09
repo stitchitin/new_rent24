@@ -1,12 +1,3 @@
-export { callApi } from "https://esm.run/@zayne-labs/callapi@0.4.6";
-
-export * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.6.0/+esm";
-
-import "https://cdn.jsdelivr.net/npm/sweetalert2@11";
-export { default as Swal } from "https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm";
-
-export const sweetAlert = (value) => Swal.fire(value);
-
 const PromiseWithResolvers = () => {
 	let resolve, reject;
 
@@ -27,3 +18,16 @@ export const waitUntil = (delay) => {
 
 	return promise;
 };
+
+/**
+ *
+ * @param {string} value
+ * @returns {ReturnType<typeof document.querySelector>}
+ */
+export const select = (value) => document.querySelector(value);
+/**
+ *
+ * @param {string} value
+ * @returns {ReturnType<typeof document.querySelectorAll>}
+ */
+export const selectAll = (value) => document.querySelectorAll(value);
