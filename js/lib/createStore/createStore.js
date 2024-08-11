@@ -1,13 +1,16 @@
-import { isFunction, isObject } from "./typeof.js";
+import { isFunction, isObject } from "../typeof.js";
 
-const createStore = (initializer) => {
+const createStore = (initializer, options = {}) => {
 	let state;
+
 	const listeners = new Set();
+
+	const { equalityFn = Object.is } = options;
 
 	const setState = (newState, shouldReplace) => {
 		const nextState = isFunction(newState) ? newState(state) : newState;
 
-		if (Object.is(nextState, state)) return;
+		if (equalityFn(nextState, state)) return;
 
 		const previousState = state;
 

@@ -21,13 +21,13 @@ export const waitUntil = (delay) => {
 
 /**
  *
- * @param {string} value
+ * @param {string} selector
  * @returns {ReturnType<typeof document.querySelector>}
  */
-export const select = (value) => document.querySelector(value);
+export const select = (selector, context = document) => context.querySelector(selector);
 /**
  *
- * @param {string} value
+ * @param {string} selector
  * @returns {ReturnType<typeof document.querySelectorAll>}
  */
-export const selectAll = (value) => document.querySelectorAll(value);
+export const selectAll = (selector, context = document) => context.querySelectorAll(selector);

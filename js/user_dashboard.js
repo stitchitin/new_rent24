@@ -1,4 +1,4 @@
-import { callApi } from "./lib.js";
+import { callApi } from "./lib/index.js";
 
 // Function to load HTML from a file into an element
 document.addEventListener("DOMContentLoaded", async () => {

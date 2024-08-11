@@ -1,4 +1,4 @@
-import { callApi, sweetAlert } from "./lib/index.js";
+import { sweetAlert } from "./lib/index.js";
 import { userStore, userStoreActions } from "./store/userStore.js";
 
 // Function to get a cookie by name
@@ -32,23 +32,22 @@ const checkUserCookie = () => {
 // Execute the check on page load
 checkUserCookie();
 
-// Function to delete all cookies
-const deleteAllCookies = () => {
-	// Function to set a cookie with an expiration in the past to delete it
-	const deleteCookie = (name) => {
-		document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-	};
-
-	const cookies = document.cookie.split(";");
-	for (let i = 0; i < cookies.length; i++) {
-		const cookie = cookies[i].split("=");
-		const cookieName = cookie[0].trim();
-		deleteCookie(cookieName); // Delete each cookie
-	}
-};
-
 // Function to handle logout
 const logout = () => {
+	// Function to delete all cookies
+	const deleteAllCookies = () => {
+		// Function to set a cookie with an expiration in the past to delete it
+		const deleteCookie = (name) => {
+			document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		};
+
+		const cookies = document.cookie.split(";");
+		for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].split("=");
+			const cookieName = cookie[0].trim();
+			deleteCookie(cookieName); // Delete each cookie
+		}
+	};
 	// Clear all cookies to ensure a clean logout
 	deleteAllCookies();
 	// Redirect to the login page (or home page, depending on your design)
@@ -60,7 +59,7 @@ const everyLogoutButtons = document.querySelectorAll("[data-id=logout]");
 
 everyLogoutButtons.forEach((btn) => btn.addEventListener("click", logout));
 
-// Get user information and store in the user store
+// Get user information and put it in the user store
 userStoreActions.getUserInformation(userCookie);
 
 // Function to fetch user information and update necessary elements
@@ -108,7 +107,7 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 		document.getElementById("userInfoId").value = user.user_id;
 	}
 
-	if (window.location.pathname.endsWith("user.html")) {
+	if (window.location.pathname.endsWith("vendor-profile.html")) {
 		const profilePicElement2 = document.getElementById("profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
 		document.getElementById("firstname1").innerText = vendor.firstname;
@@ -120,14 +119,11 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 	}
 };
 
-// Call the function to fetch user information on page load
-userStore.subscribe(({ userInfo }) => fetchUserAndUpdateElements(userInfo));
-
 // Page Protection and hiding of vendor menu from regular user
 const protectPagesAndHideVendorMenu = async (userInfo) => {
 	const vendorMenu = document.getElementById("vendorMenu");
 
-	const inaccessiblePages = ["additem.html", "user.html"];
+	const inaccessiblePages = ["additem.html", "vendor-profile.html"];
 
 	if (userInfo.user.privilege !== "vendor") {
 		vendorMenu.style.display = "none";
@@ -144,5 +140,8 @@ const protectPagesAndHideVendorMenu = async (userInfo) => {
 	});
 };
 
-// Call function on page load
-userStore.subscribe(({ userInfo }) => protectPagesAndHideVendorMenu(userInfo));
+// Call the function to fetch user information, and protect pages and hide vendor menu on page load
+userStore.subscribe(({ userInfo }) => {
+	fetchUserAndUpdateElements(userInfo);
+	protectPagesAndHideVendorMenu(userInfo);
+});

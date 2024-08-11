@@ -1,6 +1,6 @@
 import { callApi, createStore } from "../lib/index.js";
 
-const userStore = createStore((get, set) => ({
+export const userStore = createStore((get, set) => ({
 	userInfo: null,
 
 	actions: {
@@ -37,6 +37,4 @@ const userStore = createStore((get, set) => ({
 	},
 }));
 
-const userStoreActions = userStore.getState().actions;
-
-export { userStore, userStoreActions };
+export const userStoreActions = userStore.getState().actions;

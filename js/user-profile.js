@@ -39,7 +39,8 @@ const createItemDetailsRow = (itemInfo) => `<tr>
 																></a>
 															</div>
 														</td>
-													</tr>`;
+													</tr>
+													`;
 
 const fetchUserTransactions = async (userInfo) => {
 	const { data } = await callApi("backend/rentalsTransaction.php", {

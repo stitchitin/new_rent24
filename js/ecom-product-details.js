@@ -1,5 +1,5 @@
-import { callApi, dateFns, sweetAlert, waitUntil } from "./lib/index.js";
-import { getUserInformation } from "./checkcookies.js";
+import { callApi, dateFns, select, sweetAlert, waitUntil } from "./lib/index.js";
+import { userStore } from "./store/userStore.js";
 
 /**
  * @import { SuccessData } from "./global.d"
@@ -19,9 +19,12 @@ const fetchDetails = async () => {
 	});
 
 	if (!data.success) {
-		const detailsContainer = document.querySelector("#product-details-container");
+		const detailsContainer = select("#product-details-container");
+
 		detailsContainer.innerHTML = "<p>No details provided.</p>";
+
 		console.error("Error fetching details:", data.message);
+
 		return;
 	}
 
@@ -30,19 +33,19 @@ const fetchDetails = async () => {
 	displayDetails(data.data);
 };
 
-document.addEventListener("DOMContentLoaded", fetchDetails);
+fetchDetails();
 
 /**
  * @param {SuccessData["data"]} data
  */
 const displayDetails = (data) => {
-	const productImagesContainer = document.querySelector("#product-images-container");
+	const productImagesContainer = select("#product-images-container");
 
-	const productDetails = document.querySelector("#product-details");
+	const productDetails = select("#product-details");
 
-	const rentButton = document.querySelector("#rent-button");
+	const rentButton = select("#rent-button");
 
-	const quantityInput = document.querySelector("input[name=quantity]");
+	const quantityInput = select("input[name=quantity]");
 
 	quantityInput?.setAttribute("max", data.number_of_items);
 
@@ -166,7 +169,7 @@ const displayDetails = (data) => {
 
 	const nairaSymbol = "&#8358;";
 
-	productDetails.innerHTML = /*html*/ `
+	productDetails.innerHTML = `
 <h4>${data.ItemName}</h4>
 <div class="d-table mb-2">
 	<p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
@@ -189,7 +192,7 @@ const displayDetails = (data) => {
 </div>
         `;
 
-	rentButton.innerHTML = /*html*/ `
+	rentButton.innerHTML = `
 	<a
           class="btn btn-primary"
           href="javascript:void(0);"
@@ -201,18 +204,10 @@ const displayDetails = (data) => {
         `;
 };
 
-const productForm = document.querySelector("#product-form");
-
-/**
- *
- * @param { SubmitEvent } event
- */
-const onFormSubmit = async (event) => {
+const handleFormSubmit = (userInfo) => async (event) => {
 	event.preventDefault();
 
-	const data = await getUserInformation();
-
-	const user = data?.user;
+	const user = userInfo?.user;
 
 	const formObject = Object.fromEntries(new FormData(event.target));
 
@@ -251,22 +246,28 @@ const onFormSubmit = async (event) => {
 		},
 	});
 
+	event.target.reset();
+
+	select("#close-btn").click();
+
 	if (!dataInfo.success) {
+		sweetAlert({ icon: "error", text: `Error adding product: ${dataInfo.message}` });
+
 		console.error("Error adding product:", dataInfo.message);
+
 		return;
 	}
-
-	productForm.reset();
-	document.getElementById("close-btn").click();
 
 	const handler = PaystackPop.setup({
 		key: "pk_test_184f668934e96a5ee9f57ed22de795bc0379a2b4",
 		email,
 		amount: totalPrice * 100,
 		ref: paymentId,
+
 		onClose: () => {
 			sweetAlert("Payment window closed");
 		},
+
 		callback: (response) => {
 			sweetAlert({ icon: "success", text: `Payment complete! Reference: ${response.reference}` });
 
@@ -282,6 +283,7 @@ const onFormSubmit = async (event) => {
 
 				onResponse: async () => {
 					await waitUntil(500);
+
 					window.location.href = "user-profile.html";
 				},
 			});
@@ -291,4 +293,6 @@ const onFormSubmit = async (event) => {
 	handler.openIframe();
 };
 
-productForm.addEventListener("submit", onFormSubmit);
+userStore.subscribe(({ userInfo }) => {
+	select("#product-form").addEventListener("submit", (event) => handleFormSubmit(userInfo)(event));
+});
