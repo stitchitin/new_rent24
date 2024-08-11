@@ -40,7 +40,6 @@
 			<div class="container-fluid">
 				<!-- Row -->
 				<div class="row">
-					<div class="col-xl-9 col-xxl-8">
 						<!-- Row -->
 						<div class="row">
 							<!--column-->
@@ -194,39 +193,38 @@
 											<table class="table table-responsive-md">
 												<thead>
 													<tr>
-														<th style="width: 50px">
-															<div
-																class="form-check custom-checkbox checkbox-success check-lg me-3"
-															>
+														<th class="align-middle">
+															<div class="form-check custom-checkbox">
 																<input
 																	type="checkbox"
 																	class="form-check-input"
 																	id="checkAll"
-																	required=""
 																/>
 																<label class="form-check-label" for="checkAll"></label>
 															</div>
 														</th>
 														<th>Payment Id</th>
-														<th>Item name</th>
-														<th>Number of items</th>
-														<th>Start date</th>
+														<th>Vendor Name</th>
+														<th>Item</th>
+														<th>Quantity</th>
+														<th>Start Date</th>
 														<th>End Date</th>
-														<th>Vendor name</th>
 														<th>Total price</th>
 														<th>Status</th>
-														<th></th>
+														<th class="no-sort">Edit</th>
 													</tr>
 												</thead>
 
-												<tbody id="table-body"></tbody>
+												<tbody id="table-body">
+													<!-- Injected via Js -->
+												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</>
 					<!--column-->
 					<div class="col-xl-3 col-xxl-4">
 						<!--row-->
@@ -497,7 +495,5 @@
 		<script src="js/plugins-init/user.js"></script>
 		<script src="js/plugins-init/custom.min.js"></script>
 		<script src="js/plugins-init/deznav-2-init.js"></script>
-		<script src="js/demo-2.js"></script>
-		<script src="js/styleSwitcher.js"></script>
 	</body>
 </html>

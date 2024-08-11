@@ -1,31 +1,30 @@
-import { callApi, select } from "./lib/index.js";
+import { callApi, select, sweetAlert } from "./lib/index.js";
 import { userStore } from "./store/userStore.js";
 
 const createItemDetailsRow = (itemInfo) => `<tr>
-														<td>
-															<div
-																class="form-check custom-checkbox checkbox-success check-lg me-3"
-															>
-																<input
-																	type="checkbox"
-																	class="form-check-input"
-																	id="customCheckBox2"
-																	required=""
-																/>
-																<label
-																	class="form-check-label"
-																	for="customCheckBox2"
-																></label>
+														<td class="py-2">
+															<div class="form-check custom-checkbox checkbox-success">
+																<input type="checkbox" class="form-check-input" id="checkbox" />
+																<label class="form-check-label" for="checkbox"></label>
 															</div>
 														</td>
 														<td><strong>${itemInfo.payment_id}</strong></td>
+														<td>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</td>
 														<td>${itemInfo.ItemName}</td>
 														<td class="text-center">${itemInfo.quantity}</td>
 														<td>${itemInfo.start_date}</td>
 														<td>${itemInfo.end_date}</td>
-														<td>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</td>
 														<td>${itemInfo.total_price}</td>
-														<td>${itemInfo.status}</td>
+														<td>
+															<span class="badge light badge-lg ${itemInfo.status === "Approved" ? "badge-success" : "badge-warning"}">
+																${itemInfo.status}
+																${
+																	itemInfo.status === "Approved"
+																		? '<i class="ms-1 fa fa-check"></i>'
+																		: '<i class="ms-1 fas fa-stream"></i>'
+																}
+															</span>
+														</td>
 
 														<td>
 															<div class="d-flex">
@@ -48,6 +47,15 @@ const fetchUserTransactions = async (userInfo) => {
 	});
 
 	if (!data.success) {
+		sweetAlert({
+			title: "Something went wrong",
+			text: data.message,
+			icon: "error",
+		});
+		return;
+	}
+
+	if (data.data.length === 0) {
 		select("#table-body").insertAdjacentHTML(
 			"beforeend",
 			`<tr><td colspan="10">No transaction data found</td></tr>`
