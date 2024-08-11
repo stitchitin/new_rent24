@@ -58,8 +58,13 @@ const fetchUserTransactions = async (userInfo) => {
 	if (data.data.length === 0) {
 		select("#table-body").insertAdjacentHTML(
 			"beforeend",
-			`<tr><td colspan="10">No transaction data found</td></tr>`
+			`<tr>
+				<td>
+					<strong>No transaction data found</strong>
+				</td>
+			</tr>`
 		);
+
 		return;
 	}
 

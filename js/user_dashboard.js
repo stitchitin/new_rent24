@@ -1,32 +1,26 @@
-import { callApi } from "./lib/index.js";
+import { callApi, select } from "./lib/index.js";
 
-// Function to load HTML from a file into an element
-document.addEventListener("DOMContentLoaded", async () => {
-	const { data, error } = await callApi("backend/getAllCategories.php");
-
-	if (error) {
-		console.error("Error fetching categories:", error.errorData);
-		return;
-	}
+const appendCategoriesToList = async () => {
+	const { data } = await callApi("backend/getAllCategories.php");
 
 	if (!data.success) {
 		console.error("Failed to fetch categories:", data.message);
 		return;
 	}
 
-	const flexList = document.getElementById("category");
-
 	data.categories.forEach((category) => {
 		const li = document.createElement("li");
 		const a = document.createElement("a");
 		a.href = `?category_id=${category.category_id}`;
 		a.textContent = category.category_name;
-		li.appendChild(a);
-		flexList.appendChild(li);
+		li.append(a);
+		select("#category").append(li);
 	});
-});
+};
 
-const fetchCategories = async () => {
+appendCategoriesToList();
+
+const fetchAndDisplayCategories = async () => {
 	// Get query parameters from the URL
 	const category_id = new URLSearchParams(window.location.search).get("category_id");
 
@@ -39,14 +33,9 @@ const fetchCategories = async () => {
 		return;
 	}
 
-	displayCategories(data);
-};
-
-const displayCategories = (data) => {
-	const categoriesDiv = document.getElementById("categories");
-
 	if (!data.success) {
-		categoriesDiv.innerHTML = "<p>No categories found.</p>";
+		select("#category").insertAdjacentHTML("beforeend", "<p>No categories found.</p>");
+
 		return;
 	}
 
@@ -55,7 +44,9 @@ const displayCategories = (data) => {
 	data.data.forEach((category) => {
 		const categoryElement = document.createElement("div");
 		categoryElement.className = "col-lg-12 col-xl-6 col-xxl-4";
-		categoryElement.innerHTML = `
+		categoryElement.insertAdjacentHTML(
+			"beforeend",
+			`
 																<div class="card">
 																				<div class="card-body">
 																								<div class="row m-b-30">
@@ -79,11 +70,11 @@ const displayCategories = (data) => {
 																												</div></div>
 																				</div>
 																</div>
-												`;
+												`
+		);
 
-		categoriesDiv.appendChild(categoryElement);
+		select("#category").append(categoryElement);
 	});
 };
 
-// Fetch categories when the page loads
-window.addEventListener("load", fetchCategories);
+fetchAndDisplayCategories();

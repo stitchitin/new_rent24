@@ -19,9 +19,10 @@ const fetchDetails = async () => {
 	});
 
 	if (!data.success) {
-		const detailsContainer = select("#product-details-container");
-
-		detailsContainer.innerHTML = "<p>No details provided.</p>";
+		select("#product-details-container").insertAdjacentElement(
+			"beforeend",
+			"<p>No details provided.</p>"
+		);
 
 		console.error("Error fetching details:", data.message);
 
@@ -39,169 +40,168 @@ fetchDetails();
  * @param {SuccessData["data"]} data
  */
 const displayDetails = (data) => {
-	const productImagesContainer = select("#product-images-container");
+	select("input[name=quantity]")?.setAttribute("max", data.number_of_items);
 
-	const productDetails = select("#product-details");
-
-	const rentButton = select("#rent-button");
-
-	const quantityInput = select("input[name=quantity]");
-
-	quantityInput?.setAttribute("max", data.number_of_items);
-
-	productImagesContainer.innerHTML = `<div class="tab-content" id="myTabContent">
-            <div
-             class="tab-pane fade show active"
-             id="home-tab-pane"
-             role="tabpanel"
-             aria-labelledby="home-tab"
-             tabindex="0"
-            >
-             <img class="img-fluid rounded" src=${data.images[0]} alt="" />
-            </div>
-            <div
-             class="tab-pane fade"
-             id="profile-tab-pane"
-             role="tabpanel"
-             aria-labelledby="profile-tab"
-             tabindex="0"
-            >
-             <img class="img-fluid rounded" src=${data.images[1]} alt="" />
-            </div>
-            <div
-             class="tab-pane fade"
-             id="contact-tab-pane"
-             role="tabpanel"
-             aria-labelledby="contact-tab"
-             tabindex="0"
-            >
-             <img class="img-fluid rounded" src=${data.images[2]} alt="" />
-            </div>
-            <div
-             class="tab-pane fade"
-             id="end-tab-pane"
-             role="tabpanel"
-             aria-labelledby="end-tab"
-             tabindex="0"
-            >
-             <img class="img-fluid rounded" src=${data.images[3]} alt="" />
-            </div>
-           </div>
-           <ul class="nav nav-tabs product-detail" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-             <button
-              class="nav-link active"
-              id="home-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#home-tab-pane"
-              type="button"
-              role="tab"
-              aria-controls="home-tab-pane"
-              aria-selected="true"
-             >
-              <img
-               class="img-fluid me-2 rounded"
-               src=${data.images[0]}
-               alt=""
-               width="80"
-              />
-             </button>
-            </li>
-            <li class="nav-item" role="presentation">
-             <button
-              class="nav-link"
-              id="profile-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#profile-tab-pane"
-              type="button"
-              role="tab"
-              aria-controls="profile-tab-pane"
-              aria-selected="false"
-             >
-              <img
-               class="img-fluid me-2 rounded"
-               src=${data.images[1]}
-               alt=""
-               width="80"
-              />
-             </button>
-            </li>
-            <li class="nav-item" role="presentation">
-             <button
-              class="nav-link"
-              id="contact-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#contact-tab-pane"
-              type="button"
-              role="tab"
-              aria-controls="contact-tab-pane"
-              aria-selected="false"
-             >
-              <img
-               class="img-fluid me-2 rounded"
-               src=${data.images[2]}
-               alt=""
-               width="80"
-              />
-             </button>
-            </li>
-            <li class="nav-item" role="presentation">
-             <button
-              class="nav-link"
-              id="end-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#end-tab-pane"
-              type="button"
-              role="tab"
-              aria-controls="end-tab-pane"
-              aria-selected="false"
-             >
-              <img
-               class="img-fluid rounded"
-               src=${data.images[3]}
-               alt=""
-               width="80"
-              />
-             </button>
-            </li>
-           </ul>
-          </div>`;
+	select("#product-images-container").insertAdjacentHTML(
+		"beforeend",
+		`<div class="tab-content" id="myTabContent">
+				<div
+				 class="tab-pane fade show active"
+				 id="home-tab-pane"
+				 role="tabpanel"
+				 aria-labelledby="home-tab"
+				 tabindex="0"
+				>
+				 <img class="img-fluid rounded" src=${data.images[0]} alt="" />
+				</div>
+				<div
+				 class="tab-pane fade"
+				 id="profile-tab-pane"
+				 role="tabpanel"
+				 aria-labelledby="profile-tab"
+				 tabindex="0"
+				>
+				 <img class="img-fluid rounded" src=${data.images[1]} alt="" />
+				</div>
+				<div
+				 class="tab-pane fade"
+				 id="contact-tab-pane"
+				 role="tabpanel"
+				 aria-labelledby="contact-tab"
+				 tabindex="0"
+				>
+				 <img class="img-fluid rounded" src=${data.images[2]} alt="" />
+				</div>
+				<div
+				 class="tab-pane fade"
+				 id="end-tab-pane"
+				 role="tabpanel"
+				 aria-labelledby="end-tab"
+				 tabindex="0"
+				>
+				 <img class="img-fluid rounded" src=${data.images[3]} alt="" />
+				</div>
+			  </div>
+			  <ul class="nav nav-tabs product-detail" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+				 <button
+				  class="nav-link active"
+				  id="home-tab"
+				  data-bs-toggle="tab"
+				  data-bs-target="#home-tab-pane"
+				  type="button"
+				  role="tab"
+				  aria-controls="home-tab-pane"
+				  aria-selected="true"
+				 >
+				  <img
+					class="img-fluid me-2 rounded"
+					src=${data.images[0]}
+					alt=""
+					width="80"
+				  />
+				 </button>
+				</li>
+				<li class="nav-item" role="presentation">
+				 <button
+				  class="nav-link"
+				  id="profile-tab"
+				  data-bs-toggle="tab"
+				  data-bs-target="#profile-tab-pane"
+				  type="button"
+				  role="tab"
+				  aria-controls="profile-tab-pane"
+				  aria-selected="false"
+				 >
+				  <img
+					class="img-fluid me-2 rounded"
+					src=${data.images[1]}
+					alt=""
+					width="80"
+				  />
+				 </button>
+				</li>
+				<li class="nav-item" role="presentation">
+				 <button
+				  class="nav-link"
+				  id="contact-tab"
+				  data-bs-toggle="tab"
+				  data-bs-target="#contact-tab-pane"
+				  type="button"
+				  role="tab"
+				  aria-controls="contact-tab-pane"
+				  aria-selected="false"
+				 >
+				  <img
+					class="img-fluid me-2 rounded"
+					src=${data.images[2]}
+					alt=""
+					width="80"
+				  />
+				 </button>
+				</li>
+				<li class="nav-item" role="presentation">
+				 <button
+				  class="nav-link"
+				  id="end-tab"
+				  data-bs-toggle="tab"
+				  data-bs-target="#end-tab-pane"
+				  type="button"
+				  role="tab"
+				  aria-controls="end-tab-pane"
+				  aria-selected="false"
+				 >
+				  <img
+					class="img-fluid rounded"
+					src=${data.images[3]}
+					alt=""
+					width="80"
+				  />
+				 </button>
+				</li>
+			  </ul>
+			 </div>`
+	);
 
 	const nairaSymbol = "&#8358;";
 
-	productDetails.innerHTML = `
-<h4>${data.ItemName}</h4>
-<div class="d-table mb-2">
-	<p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
-</div>
-<p>
-	Availability:
-	<span class="item">
-		${data.Availability} <i class="fa fa-shopping-basket"></i></span>
-</p>
+	select("#product-details").insertAdjacentHTML(
+		"beforeend",
+		`<h4>${data.ItemName}</h4>
+		<div class="d-table mb-2">
+			<p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
+		</div>
 
-<p>Vendor: <span class="item">${data.vendor_firstname}</span></p>
+		<p>
+			Availability:
+			<span class="item">
+				${data.Availability} <i class="fa fa-shopping-basket"></i></span>
+		</p>
 
-<p>Number of items: <span class="item">${data.number_of_items}</span></p>
+		<p>Vendor: <span class="item">${data.vendor_firstname}</span></p>
 
-<div class="text-content">
-	<h3> Description </h3>
-	<p>
-		${data.Description ?? "No description provided"}
-	</p>
-</div>
-        `;
+		<p>Number of items: <span class="item">${data.number_of_items}</span></p>
 
-	rentButton.innerHTML = `
-	<a
-          class="btn btn-primary"
-          href="javascript:void(0);"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModalpopover"
-          >
-           <i class="me-2" style="font-size: 20px"></i>Rent
-          </a>
-        `;
+		<div class="text-content">
+			<h3> Description </h3>
+			<p>
+				${data.Description ?? "No description provided"}
+			</p>
+		</div>`
+	);
+
+	select("#rent-button").insertAdjacentHTML(
+		"beforeend",
+		`<a
+			class="btn btn-primary"
+			href="javascript:void(0);"
+			data-bs-toggle="modal"
+			data-bs-target="#exampleModalpopover"
+			>
+			<i class="me-2" style="font-size: 20px"></i>Rent
+			</a>
+		`
+	);
 };
 
 const handleFormSubmit = (userInfo) => async (event) => {

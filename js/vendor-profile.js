@@ -113,6 +113,7 @@ const fetchVendorTransactions = async (userInfo) => {
 				</td>
 			</tr>`
 		);
+
 		return;
 	}
 
