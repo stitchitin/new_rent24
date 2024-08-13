@@ -1,7 +1,7 @@
-import { callApi, select, sweetAlert } from "./lib/index.js";
+import { callApi, printPaymentReceipt, select, sweetAlert } from "./lib/index.js";
 import { userStore } from "./store/userStore.js";
 
-const createItemDetailsRow = (itemInfo) => `<tr>
+const createItemDetailsRow = (itemInfo) => `<tr data-payment-id="${itemInfo.payment_id}">
 														<td><strong>${itemInfo.payment_id}</strong></td>
 														<td>
 															<strong>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</strong>
@@ -24,11 +24,9 @@ const createItemDetailsRow = (itemInfo) => `<tr>
 															</span>
 														</td>
 														<td>
-																<div class="d-flex">
-																		<a href="#" class="btn btn-success shadow btn-xs sharp"
-																			><i class="fa fa-print"></i
-																		></a>
-																</div>
+															<button data-id="print-btn" class="btn btn-success shadow btn-xs sharp">
+																<i class="fa fa-print"></i>
+															</button>
 														</td>
 													</tr>
 													`;
@@ -60,13 +58,45 @@ const fetchUserTransactions = async (userInfo) => {
 		return;
 	}
 
-	const htmlContent = data.data
-		.filter((itemInfo) => itemInfo.vendor_firstname !== null && itemInfo.vendor_lastname !== null)
+	const mainData = data.data.filter(
+		(itemInfo) =>
+			itemInfo.vendor_firstname !== itemInfo.user_firstname &&
+			itemInfo.vendor_lastname !== itemInfo.user_lastname &&
+			itemInfo.vendor_phone_number !== itemInfo.user_phone_number
+	);
+
+	if (mainData.length === 0) {
+		select("#table-body").insertAdjacentHTML(
+			"beforeend",
+			`<tr>
+				<td>
+					<strong>No transaction data found</strong>
+				</td>
+			</tr>`
+		);
+
+		return;
+	}
+
+	const htmlContent = mainData
 		.map((itemInfo) => createItemDetailsRow(itemInfo))
 		.toReversed()
 		.join("");
 
-	select("#table-body").insertAdjacentHTML("beforeend", htmlContent);
+	const tableBody = select("#table-body");
+
+	tableBody.insertAdjacentHTML("beforeend", htmlContent);
+
+	for (const itemInfo of mainData) {
+		const printBtn = select(
+			`[data-payment-id="${itemInfo.payment_id}"] [data-id="print-btn"]`,
+			tableBody
+		);
+
+		const paymentData = mainData.find((item) => item.payment_id === itemInfo.payment_id);
+
+		printBtn.addEventListener("click", () => printPaymentReceipt(paymentData));
+	}
 };
 
 userStore.subscribe(({ userInfo }) => fetchUserTransactions(userInfo));

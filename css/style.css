@@ -49211,4 +49211,11 @@ div#example5_wrapper .form-check-input {
 	color: #fff;
 }
 
+.icon-box{
+    display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
 /*# sourceMappingURL=style.css.map */
