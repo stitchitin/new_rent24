@@ -66,7 +66,7 @@ const generateReceiptHTML = (paymentData) => {
 					<head>
 						<meta charset="UTF-8">
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
-						<title>Payment Record - ${paymentData.payment_id}</title>
+						<title>Rent24 Receipt - ${paymentData.payment_id}</title>
 						${generateStyles()}
 						<script>
 							const printReceipt = () => {
@@ -78,7 +78,7 @@ const generateReceiptHTML = (paymentData) => {
 						</script>
 					</head>
 					<body>
-						<h1>Payment Record</h1>
+						<h1>Rent24 - Payment Receipt</h1>
 						<div class="info-grid">${generateContent(paymentData)}</div>
 
 					</body>
