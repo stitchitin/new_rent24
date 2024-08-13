@@ -1,4 +1,4 @@
-import { isFunction, isObject } from "../typeof.js";
+import { isFunction } from "../typeof.js";
 
 const createStore = (initializer, options = {}) => {
 	let state;
@@ -14,10 +14,7 @@ const createStore = (initializer, options = {}) => {
 
 		const previousState = state;
 
-		state =
-			!shouldReplace && isObject(state) && isObject(nextState)
-				? { ...state, ...nextState }
-				: nextState;
+		state = !shouldReplace ? { ...state, ...nextState } : nextState;
 
 		listeners.forEach((onStoreChange) => onStoreChange(state, previousState));
 	};
