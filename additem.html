@@ -218,7 +218,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost/rent24ng/backend/getAllCategories.php') // Replace with the actual path to your API
+            fetch('backend/getAllCategories.php') // Replace with the actual path to your API
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
