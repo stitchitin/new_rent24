@@ -92,8 +92,9 @@ const createItemDetailsRow = (itemInfo) => `<tr class="btn-reveal-trigger">
 
 const fetchVendorTransactions = async (userInfo) => {
 	const { data } = await callApi("backend/rentalsTransaction.php", {
-		query: { vendor_id: userInfo.user.vendor_id },
+		query: { vendor_id: userInfo.user.user_id },
 	});
+	console.log(userInfo);
 
 	if (!data.success) {
 		sweetAlert({
