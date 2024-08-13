@@ -45790,6 +45790,7 @@ div#example5_wrapper .form-check-input {
 
 .pie-chart2 .chart-group {
 	display: flex;
+	justify-content: space-between;
 	flex-wrap: wrap;
 }
 

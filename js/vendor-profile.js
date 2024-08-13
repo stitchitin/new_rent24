@@ -3,7 +3,7 @@ import { userStore } from "./store/userStore.js";
 
 const createProductCard = (rentalItem) => `
 						<div class="card-body w-[300px] shrink-0">
-										<div class="m-b-30 space-y-[30px]">
+										<div class="m-b-30 space-y-[30px] w-full">
 														<div class="col-md-5 col-xxl-12 w-full">
 																		<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0 w-full">
 																						<div class="new-arrivals-img-contnent w-full">
@@ -21,12 +21,12 @@ const createProductCard = (rentalItem) => `
 																	<p>Number of items: <span class="item">${rentalItem.number_of_items}</span></p>
 																	<p>Availability: <span class="item">${rentalItem.Availability}</span></p>
 																	<div class="flex gap-2 mt-4">
-																		<p>Edit Product</p>
 																		<a
-																			href="#"
+																			href="add-item.html"
 																			class="btn btn-primary shadow btn-xs sharp me-1"
 																			><i class="fas fa-pencil-alt"></i
 																		></a>
+																		<p>Edit Product Details</p>
 																	</div>
 																</div>
 														</div>
