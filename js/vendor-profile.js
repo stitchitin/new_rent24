@@ -94,7 +94,6 @@ const fetchVendorTransactions = async (userInfo) => {
 	const { data } = await callApi("backend/rentalsTransaction.php", {
 		query: { vendor_id: userInfo.user.user_id },
 	});
-	console.log(userInfo);
 
 	if (!data.success) {
 		sweetAlert({
@@ -118,13 +117,9 @@ const fetchVendorTransactions = async (userInfo) => {
 		return;
 	}
 
-	let content = "";
+	const htmlContent = data.data.map((itemInfo) => createItemDetailsRow(itemInfo)).join("");
 
-	for (const itemInfo of data.data) {
-		content += createItemDetailsRow(itemInfo);
-	}
-
-	select("#table-body").insertAdjacentHTML("beforeend", content);
+	select("#table-body").insertAdjacentHTML("beforeend", htmlContent);
 };
 
 userStore.subscribe(({ userInfo }) => fetchVendorTransactions(userInfo));

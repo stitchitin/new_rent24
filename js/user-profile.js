@@ -9,12 +9,16 @@ const createItemDetailsRow = (itemInfo) => `<tr>
 															</div>
 														</td>
 														<td><strong>${itemInfo.payment_id}</strong></td>
-														<td>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</td>
+														<td>
+															<strong>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</strong>
+															<br>
+															${itemInfo.vendor_phone_number}
+														</td>
 														<td>${itemInfo.ItemName}</td>
 														<td class="text-center">${itemInfo.quantity}</td>
 														<td>${itemInfo.start_date}</td>
 														<td>${itemInfo.end_date}</td>
-														<td>${itemInfo.total_price}</td>
+														<td>&#8358;${new Intl.NumberFormat("en-US").format(itemInfo.total_price)}</td>
 														<td>
 															<span class="badge light badge-lg ${itemInfo.status === "Approved" ? "badge-success" : "badge-warning"}">
 																${itemInfo.status}
@@ -55,13 +59,9 @@ const fetchUserTransactions = async (userInfo) => {
 		return;
 	}
 
-	let content = "";
+	const htmlContent = data.data.map((itemInfo) => createItemDetailsRow(itemInfo)).join("");
 
-	for (const itemInfo of data.data) {
-		content += createItemDetailsRow(itemInfo);
-	}
-
-	select("#table-body").insertAdjacentHTML("beforeend", content);
+	select("#table-body").insertAdjacentHTML("beforeend", htmlContent);
 };
 
 userStore.subscribe(({ userInfo }) => fetchUserTransactions(userInfo));
