@@ -2,12 +2,6 @@ import { callApi, select, sweetAlert } from "./lib/index.js";
 import { userStore } from "./store/userStore.js";
 
 const createItemDetailsRow = (itemInfo) => `<tr>
-														<td class="py-2">
-															<div class="form-check custom-checkbox checkbox-success">
-																<input type="checkbox" class="form-check-input" id="checkbox" />
-																<label class="form-check-label" for="checkbox"></label>
-															</div>
-														</td>
 														<td><strong>${itemInfo.payment_id}</strong></td>
 														<td>
 															<strong>${itemInfo.vendor_firstname} ${itemInfo.vendor_lastname}</strong>
@@ -28,6 +22,13 @@ const createItemDetailsRow = (itemInfo) => `<tr>
 																		: '<i class="ms-1 fas fa-stream"></i>'
 																}
 															</span>
+														</td>
+														<td>
+																<div class="d-flex">
+																		<a href="#" class="btn btn-success shadow btn-xs sharp"
+																			><i class="fa fa-print"></i
+																		></a>
+																</div>
 														</td>
 													</tr>
 													`;
@@ -60,6 +61,7 @@ const fetchUserTransactions = async (userInfo) => {
 	}
 
 	const htmlContent = data.data
+		.filter((itemInfo) => itemInfo.vendor_firstname !== null && itemInfo.vendor_lastname !== null)
 		.map((itemInfo) => createItemDetailsRow(itemInfo))
 		.toReversed()
 		.join("");

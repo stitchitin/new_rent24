@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<script src="https://cdn.tailwindcss.com"></script>
 		<script type="module" src="js/checkcookies.js"></script>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -435,47 +436,8 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div class="chart-group">
-											<div class="text-center radius-bar">
-												<div class="d-inline-block position-relative donut-chart-sale">
-													<img
-														src="images/product/16.jpg"
-														alt=""
-														srcset=""
-														style="height: 200px; width: 200px"
-													/>
-												</div>
-											</div>
-											<div class="text-center radius-bar">
-												<div class="d-inline-block position-relative donut-chart-sale">
-													<img
-														src="images/product/16.jpg"
-														alt=""
-														srcset=""
-														style="height: 200px; width: 200px"
-													/>
-												</div>
-											</div>
-											<div class="text-center radius-bar">
-												<div class="d-inline-block position-relative donut-chart-sale">
-													<img
-														src="images/product/16.jpg"
-														alt=""
-														srcset=""
-														style="height: 200px; width: 200px"
-													/>
-												</div>
-											</div>
-											<div class="text-center radius-bar">
-												<div class="d-inline-block position-relative donut-chart-sale">
-													<img
-														src="images/product/16.jpg"
-														alt=""
-														srcset=""
-														style="height: 200px; width: 200px"
-													/>
-												</div>
-											</div>
+										<div id="vendor-products" class="flex overflow-auto">
+											<!-- Filled in by js -->
 										</div>
 									</div>
 								</div>
@@ -504,12 +466,6 @@
 									<table class="table table-sm mb-0">
 										<thead>
 											<tr>
-												<th class="align-middle">
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="checkAll" />
-														<label class="form-check-label" for="checkAll"></label>
-													</div>
-												</th>
 												<th>Payment Id</th>
 												<th>User Name</th>
 												<th>Item</th>
@@ -518,7 +474,7 @@
 												<th>End Date</th>
 												<th>Total price</th>
 												<th>Status</th>
-												<th class="no-sort">Edit</th>
+												<th>Print</th>
 											</tr>
 										</thead>
 

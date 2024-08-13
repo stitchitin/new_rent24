@@ -1,4 +1,5 @@
 import { callApi, select } from "./lib/index.js";
+import { userStore } from "./store/userStore.js";
 
 const fetchAndDisplayCategories = async () => {
 	const { data } = await callApi("backend/getAllCategories.php");
@@ -22,63 +23,60 @@ const fetchAndDisplayCategories = async () => {
 
 fetchAndDisplayCategories();
 
-const fetchAndDisplayRentalItems = async () => {
+const fetchAndDisplayRentalItems = async (userInfo) => {
 	// Get query parameters from the URL
 	const category_id = new URLSearchParams(window.location.search).get("category_id");
 
-	const { data, error } = await callApi("backend/getRentalItems.php", {
+	const { data } = await callApi("backend/getRentalItems.php", {
 		query: category_id && { category_id },
 	});
 
-	if (error) {
-		console.error("Error fetching categories:", error);
-		return;
-	}
-
-	const categoriesDiv = select("#categories");
+	const rentalsDiv = select("#rental-items");
 
 	if (!data.success) {
-		categoriesDiv.insertAdjacentHTML("beforeend", "<p>No categories found.</p>");
+		rentalsDiv.insertAdjacentHTML("beforeend", "<p>No rental items found.</p>");
 		return;
 	}
 
 	const nairaSymbol = "&#8358;";
 
-	data.data.forEach((category) => {
-		const categoryElement = document.createElement("div");
-		categoryElement.className = "col-lg-12 col-xl-6 col-xxl-4";
-		categoryElement.insertAdjacentHTML(
-			"beforeend",
-			`
+	data.data
+		.filter((rentalItem) => rentalItem.user_id !== userInfo.user.user_id)
+		.forEach((rentalItem) => {
+			const rentalElement = document.createElement("div");
+			rentalElement.className = "col-lg-12 col-xl-6 col-xxl-4";
+			rentalElement.insertAdjacentHTML(
+				"beforeend",
+				`
 																<div class="card">
 																				<div class="card-body">
 																								<div class="row m-b-30">
 																												<div class="col-md-5 col-xxl-12">
 																																<div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
 																																				<div class="new-arrivals-img-contnent">
-																																								<img class="img-fluid" src="${category.images[0]}" alt="">
+																																								<img class="img-fluid" src="${rentalItem.images[0]}" alt="">
 																																				</div>
 																																</div>
 																												</div>
 																												<div class="col-md-7 col-xxl-12">
 																																<div class="new-arrival-content position-relative">
 																																				<h4>
-																																				<a href="ecom-product-detail.html?item_id=${category.ItemID}">${category.ItemName}</a>
+																																				<a href="ecom-product-detail.html?item_id=${rentalItem.ItemID}">${rentalItem.ItemName}</a>
 																																				</h4>
-																																				<p>Location: <span class="item">${category.location} </span></p>
-																																				<p>Price: <i class="fa fa-check-circle text-success"></i> ${nairaSymbol} ${category.Price}</p>
-																																				<p>Number of items: <span class="item">${category.number_of_items}</span></p>
-																																				<p>Availability: <span class="item">${category.Availability}</span></p>
+																																				<p>Location: <span class="item">${rentalItem.location} </span></p>
+																																				<p>Price: <i class="fa fa-check-circle text-success"></i> ${nairaSymbol} ${rentalItem.Price}</p>
+																																				<p>Number of items: <span class="item">${rentalItem.number_of_items}</span></p>
+																																				<p>Availability: <span class="item">${rentalItem.Availability}</span></p>
 																																</div>
 																												</div></div>
 																				</div>
 																</div>
 												`
-		);
+			);
 
-		categoriesDiv.append(categoryElement);
-	});
+			rentalsDiv.append(rentalElement);
+		});
 };
 
 // Fetch categories when the page loads
-fetchAndDisplayRentalItems();
+userStore.subscribe(({ userInfo }) => fetchAndDisplayRentalItems(userInfo));
