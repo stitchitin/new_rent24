@@ -648,8 +648,10 @@ class User {
         if ($user_id !== null) {
             // Prepare the SQL statement to retrieve transactions by user_id with pagination
             $stmt = $this->db->getConnection()->prepare(
-                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
-                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, 
+                        u.firstname AS user_firstname, u.lastname AS user_lastname, u.phone_number AS user_phone_number,
+                        v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, v.phone_number AS vendor_phone_number, 
+                        r.total_price, r.status
                  FROM rentals r
                  LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
                  LEFT JOIN Vendor u ON r.user_id = u.user_id
@@ -661,8 +663,10 @@ class User {
         } elseif ($vendor_id !== null) {
             // Prepare the SQL statement to retrieve transactions by vendor_id with pagination
             $stmt = $this->db->getConnection()->prepare(
-                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
-                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, 
+                        u.firstname AS user_firstname, u.lastname AS user_lastname, u.phone_number AS user_phone_number,
+                        v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, v.phone_number AS vendor_phone_number, 
+                        r.total_price, r.status
                  FROM rentals r
                  LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
                  LEFT JOIN Vendor u ON r.user_id = u.user_id
@@ -674,8 +678,10 @@ class User {
         } else {
             // Prepare the SQL statement to retrieve all rental transactions with pagination
             $stmt = $this->db->getConnection()->prepare(
-                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, u.firstname AS user_firstname, u.lastname AS user_lastname, 
-                 v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, r.total_price, r.status
+                "SELECT r.payment_id, r.start_date, r.end_date, r.quantity, ri.ItemName, 
+                        u.firstname AS user_firstname, u.lastname AS user_lastname, u.phone_number AS user_phone_number,
+                        v.firstname AS vendor_firstname, v.lastname AS vendor_lastname, v.phone_number AS vendor_phone_number, 
+                        r.total_price, r.status
                  FROM rentals r
                  LEFT JOIN RentalItem ri ON r.item_id = ri.ItemID
                  LEFT JOIN Vendor u ON r.user_id = u.user_id
@@ -700,8 +706,10 @@ class User {
                     "ItemName" => $row["ItemName"],
                     "user_firstname" => $row["user_firstname"],
                     "user_lastname" => $row["user_lastname"],
+                    "user_phone_number" => $row["user_phone_number"],
                     "vendor_firstname" => $row["vendor_firstname"],
                     "vendor_lastname" => $row["vendor_lastname"],
+                    "vendor_phone_number" => $row["vendor_phone_number"],
                     "total_price" => $row["total_price"],
                     "status" => $row["status"]
                 ];
@@ -712,6 +720,7 @@ class User {
             return json_encode(["success" => false, "message" => "Failed to retrieve rental transactions."]);
         }
     }
+    
     
 
 
