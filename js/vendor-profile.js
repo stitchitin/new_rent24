@@ -69,7 +69,10 @@ const fetchVendorTransactions = async (userInfo) => {
 		return;
 	}
 
-	const htmlContent = data.data.map((itemInfo) => createItemDetailsRow(itemInfo)).join("");
+	const htmlContent = data.data
+		.map((itemInfo) => createItemDetailsRow(itemInfo))
+		.toReversed()
+		.join("");
 
 	select("#table-body").insertAdjacentHTML("beforeend", htmlContent);
 };
