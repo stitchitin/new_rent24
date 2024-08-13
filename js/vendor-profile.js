@@ -10,7 +10,9 @@ const createItemDetailsRow = (itemInfo) => `<tr class="btn-reveal-trigger">
 												</td>
 												<td class="py-2"><strong>${itemInfo.payment_id}</strong></td>
 												<td class="py-2">
-													<h4>${itemInfo.user_firstname} ${itemInfo.user_lastname}</h4>
+														<strong>${itemInfo.user_firstname} ${itemInfo.user_lastname}</strong>
+														<br>
+														${itemInfo.user_phone_number}
 												</td>
 												<td class="py-2">${itemInfo.ItemName}</td>
 												<td class="py-2 text-center">${itemInfo.quantity}</td>
