@@ -1,259 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<script type="module" src="js/checkcookies.js"></script>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template" />
+		<meta property="og:title" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template" />
+		<meta property="og:description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template" />
+		<meta property="og:image" content="social-image.png" />
+		<meta name="format-detection" content="telephone=no" />
 
-<head>
-    <script type="module" src="js/checkcookies.js"></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
-    <meta property="og:title" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
-    <meta property="og:description" content="Salreo : Crypto Trading UI Admin  Bootstrap 5 Template">
-    <meta property="og:image" content="social-image.png">
-    <meta name="format-detection" content="telephone=no">
+		<!-- PAGE TITLE HERE -->
+		<title>Rent24</title>
+		<!-- FAVICONS ICON -->
 
-    <!-- PAGE TITLE HERE -->
-    <title>Rent24</title>
-    <!-- FAVICONS ICON -->
+		<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+		<link href="vendor/lightgallery/css/lightgallery.min.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script type="module" src="js/additem.js"></script>
+	</head>
 
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="vendor/lightgallery/css/lightgallery.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <div id="header"></div>
-    <!--**********************************
+	<body>
+		<div id="header"></div>
+		<!--**********************************
             Content body start
         ***********************************-->
-    <div class="content-body">
-        <div class="container-fluid">
-            <!-- row -->
-            <div class="row">
+		<div class="content-body">
+			<div class="container-fluid">
+				<!-- row -->
+				<div class="row">
+					<div class="col-xl-9 col-lg-8">
+						<div class="card profile-card card-bx m-b30">
+							<div class="card-header">
+								<h6 class="title">Add Item</h6>
+							</div>
+							<form class="itemform" id="itemform">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="category">Category</label>
+											<select
+												class="form-control selectpicker"
+												name="category"
+												id="category"
+												required
+											>
+												<option disabled selected>Select a category</option>
+											</select>
+										</div>
 
-                <div class="col-xl-9 col-lg-8">
-                    <div class="card profile-card card-bx m-b30">
-                        <div class="card-header">
-                            <h6 class="title">Add Item</h6>
-                        </div>
-                        <form class="itemform" id="itemform" enctype="multipart/form-data" onsubmit="return validateForm(event)">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="category">Category</label>
-                                        <select class="default-select form-control wide mb-3 form-control-lg"
-                                            name="category" id="category" data-live-search="true" required>
-                                            <option disabled selected>Select a category</option>
-                                        </select>
-                                    </div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="itemName">Item Name</label>
+											<input
+												type="text"
+												class="form-control"
+												name="itemName"
+												id="itemName"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="description">Description</label>
+											<textarea
+												class="form-control"
+												rows="4"
+												name="description"
+												id="description"
+												required
+											></textarea>
+										</div>
 
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="itemName">Item Name</label>
-                                        <input type="text" class="form-control" name="itemName" id="itemName" required>
-                                    </div>
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="description">Description</label>
-                                        <textarea class="form-control" rows="4" name="description" id="description"
-                                            required></textarea>
-                                    </div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="availability">Availability</label>
+											<select
+												class="selectpicker form-control"
+												name="availability"
+												id="availability"
+												required
+											>
+												<option value="Available">Available</option>
+												<option value="Not Available">Not Available</option>
+											</select>
+										</div>
 
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="availability">Availability</label>
-                                        <select class="selectpicker form-control" name="availability" id="availability"
-                                            required>
-                                            <option value="Available">Available</option>
-                                            <option value="Not Available">Not Available</option>
-                                        </select>
-                                    </div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="number_of_items">Number of Items</label>
+											<input
+												type="number"
+												class="form-control"
+												placeholder="0"
+												name="number_of_items"
+												id="number_of_items"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="price">Price</label>
+											<input
+												type="number"
+												class="form-control"
+												placeholder="$0.00"
+												name="price"
+												id="price"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="image">Add image</label>
+											<input
+												class="form-control"
+												type="file"
+												name="images"
+												id="image"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="video">Add your Product Link</label>
+											<input
+												type="text"
+												class="form-control"
+												placeholder="youtube.com"
+												name="video"
+												id="video"
+											/>
+										</div>
 
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="number_of_items">Number of Items</label>
-                                        <input type="text" class="form-control" placeholder="0" name="number_of_items"
-                                            id="number_of_items" required>
-                                    </div>
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="price">Price</label>
-                                        <input type="text" class="form-control" placeholder="$0.00" name="price"
-                                            id="price" required>
-                                    </div>
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="image">Add image</label>
-                                        <input class="form-control" type="file" name="images" id="image" required />
-                                    </div>
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="video">Add your Product Link</label>
-                                        <input type="text" class="form-control" placeholder="youtube.com" name="video"
-                                            id="video" />
-                                    </div>
-
-                                    <div class="col-sm-6 m-b30">
-                                        <label class="form-label" for="item_location">Item location</label>
-                                        <input type="text" class="form-control" name="item_location" id="item_location"
-                                            required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <input type="hidden" id="userInfoId" name="vendor_id">
-                                <button type="submit" class="btn btn-primary">Add Item</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--**********************************
+										<div class="col-sm-6 m-b30">
+											<label class="form-label" for="item_location">Item location</label>
+											<input
+												type="text"
+												class="form-control"
+												name="item_location"
+												id="item_location"
+												required
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer">
+									<input type="hidden" id="userInfoId" name="vendor_id" />
+									<button type="submit" class="btn btn-primary">Add Item</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--**********************************
             Content body end
         ***********************************-->
 
-    <!--**********************************
+		<!--**********************************
                 Footer start
             ***********************************-->
-    <div class="footer style-1">
-        <div class="copyright">
-        </div>
-    </div>
-    <!--**********************************
+		<div class="footer style-1">
+			<div class="copyright"></div>
+		</div>
+		<!--**********************************
                 Footer end
             ***********************************-->
-    <!--**********************************
+		<!--**********************************
            Support ticket button start
         ***********************************-->
 
-    <!--**********************************
+		<!--**********************************
            Support ticket button end
         ***********************************-->
-    </div>
-    <!--**********************************
+		<!--**********************************
         Main wrapper end
     ***********************************-->
 
-    <!--removeIf(production)-->
+		<!--removeIf(production)-->
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <script>
-        function validateForm(event) {
-            event.preventDefault();
-
-            const category = document.getElementById('category').value;
-            const itemName = document.getElementById('itemName').value.trim();
-            const description = document.getElementById('description').value.trim();
-            const availability = document.getElementById('availability').value;
-            const numberOfItems = document.getElementById('number_of_items').value.trim();
-            const price = document.getElementById('price').value.trim();
-            const image = document.getElementById('image').files[0];
-            const video = document.getElementById('video').value.trim();
-            const itemLocation = document.getElementById('item_location').value.trim();
-
-            if (category === "" || !category) {
-                alert('Please select a category.');
-                return false;
-            }
-            if (itemName === "") {
-                alert('Please enter the item name.');
-                return false;
-            }
-            if (description === "") {
-                alert('Please enter the description.');
-                return false;
-            }
-            if (availability === "" || !availability) {
-                alert('Please select availability.');
-                return false;
-            }
-            if (isNaN(numberOfItems) || numberOfItems <= 0) {
-                alert('Please enter a valid number of items.');
-                return false;
-            }
-            if (isNaN(price) || price <= 0) {
-                alert('Please enter a valid price.');
-                return false;
-            }
-            if (!image) {
-                alert('Please upload an image.');
-                return false;
-            }
-            if (video === "") {
-                alert('Please enter the product link.');
-                return false;
-            }
-            if (itemLocation === "") {
-                alert('Please enter the item location.');
-                return false;
-            }
-
-            // If all validation checks pass, submit the form
-            submitForm();
-            return true;
-        }
-
-        function submitForm() {
-            const form = document.getElementById('itemform');
-            const formData = new FormData(form);
-
-            fetch('backend/addRentalItem.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        swal('Vendor Item has been updated successfully.');
-                    } else {
-                        sweetAlert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    sweetAlert('An error occurred while updating vendor Item.');
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('backend/getAllCategories.php') // Replace with the actual path to your API
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const selectElement = document.getElementById('category');
-                        data.categories.forEach(category => {
-                            const option = document.createElement('option');
-                            option.value = category.category_id;
-                            option.textContent = category.category_name;
-                            selectElement.appendChild(option);
-                        });
-                        // Refresh the bootstrap-select element
-                        $(selectElement).selectpicker('refresh');
-                    } else {
-                        console.error('Failed to fetch categories:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching categories:', error);
-                });
-        });
-    </script>
-
-    <!-- Required vendors -->
-    <script src="js/extend.js"></script>
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="vendor/lightgallery/js/lightgallery-all.min.js"></script>
-    <script src="js/plugins-init/custom.min.js"></script>
-    <script src="js/plugins-init/deznav-2-init.js"></script>
-    <script src="vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="js/plugins-init/sweetalert.init.js"></script>
-
-
-</body>
-
+		<!--**********************************
+		<!-- Required vendors -->
+		<script src="js/extend.js"></script>
+		<script src="vendor/global/global.min.js"></script>
+		<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+		<script src="vendor/lightgallery/js/lightgallery-all.min.js"></script>
+		<script src="js/plugins-init/custom.min.js"></script>
+		<script src="js/plugins-init/deznav-2-init.js"></script>
+		<script src="js/plugins-init/sweetalert.init.js"></script>
+	</body>
 </html>

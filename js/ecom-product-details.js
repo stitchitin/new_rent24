@@ -31,7 +31,7 @@ const fetchDetails = async () => {
 
 	productItem = data.data;
 
-	displayDetails(data.data);
+	displayDetails(productItem);
 };
 
 fetchDetails();

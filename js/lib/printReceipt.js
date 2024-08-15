@@ -1,3 +1,5 @@
+import { sweetAlert } from "./index.js";
+
 const generateReceiptHTML = (paymentData) => {
 	const generateStyles = () => `
 					<style>
@@ -71,7 +73,7 @@ const generateReceiptHTML = (paymentData) => {
 						<script>
 							const printReceipt = () => {
 								window.print();
-								setTimeout(() => window.close(), 500);
+								setTimeout(() => window.close(), 300);
 							};
 
 							document.addEventListener("DOMContentLoaded", printReceipt)
