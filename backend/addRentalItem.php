@@ -8,14 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['category'])) {
         // Validate and sanitize inputs
         $category = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
-        $itemName = filter_var($_POST['itemName'], FILTER_SANITIZE_STRING);
-        $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
-        $price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $availability = filter_var($_POST['availability'], FILTER_SANITIZE_STRING);
+        $itemName = filter_var($_POST['ItemName'], FILTER_SANITIZE_STRING);
+        $description = filter_var($_POST['Description'], FILTER_SANITIZE_STRING);
+        $price = filter_var($_POST['Price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $availability = filter_var($_POST['Availability'], FILTER_SANITIZE_STRING);
         $vendor_id = filter_var($_POST['vendor_id'], FILTER_SANITIZE_NUMBER_INT);
-        $video = isset($_POST['video']) ? filter_var($_POST['video'], FILTER_SANITIZE_STRING) : null;
+        $video = isset($_POST['Video']) ? filter_var($_POST['Video'], FILTER_SANITIZE_STRING) : null;
         $number_of_items = filter_var($_POST['number_of_items'], FILTER_SANITIZE_NUMBER_INT);
-        $item_location = filter_var($_POST['item_location'], FILTER_SANITIZE_STRING);
+        $item_location = filter_var($_POST['location'], FILTER_SANITIZE_STRING);
 
         // Handle the file uploads
         $files = $_FILES['images']; // This should be the name attribute of your file input field

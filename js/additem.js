@@ -115,15 +115,15 @@ const populateLateForm = async () => {
 	}
 
 	const productItem = data.data;
-	const allElementsArray = Array.from(itemForm.elements);
+	const allFormInputsArray = Array.from(itemForm.elements);
 
 	// prettier-ignore
-	const requiredFormElements = allElementsArray.filter((item) =>Object.keys(productItem).includes(item.name));
+	const requiredFormInputs = allFormInputsArray.filter((formInput) =>Object.keys(productItem).includes(formInput.name) && formInput.name !== "images");
 
-	for (const requiredFormElement of requiredFormElements) {
-		const inputValue = productItem[requiredFormElement.name];
+	for (const requiredFormInput of requiredFormInputs) {
+		const inputValue = productItem[requiredFormInput.name];
 
-		requiredFormElement.value = inputValue;
+		requiredFormInput.value = inputValue;
 	}
 };
 

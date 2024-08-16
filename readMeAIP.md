@@ -213,7 +213,7 @@ Here is the documentation for the "Get All Categories" API endpoint:
 
 `/backend/getAllCategories.php`
 
-### Method
+### a
 
 `GET`
 
@@ -475,15 +475,15 @@ Adds a new rental item along with an image and other relevant details.
 The request body should include the following fields:
 
 - `category` (string, required): The category of the rental item.
-- `itemName` (string, required): The name of the rental item.
-- `description` (string, required): A description of the rental item.
-- `price` (float, required): The price of the rental item.
-- `availability` (string, required): The availability status of the rental item.
+- `ItemName` (string, required): The name of the rental item.
+- `Description` (string, required): A description of the rental item.
+- `Price` (float, required): The price of the rental item.
+- `Availability` (string, required): The availability status of the rental item.
 - `vendor_id` (int, required): The ID of the vendor adding the item.
-- `video` (string, optional): A video URL for the rental item.
+- `Video` (string, optional): A video URL for the rental item.
 - `number_of_items` (int, required): The number of items available for rent.
 - `images` (file, required): An image file for the rental item.
-- `item_location` (string, required): The location of the rental item.
+- `location` (string, required): The location of the rental item.
 
 #### Example Request Body (Form Data)
 
