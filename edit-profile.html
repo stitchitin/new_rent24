@@ -88,29 +88,24 @@
 									<div class="row">
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Name</label>
-											<input
-												type="text"
-												class="form-control"
-												id="firstname"
-												name="firstname"
-											/>
+											<input type="text" class="form-control" name="firstname" />
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Surname</label>
-											<input type="text" name="lastname" id="lastname" class="form-control" />
+											<input type="text" name="lastname" class="form-control" />
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Address</label>
-											<input type="text" class="form-control" id="address" name="address" />
+											<input type="text" class="form-control" name="address" />
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">NIN</label>
-											<input type="text" name="nin" id="nin" class="form-control" />
+											<input type="text" name="nin" class="form-control" />
 										</div>
 
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Gender</label>
-											<select id="sex" name="sex" class="selectpicker form-control">
+											<select name="sex" class="selectpicker form-control">
 												<option value="Male">Male</option>
 												<option value="Female">Female</option>
 											</select>
@@ -120,19 +115,13 @@
 											<input
 												type="date"
 												name="birth"
-												id="birth"
 												class="form-control"
 												placeholder="dd. mm .yyyy"
 											/>
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Phone</label>
-											<input
-												type="text"
-												name="phone_number"
-												id="phone_number"
-												class="form-control"
-											/>
+											<input type="text" name="phone_number" class="form-control" />
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">State</label>
@@ -183,11 +172,36 @@
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">LGA</label>
+											<input type="text" name="localgovt" class="form-control" />
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label">Bank Name</label>
 											<input
 												type="text"
-												name="localgovt"
-												id="localgovt"
+												value=""
+												name="bank_name"
 												class="form-control"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label">Account Name</label>
+											<input
+												type="text"
+												value=""
+												name="account_name"
+												class="form-control"
+												required
+											/>
+										</div>
+										<div class="col-sm-6 m-b30">
+											<label class="form-label">Account Number</label>
+											<input
+												type="number"
+												value=""
+												name="account_number"
+												class="form-control"
+												required
 											/>
 										</div>
 
@@ -204,8 +218,6 @@
 									</div>
 								</div>
 								<div class="card-footer">
-									<input type="hidden" id="status" name="status" value="inactive" />
-									<input type="hidden" id="userInfoId" name="user_id" />
 									<button class="btn btn-primary" id="submit-btn">UPDATE</button>
 								</div>
 							</form>

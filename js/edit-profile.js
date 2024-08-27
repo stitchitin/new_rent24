@@ -2,12 +2,21 @@ import { callApi, sweetAlert } from "./lib/index.js";
 import { select } from "./lib/utils.js";
 import { userStore } from "./store/userStore.js";
 
-const onSubmit = (event) => {
+const onSubmit = async (event, userInfo) => {
+	event.preventDefault();
+
 	const formData = new FormData(event.target);
 
-	const { data, error } = callApi("backend/updateVendor.php", {
+	if (formData.get("profile_pic").name === "") {
+		formData.delete("profile_pic");
+	}
+
+	const { data, error } = await callApi("backend/updateVendor.php", {
 		method: "POST",
 		body: formData,
+		query: {
+			user_id: userInfo.user.user_id,
+		},
 	});
 
 	if (error) {
@@ -22,12 +31,22 @@ const onSubmit = (event) => {
 	}
 
 	sweetAlert({ icon: "success", text: "Vendor information has been updated successfully." });
+
+	setTimeout(() => {
+		window.location.href = "vendor-profile.html";
+	}, 1000);
 };
 
-select("#profileForm").addEventListener("submit", onSubmit);
+userStore.subscribe(({ userInfo }) => {
+	select("#profileForm").addEventListener("submit", (event) => onSubmit(event, userInfo));
+});
 
 const populateLateForm = async (userInfo) => {
 	const vendorInformation = userInfo.vendor;
+
+	const profilePic = select("#profilePic2");
+	profilePic.src = vendorInformation.profile_pic;
+
 	const formInputsArray = Array.from(select("#profileForm").elements);
 
 	// prettier-ignore

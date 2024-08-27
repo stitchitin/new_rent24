@@ -1,4 +1,4 @@
-export { callApi } from "https://esm.run/@zayne-labs/callapi@0.6.0";
+export { callApi } from "https://esm.run/@zayne-labs/callapi@0.7.4";
 
 export * as dateFns from "https://esm.run/date-fns@3.6.0";
 
