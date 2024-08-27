@@ -1063,6 +1063,8 @@ This API endpoint allows clients to update an existing rental item's details, in
 
 The API expects the following parameters to be sent via a `POST` request. Ensure that the form encoding type is set to `multipart/form-data` to handle file uploads.
 
+The `item_id` parameter will be sent via a `GET` request
+
 | Parameter         | Type        | Required | Description                                                  |
 |-------------------|-------------|----------|--------------------------------------------------------------|
 | `item_id`         | `integer`   | **Yes**  | The unique ID of the rental item to be updated.             |

@@ -5,9 +5,9 @@ include 'inc/function.php';
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the form was submitted correctly and required fields are set
-    if (isset($_POST['item_id']) && isset($_POST['category'])) {
+    if (isset($_GET['item_id']) && isset($_POST['category'])) {
         // Validate and sanitize inputs
-        $item_id = filter_var($_POST['item_id'], FILTER_SANITIZE_NUMBER_INT);
+        $item_id = filter_var($_GET['item_id'], FILTER_SANITIZE_NUMBER_INT);
         $category = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
         $itemName = filter_var($_POST['ItemName'], FILTER_SANITIZE_STRING);
         $description = filter_var($_POST['Description'], FILTER_SANITIZE_STRING);
