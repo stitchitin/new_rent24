@@ -37,57 +37,11 @@
             Content body start
         ***********************************-->
 		<div class="content-body mh-auto">
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Make Payment</h5>
-							<button
-								type="button"
-								class="btn-close"
-								data-bs-dismiss="modal"
-								aria-label="Close"
-							></button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label class="form-label">Seller Mobile Number</label>
-								<input
-									type="number"
-									class="form-control mb-3"
-									id="exampleInputEmail1"
-									placeholder="Number"
-								/>
-								<label class="form-label">product Name</label>
-								<input
-									type="email"
-									class="form-control mb-3"
-									id="exampleInputEmail2"
-									placeholder=" Name"
-								/>
-								<label class="form-label">Amount</label>
-								<input
-									type="number"
-									class="form-control mb-3"
-									id="exampleInputEmail3"
-									placeholder="Amount"
-								/>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">
-								Close
-							</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Make Payment</h5>
+							<h5 class="modal-title">Withdrawal</h5>
 							<button
 								type="button"
 								class="btn-close"
@@ -96,42 +50,14 @@
 							></button>
 						</div>
 						<div class="modal-body">
-							<label class="form-label">Payment method</label>
-							<div>
-								<select class="w-100 mb-3" aria-label="Default select example">
-									<option selected>Open this select menu</option>
-									<option value="1">Bank Card</option>
-									<option value="2">Online</option>
-									<option value="3">Cash On Time</option>
-								</select>
-							</div>
 							<label class="form-label">Amount</label>
-							<input
-								type="email"
-								class="form-control mb-3"
-								id="exampleInputEmail4"
-								placeholder="Rupee"
-							/>
-							<label class="form-label">Card Holder Name</label>
-							<input
-								type="email"
-								class="form-control mb-3"
-								id="exampleInputEmail5"
-								placeholder="Amount"
-							/>
-							<label class="form-label">Card Name</label>
-							<input
-								type="email"
-								class="form-control mb-3"
-								id="exampleInputEmail6"
-								placeholder="Amount"
-							/>
+							<input type="number" class="form-control mb-3" placeholder="0.00" />
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">
 								Close
 							</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
+							<button type="button" class="btn btn-primary">Withdraw</button>
 						</div>
 					</div>
 				</div>
@@ -238,33 +164,22 @@
 										<!-- i added -->
 										<div class="payment-bx mx-0">
 											<div class="d-flex justify-content-between flex-wrap">
-												<div class="mb-4 mb-xl-0">
-													<!-- Button trigger modal -->
-													<button
-														type="button"
-														class="btn btn-primary me-3"
-														data-bs-toggle="modal"
-														data-bs-target="#exampleModal"
-													>
-														Make a payment
-													</button>
-													<button
-														type="button"
-														class="btn btn-white"
-														data-bs-toggle="modal"
-														data-bs-target="#exampleModal2"
-													>
-														Withdraw
-													</button>
-												</div>
+												<button
+													type="button"
+													class="btn btn-white"
+													data-bs-toggle="modal"
+													data-bs-target="#exampleModal2"
+												>
+													Withdraw
+												</button>
 											</div>
-											<div class="row">
+											<div class="row mt-1">
 												<div class="col-xl-8">
 													<div class="card dz-wallet">
 														<div class="card-header border-0 align-items-start pb-0">
 															<div>
 																<span class="fs-18 d-block mb-2">Main Balance</span>
-																<h2 class="fs-28 font-w600">98,452.44</h2>
+																<h2 id="mainBalance" class="fs-28 font-w600">0.00</h2>
 															</div>
 															<div class="dropdown send style-1">
 																<a
@@ -316,18 +231,25 @@
 															</div>
 															<div class="row mt-1">
 																<div class="value-data col-xl-3 col-md-4 col-6">
-																	<p class="mb-1">VALID THRU</p>
-																	<h4 class="mb-0 font-w500 text-white">Bank Name</h4>
+																	<p class="mb-1">BANK NAME</p>
+																	<h4
+																		id="bankName"
+																		class="mb-0 font-w500 text-white"
+																	></h4>
 																</div>
 																<div class="value-data col-xl-3 col-md-4 col-6">
-																	<p class="mb-1">NAME</p>
-																	<h4 class="mb-0 text-white font-w500">Adam Jackson</h4>
+																	<p class="mb-1">ACCOUNT NAME</p>
+																	<h4
+																		id="accountName"
+																		class="mb-0 text-white font-w500"
+																	></h4>
 																</div>
 																<div class="value-data col-xl-4 col-md-4 col-12">
 																	<p class="mb-1">ACCOUNT NUMBER</p>
-																	<h4 class="mb-0 text-white font-w500">
-																		**** **** **** 1234
-																	</h4>
+																	<h4
+																		id="accountNumber"
+																		class="mb-0 text-white font-w500"
+																	></h4>
 																</div>
 																<div class="col-xl-2"></div>
 															</div>

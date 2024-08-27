@@ -1,6 +1,17 @@
 import { callApi, printPaymentReceipt, select, sweetAlert } from "./lib/index.js";
 import { userStore } from "./store/userStore.js";
 
+const displayAccountDetails = (userInfo) => {
+	console.log(userInfo);
+
+	const { MainBalance, BankName, AccountName, AccountNumber } = userInfo.vendor;
+
+	select("#mainBalance").textContent = MainBalance;
+	select("#bankName").textContent = BankName ?? "Not Provided";
+	select("#accountName").textContent = AccountName ?? "Not Provided";
+	select("#accountNumber").textContent = AccountNumber ?? "Not Provided";
+};
+
 const createProductCard = (rentalItem) => `
 						<div class="card-body w-[300px] shrink-0">
 										<div class="m-b-30 space-y-[30px] w-full">
@@ -156,4 +167,5 @@ const fetchVendorTransactions = async (userInfo) => {
 userStore.subscribe(({ userInfo }) => {
 	fetchVendorTransactions(userInfo);
 	fetchAndDisplayVendorProducts(userInfo);
+	displayAccountDetails(userInfo);
 });
