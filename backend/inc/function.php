@@ -215,7 +215,7 @@ class User {
 
             if ($vendor_stmt->num_rows > 0) {
                 // Bind the result to variables
-                $vendor_stmt->bind_result($status, $profile_pic, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname);
+                $vendor_stmt->bind_result($status, $profile_pic, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname, $MainBalance, $BankName, $AccountName, $AccountNumber);
                 $vendor_stmt->fetch();
 
                 // Close the statements
@@ -244,6 +244,10 @@ class User {
                         "nin" => $nin,
                         "firstname" => $firstname,
                         "lastname" => $lastname,
+                        "MainBalance" == $MainBalance,
+                        "BankName" == $BankName,
+                        "AccountName" == $AccountName,
+                        "AccountNumber" == $AccountNumber,
                     ]
                 ]);
             } else {
