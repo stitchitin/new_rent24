@@ -458,6 +458,75 @@ class User {
         }
     }
 
+    // Update Item
+    public function updateRentalItem($item_id, $category, $itemName, $description, $price, $availability, $vendor_id, $video, $number_of_items, $file = null, $location) {
+        // Check if the item exists
+        $stmtCheck = $this->db->getConnection()->prepare("SELECT * FROM RentalItem WHERE ItemID = ?");
+        $stmtCheck->bind_param("i", $item_id);
+        $stmtCheck->execute();
+        $resultCheck = $stmtCheck->get_result();
+
+        if ($resultCheck->num_rows === 0) {
+            return json_encode(["success" => false, "message" => "Rental item not found."]);
+        }
+
+        // Update the rental item details
+        $stmt = $this->db->getConnection()->prepare(
+            "UPDATE RentalItem SET ItemName = ?, category = ?, Description = ?, Price = ?, Availability = ?, user_id = ?, Video = ?, number_of_items = ?, location = ?
+            WHERE ItemID = ?"
+        );
+        $stmt->bind_param("sssdsisssi", $itemName, $category, $description, $price, $availability, $vendor_id, $video, $number_of_items, $location, $item_id);
+
+        // Execute the update statement
+        if ($stmt->execute()) {
+            // If a new file is uploaded, handle the file upload
+            if ($file && $file['error'] == UPLOAD_ERR_OK) {
+                $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/rent24ng/backend/inc/uploads/rental_items/';
+
+                // Ensure the upload directory exists
+                if (!is_dir($upload_dir)) {
+                    if (!mkdir($upload_dir, 0777, true)) {
+                        return json_encode(["success" => false, "message" => "Failed to create upload directory."]);
+                    }
+                }
+
+                // Ensure the directory is writable
+                if (!is_writable($upload_dir)) {
+                    if (!chmod($upload_dir, 0777)) {
+                        return json_encode(["success" => false, "message" => "Upload directory is not writable."]);
+                    }
+                }
+
+                // Handle the uploaded file
+                $tempName = $file['tmp_name'];
+                $uniqueFileName = uniqid() . '_' . basename($file['name']);
+                $filePath = $upload_dir . $uniqueFileName;
+
+                if (move_uploaded_file($tempName, $filePath)) {
+                    $fileUrl = '/rent24ng/backend/inc/uploads/rental_items/' . $uniqueFileName;
+
+                    // Update the image path in the database
+                    $stmtImage = $this->db->getConnection()->prepare(
+                        "UPDATE ItemImage SET ImagePath = ? WHERE RentalItem_id = ?"
+                    );
+                    $stmtImage->bind_param("si", $fileUrl, $item_id);
+
+                    if (!$stmtImage->execute()) {
+                        return json_encode(["success" => false, "message" => "Failed to update image path: $fileUrl"]);
+                    }
+                } else {
+                    error_log("Failed to move uploaded file: " . $tempName . " to " . $filePath);
+                    return json_encode(["success" => false, "message" => "Failed to upload image: " . $file['name']]);
+                }
+            }
+
+            return json_encode(["success" => true, "message" => "Rental item updated successfully."]);
+        } else {
+            return json_encode(["success" => false, "message" => "Failed to update rental item."]);
+        }
+    }
+
+
     // Get all Item or get item by category
     public function getRentalItems($page = 1, $category_id = null) {
         // Calculate the offset for pagination
