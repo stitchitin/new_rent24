@@ -239,7 +239,7 @@ CREATE TABLE `transaction` (
     `transaction_id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT NOT NULL,
     `transaction_amount` DECIMAL(10, 2) NOT NULL,
-    `status` ENUM('Created', 'Debited') NOT NULL,
+    `status` ENUM('Credited', 'Debited','Request') NOT NULL,
     `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

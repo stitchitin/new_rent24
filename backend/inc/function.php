@@ -887,7 +887,7 @@ class User {
                 // Insert transaction record with 90% of the total price
                 $insertTransactionQuery = "
                     INSERT INTO `transaction` (user_id, transaction_amount, status) 
-                    VALUES (?, ?, 'Created')";
+                    VALUES (?, ?, 'Credited')";
                 $stmt = $this->db->getConnection()->prepare($insertTransactionQuery);
                 $stmt->bind_param("id", $user_id, $amount_to_add);
                 $stmt->execute();

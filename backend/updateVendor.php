@@ -5,9 +5,9 @@ include 'inc/function.php';
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the form was submitted and file upload is handled correctly
-    if (isset($_POST['user_id'])) {
+    if (isset($_GET['user_id'])) {
         // Validate and sanitize inputs
-        $user_id = filter_var($_POST['user_id'], FILTER_SANITIZE_NUMBER_INT);
+        $user_id = filter_var($_GET['user_id'], FILTER_SANITIZE_NUMBER_INT);
         $phone_number = isset($_POST['phone_number']) ? filter_var($_POST['phone_number'], FILTER_SANITIZE_STRING) : null;
         $state = isset($_POST['state']) ? filter_var($_POST['state'], FILTER_SANITIZE_STRING) : null;
         $address = isset($_POST['address']) ? filter_var($_POST['address'], FILTER_SANITIZE_STRING) : null;
