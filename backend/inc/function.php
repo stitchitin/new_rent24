@@ -271,49 +271,62 @@ class User {
     }
 
 
-    public function updateVendor($user_id, $file, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname) {
-        $profile_pic_path = null;
-
+    public function updateVendor($user_id, $file, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname, $bank_name, $account_name, $account_number) {
+        $profile_pic_url = null;
+    
         // Check if a file was uploaded
         if ($file['error'] == UPLOAD_ERR_OK) {
             // Define the directory where the file will be saved
             $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/rent24ng/backend/inc/uploads/profile_pics/';
-
+    
             // Ensure the upload directory exists
             if (!is_dir($upload_dir)) {
                 if (!mkdir($upload_dir, 0777, true)) {
                     return json_encode(["success" => false, "message" => "Failed to create upload directory."]);
                 }
             }
-
+    
             // Ensure the directory is writable
             if (!is_writable($upload_dir)) {
                 if (!chmod($upload_dir, 0777)) {
                     return json_encode(["success" => false, "message" => "Upload directory is not writable."]);
                 }
             }
-
+    
             // Generate a unique file name to avoid collisions
             $file_name = uniqid() . '_' . basename($file['name']);
             $profile_pic_path = $upload_dir . $file_name;
-
+    
             // Move the file to the upload directory
             if (!move_uploaded_file($file['tmp_name'], $profile_pic_path)) {
                 error_log("Failed to move uploaded file: " . $file['tmp_name'] . " to " . $profile_pic_path);
                 return json_encode(["success" => false, "message" => "Failed to upload profile picture."]);
             }
-
+    
             // Convert the profile picture path to a URL
             $profile_pic_url = '/rent24ng/backend/inc/uploads/profile_pics/' . $file_name;
         }
-
+    
         // Prepare the SQL statement for updating the Vendor table
         $stmt = $this->db->getConnection()->prepare("
             UPDATE Vendor
-            SET profile_pic = COALESCE(?, profile_pic), phone_number = ?, state = ?, address = ?, localgovt = ?, city = ?, sex = ?, birth = ?, nin = ?, firstname = ?, lastname = ?
+            SET profile_pic = COALESCE(?, profile_pic), 
+                phone_number = ?, 
+                state = ?, 
+                address = ?, 
+                localgovt = ?, 
+                city = ?, 
+                sex = ?, 
+                birth = ?, 
+                nin = ?, 
+                firstname = ?, 
+                lastname = ?, 
+                BankName = COALESCE(?, BankName), 
+                AccountName = COALESCE(?, AccountName), 
+                AccountNumber = COALESCE(?, AccountNumber)
             WHERE user_id = ?
         ");
-        $stmt->bind_param("sssssssssssi",
+        $stmt->bind_param("sssssssssssss",
             $profile_pic_url,
             $phone_number,
             $state,
@@ -325,9 +338,12 @@ class User {
             $nin,
             $firstname,
             $lastname,
+            $bank_name,
+            $account_name,
+            $account_number,
             $user_id
         );
-
+    
         // Execute the statement
         if ($stmt->execute()) {
             return json_encode(["success" => true, "message" => "Vendor information has been updated successfully."]);
@@ -335,6 +351,7 @@ class User {
             return json_encode(["success" => false, "message" => "Failed to update vendor information."]);
         }
     }
+    
 
     // Get all category
     public function getAllCategories() {

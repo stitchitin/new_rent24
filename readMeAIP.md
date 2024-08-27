@@ -1340,3 +1340,121 @@ fetch('/rent24ng/backend/updateRentalItem.php', {
 
 ---
 
+
+
+Here's the updated API documentation for the `updateVendor` endpoint, including the new fields for a frontend developer:
+
+---
+
+## **API Documentation: Update Vendor**
+
+### **Endpoint**
+`POST /backend/updateVendor.php`
+
+### **Description**
+Updates vendor information, including profile picture and additional fields such as bank details. 
+
+### **Request Method**
+`POST`
+
+### **Request Parameters**
+
+#### **Form Data**
+- **`user_id`** (integer, required): The unique identifier of the vendor to update.
+- **`phone_number`** (string, optional): The vendor's phone number.
+- **`state`** (string, optional): The vendor's state.
+- **`address`** (string, optional): The vendor's address.
+- **`localgovt`** (string, optional): The vendor's local government area.
+- **`city`** (string, optional): The vendor's city.
+- **`sex`** (string, optional): The vendor's sex.
+- **`birth`** (string, optional): The vendor's birthdate.
+- **`nin`** (string, optional): The vendor's National Identification Number (NIN).
+- **`firstname`** (string, optional): The vendor's first name.
+- **`lastname`** (string, optional): The vendor's last name.
+- **`bank_name`** (string, optional): The name of the bank.
+- **`account_name`** (string, optional): The account holder's name.
+- **`account_number`** (string, optional): The bank account number.
+- **`profile_pic`** (file, optional): The vendor's profile picture. 
+
+### **Request Example**
+
+**cURL Example:**
+
+```bash
+curl -X POST http://yourdomain.com/backend/updateVendor.php \
+  -F "user_id=123" \
+  -F "phone_number=1234567890" \
+  -F "state=California" \
+  -F "address=123 Main St" \
+  -F "localgovt=Central" \
+  -F "city=Los Angeles" \
+  -F "sex=Male" \
+  -F "birth=1990-01-01" \
+  -F "nin=AB1234567" \
+  -F "firstname=John" \
+  -F "lastname=Doe" \
+  -F "bank_name=Bank of America" \
+  -F "account_name=John Doe" \
+  -F "account_number=987654321" \
+  -F "profile_pic=@/path/to/profile_pic.jpg"
+```
+
+### **Response**
+
+#### **Success Response**
+```json
+{
+  "success": true,
+  "message": "Vendor information has been updated successfully."
+}
+```
+
+#### **Error Responses**
+- **Missing Required Fields**
+  ```json
+  {
+    "success": false,
+    "message": "Missing required fields or file upload error."
+  }
+  ```
+  
+- **Invalid Request Method**
+  ```json
+  {
+    "success": false,
+    "message": "Invalid request method."
+  }
+  ```
+
+- **Upload Directory Issues**
+  ```json
+  {
+    "success": false,
+    "message": "Failed to create upload directory."
+  }
+  ```
+
+- **File Upload Error**
+  ```json
+  {
+    "success": false,
+    "message": "Failed to upload profile picture."
+  }
+  ```
+
+- **Database Update Failure**
+  ```json
+  {
+    "success": false,
+    "message": "Failed to update vendor information."
+  }
+  ```
+
+### **Notes**
+- The `profile_pic` field should be a valid file upload with a valid image file.
+- All other fields are optional and can be omitted if not being updated.
+- The `user_id` is required to identify which vendor to update.
+
+---
+
+This documentation should help the frontend developer understand how to interact with the `updateVendor` API endpoint and handle the request and response correctly.

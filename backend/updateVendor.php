@@ -19,8 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstname = isset($_POST['firstname']) ? filter_var($_POST['firstname'], FILTER_SANITIZE_STRING) : null;
         $lastname = isset($_POST['lastname']) ? filter_var($_POST['lastname'], FILTER_SANITIZE_STRING) : null;
 
+        // Additional fields for bank details
+        $bank_name = isset($_POST['bank_name']) ? filter_var($_POST['bank_name'], FILTER_SANITIZE_STRING) : null;
+        $account_name = isset($_POST['account_name']) ? filter_var($_POST['account_name'], FILTER_SANITIZE_STRING) : null;
+        $account_number = isset($_POST['account_number']) ? filter_var($_POST['account_number'], FILTER_SANITIZE_STRING) : null;
+
         // Handle the file upload
-        $profile_pic = $_FILES['profile_pic'];
+        $profile_pic = isset($_FILES['profile_pic']) ? $_FILES['profile_pic'] : null;
 
         // Initialize the Database class
         $database = new Database();
@@ -41,7 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $birth,
             $nin,
             $firstname,
-            $lastname
+            $lastname,
+            $bank_name,        // Adding bank details to the update function
+            $account_name, 
+            $account_number
         );
 
         echo $result;
