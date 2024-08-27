@@ -243,3 +243,11 @@ CREATE TABLE `transaction` (
     `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE `notification` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `subject` VARCHAR(255) NOT NULL,
+    `details` TEXT NOT NULL,
+    `status` ENUM('Read', 'Unread') DEFAULT 'Unread',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

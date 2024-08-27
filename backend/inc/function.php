@@ -861,6 +861,64 @@ class User {
         }
     }
     
+    public function updateWallet() {
+        // Fetch rentals where status is 'Approved' and Giving is 'Pending'
+        $query = "SELECT * FROM rentals WHERE status = 'Approved' AND Giving = 'Pending'";
+        $result = $this->db->getConnection()->query($query);
+    
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $vendor_id = $row['vendor_id'];
+                $total_price = $row['total_price'];
+                $user_id = $row['user_id'];
+    
+                // Calculate 90% of the total price
+                $amount_to_add = $total_price * 0.9;
+    
+                // Update Vendor MainBalance with 90% of the total price
+                $updateBalanceQuery = "
+                    UPDATE Vendor 
+                    SET MainBalance = MainBalance + ?
+                    WHERE user_id = ?";
+                $stmt = $this->db->getConnection()->prepare($updateBalanceQuery);
+                $stmt->bind_param("di", $amount_to_add, $vendor_id);
+                $stmt->execute();
+    
+                // Insert transaction record with 90% of the total price
+                $insertTransactionQuery = "
+                    INSERT INTO `transaction` (user_id, transaction_amount, status) 
+                    VALUES (?, ?, 'Created')";
+                $stmt = $this->db->getConnection()->prepare($insertTransactionQuery);
+                $stmt->bind_param("id", $user_id, $amount_to_add);
+                $stmt->execute();
+    
+                // Update rentals table Giving status to 'Send'
+                $updateRentalsQuery = "
+                    UPDATE rentals 
+                    SET Giving = 'Send' 
+                    WHERE id = ?";
+                $stmt = $this->db->getConnection()->prepare($updateRentalsQuery);
+                $stmt->bind_param("i", $row['id']);
+                $stmt->execute();
+    
+                // Send notification
+                $subject = "Payment Received";
+                $details = "You have received a payment of " . number_format($amount_to_add, 2) . ".";
+                $insertNotificationQuery = "
+                    INSERT INTO notification (user_id, subject, details, status)
+                    VALUES (?, ?, ?, 'Unread')";
+                $stmt = $this->db->getConnection()->prepare($insertNotificationQuery);
+                $stmt->bind_param("iss", $vendor_id, $subject, $details);
+                $stmt->execute();
+            }
+    
+            return json_encode(["success" => true, "message" => "Wallet updated and notifications sent."]);
+        } else {
+            return json_encode(["success" => false, "message" => "No approved rentals with pending giving status."]);
+        }
+    }
+    
+    
     
     
 
