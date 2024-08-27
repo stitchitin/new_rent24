@@ -1,4 +1,4 @@
-import { sweetAlert } from "./lib/index.js";
+import { select, sweetAlert } from "./lib/index.js";
 import { userStore, userStoreActions } from "./store/userStore.js";
 
 // Function to get a cookie by name
