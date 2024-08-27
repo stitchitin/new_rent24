@@ -203,7 +203,7 @@ class User {
             $stmt->fetch();
 
             // Fetch vendor details based on the user_id
-            $vendor_stmt = $db->prepare("SELECT status, profile_pic, phone_number, state, address, localgovt, city, sex, birth, nin, firstname, lastname FROM Vendor WHERE user_id = ?");
+            $vendor_stmt = $db->prepare("SELECT status, profile_pic, phone_number, state, address, localgovt, city, sex, birth, nin, firstname, lastname, MainBalance, BankName, AccountName, AccountNumber FROM Vendor WHERE user_id = ?");
             if ($vendor_stmt === false) {
                 return json_encode(["success" => false, "message" => "Database error."]);
             }
