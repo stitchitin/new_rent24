@@ -74,23 +74,6 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 	const profilePicElement1 = select("#profilePic1");
 	profilePicElement1.src = vendor.profile_pic;
 
-	if (window.location.pathname.endsWith("edit-profile.html")) {
-		select("#userInfoId").value = user.user_id;
-		const profilePicElement2 = select("#profilePic2");
-		profilePicElement2.src = vendor.profile_pic;
-		select("#firstname1").textContent = vendor.firstname;
-		select("#lastname1").textContent = vendor.lastname;
-		select("#firstname").value = vendor.firstname;
-		select("#lastname").value = vendor.lastname;
-		select("#address").value = vendor.address;
-		select("#nin").value = vendor.nin;
-		select("#sex").value = vendor.sex;
-		select("#birth").value = vendor.birth;
-		select("#phone_number").value = vendor.phone_number;
-		select("#state").value = vendor.state;
-		select("#city").value = vendor.city;
-		select("#localgovt").value = vendor.localgovt;
-	}
 	if (window.location.pathname.endsWith("settings.html")) {
 		select("#userInfoId").value = user.user_id;
 		const profilePicElement2 = select("#profilePic2");

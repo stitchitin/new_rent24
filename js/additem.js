@@ -53,8 +53,6 @@ const fetchCategoriesForSelectInput = async () => {
 		.join("");
 
 	selectElement.insertAdjacentHTML("beforeend", optionsHtml);
-
-	// selectElement.selectpicker("refresh");
 };
 
 fetchCategoriesForSelectInput();
@@ -82,4 +80,4 @@ const populateLateForm = async () => {
 	}
 };
 
-item_id && populateLateForm(itemForm);
+item_id && populateLateForm();

@@ -1,25 +1,43 @@
+import { callApi, sweetAlert } from "./lib/index.js";
 import { select } from "./lib/utils.js";
+import { userStore } from "./store/userStore.js";
 
 const onSubmit = (event) => {
-	const form = document.getElementById("updateForm");
 	const formData = new FormData(event.target);
 
-	fetch("backend/updateVendor.php", {
+	const { data, error } = callApi("backend/updateVendor.php", {
 		method: "POST",
 		body: formData,
-	})
-		.then((response) => response.json())
-		.then((data) => {
-			if (data.success) {
-				alert("Users information has been updated successfully.");
-			} else {
-				alert("Failed to update vendor information: " + data.message);
-			}
-		})
-		.catch((error) => {
-			console.error("Fetch error:", error);
-			alert("An error occurred while updating vendor information.");
-		});
+	});
+
+	if (error) {
+		console.error("Fetch error:", error);
+		sweetAlert({ icon: "error", text: "An error occurred while updating vendor information." });
+		return;
+	}
+
+	if (!data.success) {
+		sweetAlert({ icon: "error", text: data.message });
+		return;
+	}
+
+	sweetAlert({ icon: "success", text: "Vendor information has been updated successfully." });
 };
 
 select("#profileForm").addEventListener("submit", onSubmit);
+
+const populateLateForm = async (userInfo) => {
+	const vendorInformation = userInfo.vendor;
+	const formInputsArray = Array.from(select("#profileForm").elements);
+
+	// prettier-ignore
+	const requiredFormInputs = formInputsArray.filter((formInput) =>Object.keys(vendorInformation).includes(formInput.name) && formInput.name !== "profile_pic");
+
+	for (const requiredFormInput of requiredFormInputs) {
+		const inputValue = vendorInformation[requiredFormInput.name];
+
+		requiredFormInput.value = inputValue;
+	}
+};
+
+userStore.subscribe(({ userInfo }) => populateLateForm(userInfo));

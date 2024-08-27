@@ -2,8 +2,6 @@ import { callApi, printPaymentReceipt, select, sweetAlert } from "./lib/index.js
 import { userStore } from "./store/userStore.js";
 
 const displayAccountDetails = (userInfo) => {
-	console.log(userInfo);
-
 	const { MainBalance, BankName, AccountName, AccountNumber } = userInfo.vendor;
 
 	select("#mainBalance").textContent = MainBalance;
