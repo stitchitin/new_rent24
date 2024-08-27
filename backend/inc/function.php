@@ -244,10 +244,10 @@ class User {
                         "nin" => $nin,
                         "firstname" => $firstname,
                         "lastname" => $lastname,
-                        "MainBalance" == $MainBalance,
-                        "BankName" == $BankName,
-                        "AccountName" == $AccountName,
-                        "AccountNumber" == $AccountNumber,
+                        "MainBalance" => $MainBalance,
+                        "BankName" => $BankName,
+                        "AccountName" => $AccountName,
+                        "AccountNumber" => $AccountNumber,
                     ]
                 ]);
             } else {
