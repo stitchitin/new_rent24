@@ -91,6 +91,11 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 		document.getElementById("city").value = vendor.city;
 		document.getElementById("lga").value = vendor.localgovt;
 	}
+	if (window.location.pathname.endsWith("settings.html")) {
+		document.getElementById("userInfoId").value = user.user_id;
+		const profilePicElement2 = document.getElementById("profilePic2");
+		profilePicElement2.src = vendor.profile_pic;
+	}
 
 	if (window.location.pathname.endsWith("user-profile.html")) {
 		const profilePicElement2 = document.getElementById("profilePic2");
@@ -133,7 +138,7 @@ const protectPagesAndHideVendorMenu = async (userInfo) => {
 		if (userInfo.user.privilege !== "vendor" && window.location.pathname.endsWith(page)) {
 			sweetAlert("You are not authorized to view this page!");
 
-			document.body.style.display = "none";
+			document.body.remove();
 
 			window.location.href = "404.html";
 		}

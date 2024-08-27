@@ -8,7 +8,7 @@ import { userStore } from "./store/userStore.js";
  */
 let productItem;
 
-const fetchDetails = async () => {
+const fetchAndDisplayDetails = async () => {
 	const item_id = new URLSearchParams(window.location.search).get("item_id");
 
 	/**
@@ -31,16 +31,7 @@ const fetchDetails = async () => {
 
 	productItem = data.data;
 
-	displayDetails(productItem);
-};
-
-fetchDetails();
-
-/**
- * @param {SuccessData["data"]} data
- */
-const displayDetails = (data) => {
-	select("input[name=quantity]")?.setAttribute("max", data.number_of_items);
+	select("input[name=quantity]")?.setAttribute("max", productItem.number_of_items);
 
 	select("#product-images-container").insertAdjacentHTML(
 		"beforeend",
@@ -52,7 +43,7 @@ const displayDetails = (data) => {
 				 aria-labelledby="home-tab"
 				 tabindex="0"
 				>
-				 <img class="img-fluid rounded" src=${data.images[0]} alt="" />
+				 <img class="img-fluid rounded" src=${productItem.images[0]} alt="" />
 				</div>
 				<div
 				 class="tab-pane fade"
@@ -61,7 +52,7 @@ const displayDetails = (data) => {
 				 aria-labelledby="profile-tab"
 				 tabindex="0"
 				>
-				 <img class="img-fluid rounded" src=${data.images[1]} alt="" />
+				 <img class="img-fluid rounded" src=${productItem.images[1]} alt="" />
 				</div>
 				<div
 				 class="tab-pane fade"
@@ -70,7 +61,7 @@ const displayDetails = (data) => {
 				 aria-labelledby="contact-tab"
 				 tabindex="0"
 				>
-				 <img class="img-fluid rounded" src=${data.images[2]} alt="" />
+				 <img class="img-fluid rounded" src=${productItem.images[2]} alt="" />
 				</div>
 				<div
 				 class="tab-pane fade"
@@ -79,7 +70,7 @@ const displayDetails = (data) => {
 				 aria-labelledby="end-tab"
 				 tabindex="0"
 				>
-				 <img class="img-fluid rounded" src=${data.images[3]} alt="" />
+				 <img class="img-fluid rounded" src=${productItem.images[3]} alt="" />
 				</div>
 			  </div>
 			  <ul class="nav nav-tabs product-detail" id="myTab" role="tablist">
@@ -96,7 +87,7 @@ const displayDetails = (data) => {
 				 >
 				  <img
 					class="img-fluid me-2 rounded"
-					src=${data.images[0]}
+					src=${productItem.images[0]}
 					alt=""
 					width="80"
 				  />
@@ -115,7 +106,7 @@ const displayDetails = (data) => {
 				 >
 				  <img
 					class="img-fluid me-2 rounded"
-					src=${data.images[1]}
+					src=${productItem.images[1]}
 					alt=""
 					width="80"
 				  />
@@ -134,7 +125,7 @@ const displayDetails = (data) => {
 				 >
 				  <img
 					class="img-fluid me-2 rounded"
-					src=${data.images[2]}
+					src=${productItem.images[2]}
 					alt=""
 					width="80"
 				  />
@@ -153,7 +144,7 @@ const displayDetails = (data) => {
 				 >
 				  <img
 					class="img-fluid rounded"
-					src=${data.images[3]}
+					src=${productItem.images[3]}
 					alt=""
 					width="80"
 				  />
@@ -163,29 +154,29 @@ const displayDetails = (data) => {
 			 </div>`
 	);
 
-	const nairaSymbol = "&#8358;";
-
 	select("#product-details").insertAdjacentHTML(
 		"beforeend",
-		`<h4>${data.ItemName}</h4>
+		`<h4>${productItem.ItemName}</h4>
 		<div class="d-table mb-2">
-			<p class="price float-start d-block">${nairaSymbol} ${data.Price}</p>
+			<p class="price float-start d-block">&#8358; ${new Intl.NumberFormat("en-US").format(
+				productItem.Price
+			)}</p>
 		</div>
 
 		<p>
 			Availability:
 			<span class="item">
-				${data.Availability} <i class="fa fa-shopping-basket"></i></span>
+				${productItem.Availability} <i class="fa fa-shopping-basket"></i></span>
 		</p>
 
-		<p>Vendor: <span class="item">${data.vendor_firstname}</span></p>
+		<p>Vendor: <span class="item">${productItem.vendor_firstname}</span></p>
 
-		<p>Number of items: <span class="item">${data.number_of_items}</span></p>
+		<p>Number of items: <span class="item">${productItem.number_of_items}</span></p>
 
 		<div class="text-content">
 			<h3> Description </h3>
 			<p>
-				${data.Description ?? "No description provided"}
+				${productItem.Description ?? "No description provided"}
 			</p>
 		</div>`
 	);
@@ -204,7 +195,9 @@ const displayDetails = (data) => {
 	);
 };
 
-const handleFormSubmit = (userInfo) => async (event) => {
+fetchAndDisplayDetails();
+
+const handlePaymentFormSubmit = (userInfo) => async (event) => {
 	event.preventDefault();
 
 	const user = userInfo?.user;
@@ -228,19 +221,17 @@ const handleFormSubmit = (userInfo) => async (event) => {
 
 	const paymentId = `PAY-${crypto.randomUUID().slice(0, 10)}`;
 
-	const { vendor_id, ItemID, Price } = productItem;
-
 	const { user_id, email } = user;
 
-	const totalPrice = Price * formObject.quantity;
+	const totalPrice = productItem.Price * formObject.quantity;
 
-	const { data: dataInfo } = await callApi("backend/rentItem.php", {
+	const { data } = await callApi("backend/rentItem.php", {
 		method: "POST",
 		body: {
 			...formObject,
 			paymentId,
-			vendorId: vendor_id,
-			itemId: ItemID,
+			vendorId: productItem.vendor_id,
+			itemId: productItem.ItemID,
 			userId: user_id,
 			totalPrice,
 		},
@@ -250,10 +241,10 @@ const handleFormSubmit = (userInfo) => async (event) => {
 
 	select("#close-btn").click();
 
-	if (!dataInfo.success) {
-		sweetAlert({ icon: "error", text: `Error adding product: ${dataInfo.message}` });
+	if (!data.success) {
+		sweetAlert({ icon: "error", text: `Error adding product: ${data.message}` });
 
-		console.error("Error adding product:", dataInfo.message);
+		console.error("Error adding product:", data.message);
 
 		return;
 	}
@@ -294,5 +285,7 @@ const handleFormSubmit = (userInfo) => async (event) => {
 };
 
 userStore.subscribe(({ userInfo }) => {
-	select("#product-form").addEventListener("submit", (event) => handleFormSubmit(userInfo)(event));
+	select("#product-form").addEventListener("submit", (event) =>
+		handlePaymentFormSubmit(userInfo)(event)
+	);
 });

@@ -23,32 +23,8 @@ const fetchAndDisplayCategories = async () => {
 
 fetchAndDisplayCategories();
 
-const fetchAndDisplayRentalItems = async (userInfo) => {
-	// Get query parameters from the URL
-	const category_id = new URLSearchParams(window.location.search).get("category_id");
-
-	const { data } = await callApi("backend/getRentalItems.php", {
-		query: category_id && { category_id },
-	});
-
-	const rentalsDiv = select("#rental-items");
-
-	if (!data.success) {
-		rentalsDiv.insertAdjacentHTML("beforeend", "<p>No rental items found.</p>");
-		return;
-	}
-
-	const nairaSymbol = "&#8358;";
-
-	data.data
-		.filter((rentalItem) => rentalItem.user_id !== userInfo.user.user_id)
-		.forEach((rentalItem) => {
-			const rentalElement = document.createElement("div");
-			rentalElement.className = "col-lg-12 col-xl-6 col-xxl-4";
-			rentalElement.insertAdjacentHTML(
-				"beforeend",
-				`
-																<div class="card">
+const createCard = (rentalItem) => `
+																<div class="card col-lg-12 col-xl-6 col-xxl-4">
 																				<div class="card-body">
 																								<div class="row m-b-30">
 																												<div class="col-md-5 col-xxl-12">
@@ -64,18 +40,38 @@ const fetchAndDisplayRentalItems = async (userInfo) => {
 																																				<a href="ecom-product-detail.html?item_id=${rentalItem.ItemID}">${rentalItem.ItemName}</a>
 																																				</h4>
 																																				<p>Location: <span class="item">${rentalItem.location} </span></p>
-																																				<p>Price: <i class="fa fa-check-circle text-success"></i> ${nairaSymbol} ${rentalItem.Price}</p>
+																																				<p>Price: <i class="fa fa-check-circle text-success"></i>&#8358;${new Intl.NumberFormat("en-US").format(
+																																					rentalItem.Price
+																																				)}</p>
 																																				<p>Number of items: <span class="item">${rentalItem.number_of_items}</span></p>
 																																				<p>Availability: <span class="item">${rentalItem.Availability}</span></p>
 																																</div>
 																												</div></div>
 																				</div>
 																</div>
-												`
-			);
+												`;
 
-			rentalsDiv.append(rentalElement);
-		});
+const fetchAndDisplayRentalItems = async (userInfo) => {
+	// Get query parameters from the URL
+	const category_id = new URLSearchParams(window.location.search).get("category_id");
+
+	const { data } = await callApi("backend/getRentalItems.php", {
+		query: category_id && { category_id },
+	});
+
+	const rentalsDiv = select("#rental-items");
+
+	if (!data.success) {
+		rentalsDiv.insertAdjacentHTML("beforeend", "<p>No rental items found.</p>");
+		return;
+	}
+
+	const htmlContent = data.data
+		.filter((rentalItem) => rentalItem.user_id !== userInfo.user.user_id)
+		.map((rentalItem) => createCard(rentalItem))
+		.join("");
+
+	rentalsDiv.insertAdjacentHTML("beforeend", htmlContent);
 };
 
 // Fetch categories when the page loads
