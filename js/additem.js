@@ -2,13 +2,9 @@ import { callApi, select, sweetAlert, waitUntil } from "./lib/index.js";
 
 const item_id = new URLSearchParams(window.location.search).get("item_id");
 
-const itemForm = select("#itemform");
+item_id && select("#image").removeAttribute("required");
 
-const imageInput = select("#image");
-
-item_id && imageInput.removeAttribute("required");
-
-const validateAndSubmitForm = async (event) => {
+const onSubmit = async (event) => {
 	event.preventDefault();
 
 	const formData = new FormData(event.target);
@@ -40,7 +36,7 @@ const validateAndSubmitForm = async (event) => {
 	window.location.href = "vendor-profile.html";
 };
 
-itemForm.addEventListener("submit", validateAndSubmitForm);
+select("#itemform").addEventListener("submit", onSubmit);
 
 const fetchCategoriesForSelectInput = async () => {
 	const { data } = await callApi("backend/getAllCategories.php");
@@ -74,7 +70,7 @@ const populateLateForm = async () => {
 	}
 
 	const productItem = data.data;
-	const allFormInputsArray = Array.from(itemForm.elements);
+	const allFormInputsArray = Array.from(select("#itemform").elements);
 
 	// prettier-ignore
 	const requiredFormInputs = allFormInputsArray.filter((formInput) =>Object.keys(productItem).includes(formInput.name) && formInput.name !== "images");
@@ -86,4 +82,4 @@ const populateLateForm = async () => {
 	}
 };
 
-item_id && populateLateForm();
+item_id && populateLateForm(itemForm);

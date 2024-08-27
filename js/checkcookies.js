@@ -68,65 +68,65 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 	const user = userInfo.user; // User information from the API
 
 	// Update the UI with user information (example)
-	document.getElementById("userInfoUsername").innerText = user.username;
-	document.getElementById("userInfoP").innerText = user.privilege;
+	select("#userInfoUsername").textContent = user.username;
+	select("#userInfoP").textContent = user.privilege;
 
-	const profilePicElement1 = document.getElementById("profilePic1");
+	const profilePicElement1 = select("#profilePic1");
 	profilePicElement1.src = vendor.profile_pic;
 
 	if (window.location.pathname.endsWith("edit-profile.html")) {
-		document.getElementById("userInfoId").value = user.user_id;
-		const profilePicElement2 = document.getElementById("profilePic2");
+		select("#userInfoId").value = user.user_id;
+		const profilePicElement2 = select("#profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
-		document.getElementById("firstname1").innerText = vendor.firstname;
-		document.getElementById("lastname1").innerText = vendor.lastname;
-		document.getElementById("firstname").value = vendor.firstname;
-		document.getElementById("lastname").value = vendor.lastname;
-		document.getElementById("address").value = vendor.address;
-		document.getElementById("nin").value = vendor.nin;
-		document.getElementById("sex").value = vendor.sex;
-		document.getElementById("birth").value = vendor.birth;
-		document.getElementById("phone_number").value = vendor.phone_number;
-		document.getElementById("state").value = vendor.state;
-		document.getElementById("city").value = vendor.city;
-		document.getElementById("lga").value = vendor.localgovt;
+		select("#firstname1").textContent = vendor.firstname;
+		select("#lastname1").textContent = vendor.lastname;
+		select("#firstname").value = vendor.firstname;
+		select("#lastname").value = vendor.lastname;
+		select("#address").value = vendor.address;
+		select("#nin").value = vendor.nin;
+		select("#sex").value = vendor.sex;
+		select("#birth").value = vendor.birth;
+		select("#phone_number").value = vendor.phone_number;
+		select("#state").value = vendor.state;
+		select("#city").value = vendor.city;
+		select("#localgovt").value = vendor.localgovt;
 	}
 	if (window.location.pathname.endsWith("settings.html")) {
-		document.getElementById("userInfoId").value = user.user_id;
-		const profilePicElement2 = document.getElementById("profilePic2");
+		select("#userInfoId").value = user.user_id;
+		const profilePicElement2 = select("#profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
 	}
 
 	if (window.location.pathname.endsWith("user-profile.html")) {
-		const profilePicElement2 = document.getElementById("profilePic2");
+		const profilePicElement2 = select("#profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
-		document.getElementById("firstname1").innerText = vendor.firstname;
-		document.getElementById("lastname1").innerText = vendor.lastname;
-		document.getElementById("userInfoPrivilege").innerText = user.privilege;
-		document.getElementById("phone_number").innerText = vendor.phone_number;
-		document.getElementById("userInfoemail").innerText = user.email;
-		document.getElementById("userlocalgovt").innerText = vendor.localgovt;
+		select("#firstname1").textContent = vendor.firstname;
+		select("#lastname1").textContent = vendor.lastname;
+		select("#userInfoPrivilege").textContent = user.privilege;
+		select("#phone_number").textContent = vendor.phone_number;
+		select("#userInfoemail").textContent = user.email;
+		select("#userlocalgovt").textContent = vendor.localgovt;
 	}
 
 	if (window.location.pathname.endsWith("additem.html")) {
-		document.getElementById("userInfoId").value = user.user_id;
+		select("#userInfoId").value = user.user_id;
 	}
 
 	if (window.location.pathname.endsWith("vendor-profile.html")) {
-		const profilePicElement2 = document.getElementById("profilePic2");
+		const profilePicElement2 = select("#profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
-		document.getElementById("firstname1").innerText = vendor.firstname;
-		document.getElementById("lastname1").innerText = vendor.lastname;
-		document.getElementById("userInfoPrivilege").innerText = user.privilege;
-		document.getElementById("phone_number").innerText = vendor.phone_number;
-		document.getElementById("userInfoemail").innerText = user.email;
-		document.getElementById("userlocalgovt").innerText = vendor.localgovt;
+		select("#firstname1").textContent = vendor.firstname;
+		select("#lastname1").textContent = vendor.lastname;
+		select("#userInfoPrivilege").textContent = user.privilege;
+		select("#phone_number").textContent = vendor.phone_number;
+		select("#userInfoemail").textContent = user.email;
+		select("#userlocalgovt").textContent = vendor.localgovt;
 	}
 };
 
 // Page Protection and hiding of vendor menu from regular user
 const protectPagesAndHideVendorMenu = async (userInfo) => {
-	const vendorMenu = document.getElementById("vendorMenu");
+	const vendorMenu = select("#vendorMenu");
 
 	const inaccessiblePages = ["additem.html", "vendor-profile.html"];
 
