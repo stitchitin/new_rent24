@@ -275,127 +275,7 @@ class User {
     }
 
 
-    public function updateVendor($user_id, $file, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname, $bank_name, $account_name, $account_number) {
-            $profile_pic_url = null;
-            
-            // Check if a file was uploaded
-            if (isset($file) && $file['error'] == UPLOAD_ERR_OK) {
-                // Define the directory where the file will be saved
-                $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/rent24ng/backend/inc/uploads/profile_pics/';
-                
-                // Ensure the upload directory exists
-                if (!is_dir($upload_dir)) {
-                    if (!mkdir($upload_dir, 0777, true)) {
-                        return json_encode(["success" => false, "message" => "Failed to create upload directory."]);
-                    }
-                }
-                
-                // Ensure the directory is writable
-                if (!is_writable($upload_dir)) {
-                    if (!chmod($upload_dir, 0777)) {
-                        return json_encode(["success" => false, "message" => "Upload directory is not writable."]);
-                    }
-                }
-                
-                // Generate a unique file name to avoid collisions
-                $file_name = uniqid() . '_' . basename($file['name']);
-                $profile_pic_path = $upload_dir . $file_name;
-                
-                // Move the file to the upload directory
-                if (!move_uploaded_file($file['tmp_name'], $profile_pic_path)) {
-                    error_log("Failed to move uploaded file: " . $file['tmp_name'] . " to " . $profile_pic_path);
-                    return json_encode(["success" => false, "message" => "Failed to upload profile picture."]);
-                }
-                
-                // Convert the profile picture path to a URL
-                $profile_pic_url = '/rent24ng/backend/inc/uploads/profile_pics/' . $file_name;
-            }
-            
-            // Prepare the SQL statement for updating the Vendor table
-            $sql = "
-                UPDATE Vendor
-                SET phone_number = ?, 
-                    state = ?, 
-                    address = ?, 
-                    localgovt = ?, 
-                    city = ?, 
-                    sex = ?, 
-                    birth = ?, 
-                    nin = ?, 
-                    firstname = ?, 
-                    lastname = ?, 
-                    BankName = COALESCE(?, BankName), 
-                    AccountName = COALESCE(?, AccountName), 
-                    AccountNumber = COALESCE(?, AccountNumber)
-            ";
-            
-            // Conditionally append profile_pic update to the SQL query if a new file was uploaded
-            if ($profile_pic_url) {
-                $sql .= ", profile_pic = ?";
-            }
-            
-            $sql .= " WHERE user_id = ?";
-            
-            // Prepare the SQL statement
-            $stmt = $this->db->getConnection()->prepare($sql);
-            
-            // Conditionally bind parameters based on whether a new file was uploaded
-            if ($profile_pic_url) {
-                // 14 parameters including profile_pic_url and user_id
-                $stmt->bind_param("ssssssssssssssi",
-                    $phone_number,
-                    $state,
-                    $address,
-                    $localgovt,
-                    $city,
-                    $sex,
-                    $birth,
-                    $nin,
-                    $firstname,
-                    $lastname,
-                    $bank_name,
-                    $account_name,
-                    $account_number,
-                    $profile_pic_url,
-                    $user_id
-                );
-            } else {
-                // 13 parameters excluding profile_pic_url
-                $stmt->bind_param("sssssssssssssi",
-                    $phone_number,
-                    $state,
-                    $address,
-                    $localgovt,
-                    $city,
-                    $sex,
-                    $birth,
-                    $nin,
-                    $firstname,
-                    $lastname,
-                    $bank_name,
-                    $account_name,
-                    $account_number,
-                    $user_id
-                );
-            }
-            
-            // Execute the statement
-            if ($stmt->execute()) {
-                return json_encode(["success" => true, "message" => "Vendor information has been updated successfully."]);
-            } else {
-                return json_encode(["success" => false, "message" => "Failed to update vendor information."]);
-            }
-        }
-        
-        
 
-
-
-
-
-        
-        
-        
 
         // Get all category
         public function getAllCategories() {
@@ -851,6 +731,51 @@ class User {
             }
         }
         
+        // Transaction History
+        public function transactionHistory($user_id, $page = 1) {
+            // Define pagination parameters
+            $itemsPerPage = 20;
+            $offset = ($page - 1) * $itemsPerPage;
+        
+            // Prepare the SQL statement to retrieve transactions by user_id with pagination
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT transaction_id, transaction_amount, status, time
+                 FROM transaction
+                 WHERE user_id = ?
+                 ORDER BY time DESC
+                 LIMIT ? OFFSET ?"
+            );
+            
+            // Bind the user_id, items per page, and offset to the SQL statement
+            $stmt->bind_param("iii", $user_id, $itemsPerPage, $offset);
+        
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the results
+                $result = $stmt->get_result();
+        
+                // Initialize an array to store the transaction data
+                $transactions = [];
+        
+                // Loop through the result set and store each row in the transactions array
+                while ($row = $result->fetch_assoc()) {
+                    $transactions[] = [
+                        "transaction_id" => $row["transaction_id"],
+                        "transaction_amount" => $row["transaction_amount"],
+                        "status" => $row["status"],
+                        "time" => $row["time"]
+                    ];
+                }
+        
+                // Return the transactions as a JSON response
+                return json_encode(["success" => true, "data" => $transactions]);
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to retrieve transaction history."]);
+            }
+        }
+
+
         
 
 
@@ -929,7 +854,7 @@ class User {
                         INSERT INTO `transaction` (user_id, transaction_amount, status) 
                         VALUES (?, ?, 'Credited')";
                     $stmt = $this->db->getConnection()->prepare($insertTransactionQuery);
-                    $stmt->bind_param("id", $user_id, $amount_to_add);
+                    $stmt->bind_param("id", $vendor_id, $amount_to_add);
                     $stmt->execute();
         
                     // Update rentals table Giving status to 'Send'
@@ -959,10 +884,304 @@ class User {
         }
         
         
+       // User request Withdrawal 
+        public function requestWithdrawal($user_id, $request_amount) {
+            // Check if the user exists and has enough balance
+            $stmt = $this->db->getConnection()->prepare("SELECT MainBalance, firstname, lastname FROM Vendor WHERE user_id = ?");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
         
+            // Check if user exists
+            if ($result->num_rows > 0) {
+                $vendor = $result->fetch_assoc();
+                $mainBalance = $vendor['MainBalance'];
+                $firstname = $vendor['firstname'];
+                $lastname = $vendor['lastname'];
         
+                // Check if the requested amount is less than or equal to the balance
+                if ($request_amount <= $mainBalance) {
+                    // Insert transaction with status 'Request'
+                    $insert_stmt = $this->db->getConnection()->prepare("
+                        INSERT INTO `transaction` (user_id, transaction_amount, status) 
+                        VALUES (?, ?, 'Request')
+                    ");
+                    $insert_stmt->bind_param("id", $user_id, $request_amount);
+        
+                    if ($insert_stmt->execute()) {
+                        // Notify all admins
+                        $this->notifyAdmins($firstname, $lastname, $request_amount);
+        
+                        return json_encode([
+                            "success" => true,
+                            "message" => "Withdrawal request has been successfully submitted."
+                        ]);
+                    } else {
+                        return json_encode([
+                            "success" => false,
+                            "message" => "Failed to insert withdrawal request into the transaction table."
+                        ]);
+                    }
+                } else {
+                    // Insufficient balance
+                    return json_encode([
+                        "success" => false,
+                        "message" => "Insufficient balance for the requested amount."
+                    ]);
+                }
+            } else {
+                // User not found
+                return json_encode([
+                    "success" => false,
+                    "message" => "Vendor not found."
+                ]);
+            }
+        }
+        
+        // Helper method to notify all admins
+        private function notifyAdmins($firstname, $lastname, $request_amount) {
+            // Retrieve all users with 'admin' privilege
+            $stmt = $this->db->getConnection()->prepare("SELECT user_id FROM users WHERE privilege = 'admin'");
+            $stmt->execute();
+            $result = $stmt->get_result();
+        
+            // Prepare the notification message
+            $subject = "Withdrawal Request";
+            $message = "User {$firstname} {$lastname} has requested a withdrawal of {$request_amount}.";
+        
+            // Insert a notification for each admin
+            while ($admin = $result->fetch_assoc()) {
+                $admin_id = $admin['user_id'];
+                $notification_stmt = $this->db->getConnection()->prepare("
+                    INSERT INTO notification (user_id, subject, details, status) 
+                    VALUES (?, ?, ?, 'Unread')
+                ");
+                $notification_stmt->bind_param("iss", $admin_id, $subject, $message);
+                $notification_stmt->execute();
+            }
+        }
+        
+        // Admin Check transaction History
+        public function AdminTransactionHistory($page = 1) {
+            // Define pagination parameters
+            $itemsPerPage = 20;
+            $offset = ($page - 1) * $itemsPerPage;
+        
+            // Prepare the SQL statement to retrieve all transactions with pagination
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT t.transaction_id, t.user_id, t.transaction_amount, t.status, t.time, 
+                        v.BankName, v.AccountName, v.AccountNumber
+                 FROM transaction t
+                 LEFT JOIN Vendor v ON t.user_id = v.user_id
+                 ORDER BY 
+                    CASE WHEN t.status = 'Request' THEN 0 ELSE 1 END, t.time DESC
+                 LIMIT ? OFFSET ?"
+            );
+        
+            // Bind the items per page and offset to the SQL statement
+            $stmt->bind_param("ii", $itemsPerPage, $offset);
+        
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the results
+                $result = $stmt->get_result();
+        
+                // Initialize an array to store the transaction data
+                $transactions = [];
+        
+                // Loop through the result set and store each row in the transactions array
+                while ($row = $result->fetch_assoc()) {
+                    // Add an action link for transactions with 'Request' status
+                    $action = null;
+                    if ($row['status'] === 'Request') {
+                        $action = 'http://localhost/rent24ng/new_rent24/backend/processPayment.php?transaction_id=' . $row['transaction_id'];
+                    }
+        
+                    $transactions[] = [
+                        "transaction_id" => $row["transaction_id"],
+                        "user_id" => $row["user_id"],
+                        "transaction_amount" => $row["transaction_amount"],
+                        "status" => $row["status"],
+                        "time" => $row["time"],
+                        "bank_details" => [
+                            "bank_name" => $row["BankName"],
+                            "account_name" => $row["AccountName"],
+                            "account_number" => $row["AccountNumber"]
+                        ],
+                        "action" => $action
+                    ];
+                }
+        
+                // Return the transactions as a JSON response
+                return json_encode(["success" => true, "data" => $transactions]);
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to retrieve transaction history."]);
+            }
+        }
 
-
+        // Update Transaction Status 
+        public function markTransactionAsDebited($transaction_id) {
+            // Prepare the SQL statement to update the transaction status
+            $stmt = $this->db->getConnection()->prepare(
+                "UPDATE transaction SET status = 'Debited' WHERE transaction_id = ?"
+            );
+        
+            // Bind the transaction_id
+            $stmt->bind_param("i", $transaction_id);
+        
+            // Execute the statement and check if successful
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        // Get transaction Details
+        public function getTransactionDetails($transaction_id) {
+            // Prepare the SQL statement to retrieve the transaction and associated user/vendor details
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT t.transaction_id, t.user_id, t.transaction_amount, t.status, t.time, 
+                        v.BankName, v.AccountName, v.AccountNumber
+                 FROM transaction t
+                 LEFT JOIN Vendor v ON t.user_id = v.user_id
+                 WHERE t.transaction_id = ?"
+            );
+            
+            // Bind the transaction_id to the SQL statement
+            $stmt->bind_param("i", $transaction_id);
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the result
+                $result = $stmt->get_result();
+                
+                // Check if any transaction was found
+                if ($result->num_rows > 0) {
+                    // Return the transaction details
+                    return $result->fetch_assoc();
+                } else {
+                    // Return null if no transaction is found
+                    return null;
+                }
+            } else {
+                // Return false if the query fails
+                return false;
+            }
+        }
+        
+        public function updateVendor($user_id, $file, $phone_number, $state, $address, $localgovt, $city, $sex, $birth, $nin, $firstname, $lastname, $bank_name, $account_name, $account_number) {
+            $profile_pic_url = null;
+            
+            // Check if a file was uploaded
+            if (isset($file) && $file['error'] == UPLOAD_ERR_OK) {
+                // Define the directory where the file will be saved
+                $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/rent24ng/backend/inc/uploads/profile_pics/';
+                
+                // Ensure the upload directory exists
+                if (!is_dir($upload_dir)) {
+                    if (!mkdir($upload_dir, 0777, true)) {
+                        return json_encode(["success" => false, "message" => "Failed to create upload directory."]);
+                    }
+                }
+                
+                // Ensure the directory is writable
+                if (!is_writable($upload_dir)) {
+                    if (!chmod($upload_dir, 0777)) {
+                        return json_encode(["success" => false, "message" => "Upload directory is not writable."]);
+                    }
+                }
+                
+                // Generate a unique file name to avoid collisions
+                $file_name = uniqid() . '_' . basename($file['name']);
+                $profile_pic_path = $upload_dir . $file_name;
+                
+                // Move the file to the upload directory
+                if (!move_uploaded_file($file['tmp_name'], $profile_pic_path)) {
+                    error_log("Failed to move uploaded file: " . $file['tmp_name'] . " to " . $profile_pic_path);
+                    return json_encode(["success" => false, "message" => "Failed to upload profile picture."]);
+                }
+                
+                // Convert the profile picture path to a URL
+                $profile_pic_url = '/rent24ng/backend/inc/uploads/profile_pics/' . $file_name;
+            }
+            
+            // Prepare the SQL statement for updating the Vendor table
+            $sql = "
+                UPDATE Vendor
+                SET phone_number = ?, 
+                    state = ?, 
+                    address = ?, 
+                    localgovt = ?, 
+                    city = ?, 
+                    sex = ?, 
+                    birth = ?, 
+                    nin = ?, 
+                    firstname = ?, 
+                    lastname = ?, 
+                    BankName = COALESCE(?, BankName), 
+                    AccountName = COALESCE(?, AccountName), 
+                    AccountNumber = COALESCE(?, AccountNumber)
+            ";
+            
+            // Conditionally append profile_pic update to the SQL query if a new file was uploaded
+            if ($profile_pic_url) {
+                $sql .= ", profile_pic = ?";
+            }
+            
+            $sql .= " WHERE user_id = ?";
+            
+            // Prepare the SQL statement
+            $stmt = $this->db->getConnection()->prepare($sql);
+            
+            // Conditionally bind parameters based on whether a new file was uploaded
+            if ($profile_pic_url) {
+                // 14 parameters including profile_pic_url and user_id
+                $stmt->bind_param("ssssssssssssssi",
+                    $phone_number,
+                    $state,
+                    $address,
+                    $localgovt,
+                    $city,
+                    $sex,
+                    $birth,
+                    $nin,
+                    $firstname,
+                    $lastname,
+                    $bank_name,
+                    $account_name,
+                    $account_number,
+                    $profile_pic_url,
+                    $user_id
+                );
+            } else {
+                // 13 parameters excluding profile_pic_url
+                $stmt->bind_param("sssssssssssssi",
+                    $phone_number,
+                    $state,
+                    $address,
+                    $localgovt,
+                    $city,
+                    $sex,
+                    $birth,
+                    $nin,
+                    $firstname,
+                    $lastname,
+                    $bank_name,
+                    $account_name,
+                    $account_number,
+                    $user_id
+                );
+            }
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                return json_encode(["success" => true, "message" => "Vendor information has been updated successfully."]);
+            } else {
+                return json_encode(["success" => false, "message" => "Failed to update vendor information."]);
+            }
+        }
 
         // Add more methods as needed, such as updateUser(), deleteUser(), getUserById(), etc.
     }

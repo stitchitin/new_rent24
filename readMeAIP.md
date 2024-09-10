@@ -1460,3 +1460,266 @@ curl -X POST http://yourdomain.com/backend/updateVendor.php \
 ---
 
 This documentation should help the frontend developer understand how to interact with the `updateVendor` API endpoint and handle the request and response correctly.
+
+
+
+Here is the API documentation for the frontend team to use when integrating the `transactionHistory` endpoint into their frontend code:
+
+---
+
+### API Documentation: Transaction History
+
+**Endpoint**: `/backend/transactionHistoryAPI.php`
+
+**Request Method**: `GET`
+
+**Description**: This endpoint returns the transaction history for a given user. It supports pagination for displaying transactions in chunks.
+
+#### Parameters:
+
+1. **user_id** (required)
+   - **Type**: `integer`
+   - **Description**: The unique ID of the user whose transaction history you want to retrieve.
+   
+2. **page** (optional)
+   - **Type**: `integer`
+   - **Default**: `1`
+   - **Description**: The page number for paginated transaction results. Each page contains 20 transactions.
+
+#### Example Request:
+
+```http
+GET /backend/transactionHistoryAPI.php?user_id=123&page=1
+```
+
+#### Example Response:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "transaction_id": 1,
+      "transaction_amount": 5000.00,
+      "status": "Credited",
+      "time": "2024-08-28 14:35:00"
+    },
+    {
+      "transaction_id": 2,
+      "transaction_amount": 2000.00,
+      "status": "Debited",
+      "time": "2024-08-27 10:15:45"
+    },
+    {
+      "transaction_id": 3,
+      "transaction_amount": 1000.00,
+      "status": "Request",
+      "time": "2024-08-25 12:45:30"
+    }
+  ]
+}
+```
+
+#### Response Parameters:
+
+- **success**: 
+  - **Type**: `boolean`
+  - **Description**: Indicates whether the request was successful or not.
+  
+- **data**:
+  - **Type**: `array`
+  - **Description**: Contains the list of transactions for the user.
+  
+Each object in the `data` array represents a single transaction and includes:
+  
+- **transaction_id**:
+  - **Type**: `integer`
+  - **Description**: The unique ID of the transaction.
+  
+- **transaction_amount**:
+  - **Type**: `decimal(10, 2)`
+  - **Description**: The amount involved in the transaction.
+  
+- **status**:
+  - **Type**: `string`
+  - **Description**: The status of the transaction. Possible values are:
+    - `"Credited"`: When money has been added to the user.
+    - `"Debited"`: When money has been deducted from the user.
+    - `"Request"`: When a withdrawal request is made.
+    
+- **time**:
+  - **Type**: `timestamp`
+  - **Description**: The timestamp when the transaction was created.
+
+#### Error Response:
+
+If an error occurs, the response will be:
+
+```json
+{
+  "success": false,
+  "message": "Error message describing the issue."
+}
+```
+
+#### Example Error Responses:
+
+1. **Missing user_id**:
+
+```json
+{
+  "success": false,
+  "message": "user_id is required."
+}
+```
+
+2. **Invalid Request Method**:
+
+```json
+{
+  "success": false,
+  "message": "Invalid request method."
+}
+```
+
+---
+
+### Notes for Frontend Developers:
+
+- Ensure you send the correct `user_id` as a query parameter when making the API call.
+- If pagination is needed, increment the `page` parameter to load more transaction records.
+- Handle the error responses gracefully in the UI (e.g., show an error message if `user_id` is missing or the API fails).
+- Use the `success` field to check if the request was successful before displaying transaction data.
+
+---
+
+
+
+
+### API Documentation for `requestWithdraw` Endpoint
+
+**Base URL**: `http://localhost/rent24ng/backend/requestWithdraw.php`
+
+### Endpoint: Request Withdrawal
+
+This API endpoint allows a user to request a withdrawal. The system will verify if the user's main balance is sufficient and then log the request as a transaction. A notification will also be sent to the admin when a withdrawal request is made.
+
+---
+
+### **Method: POST**
+
+- **URL**: `/requestWithdraw.php`
+- **Description**: Submit a withdrawal request by the user.
+- **Headers**:
+  - `Content-Type: application/json`
+- **Request Body** (JSON):
+  ```json
+  {
+    "user_id": <integer>,         // The ID of the user requesting the withdrawal
+    "request_amount": <decimal>   // The amount the user wants to withdraw
+  }
+  ```
+
+#### Example Request:
+```json
+{
+  "user_id": 1,
+  "request_amount": 100.00
+}
+```
+
+#### Success Response:
+- **Code**: `200 OK`
+- **Response Body**:
+  ```json
+  {
+    "success": true,
+    "message": "Withdrawal request submitted successfully."
+  }
+  ```
+
+#### Error Responses:
+
+- **Code**: `400 Bad Request`
+  - **Response Body** (if any required field is missing):
+    ```json
+    {
+      "success": false,
+      "message": "Both user_id and request_amount are required."
+    }
+    ```
+
+- **Code**: `400 Bad Request`
+  - **Response Body** (if insufficient balance):
+    ```json
+    {
+      "success": false,
+      "message": "Insufficient balance to request withdrawal."
+    }
+    ```
+
+---
+
+### **Method: GET**
+
+- **URL**: `/requestWithdraw.php`
+- **Description**: Retrieve withdrawal request history for a user by their user ID.
+- **Headers**:
+  - `Content-Type: application/json`
+- **Request Parameters** (Query String):
+  - `user_id` (integer) – **Required**: The user ID of the person whose transaction history is being retrieved.
+
+#### Example Request:
+```url
+http://localhost/rent24ng/backend/requestWithdraw.php?user_id=1
+```
+
+#### Success Response:
+- **Code**: `200 OK`
+- **Response Body**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "transaction_id": 1,
+        "transaction_amount": 100.00,
+        "status": "Request",
+        "time": "2024-09-01 10:30:00"
+      },
+      {
+        "transaction_id": 2,
+        "transaction_amount": 50.00,
+        "status": "Request",
+        "time": "2024-09-02 11:45:00"
+      }
+    ]
+  }
+  ```
+
+#### Error Responses:
+- **Code**: `400 Bad Request`
+  - **Response Body**:
+    ```json
+    {
+      "success": false,
+      "message": "user_id is required."
+    }
+    ```
+
+### Admin Notification
+- Whenever a user submits a withdrawal request, a notification will be sent to all users with **admin** privileges.
+
+---
+
+### Error Codes
+- `200 OK`: Successful operation
+- `400 Bad Request`: Missing or invalid input
+- `500 Internal Server Error`: An error occurred on the server while processing the request
+
+---
+
+### Notes for Frontend Developer:
+- Ensure you handle both POST and GET requests in your UI to support users submitting requests and viewing their withdrawal history.
+- Notify users if their balance is insufficient based on the error response.
+- Admins should have a notification system in place to handle withdrawal requests efficiently.

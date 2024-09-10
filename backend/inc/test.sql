@@ -1,0 +1,4 @@
+with approvedvendors as (
+    select * from rentals where status = 'Approved' and Giving = 'Pending'
+), updatevendor as (update 'vendor' set mainbalance = mainbalance + approvedvendors.total_price*0.9 where user_id = approvedvendors.user_id),
+transaction as (insert into transaction (user_id, transaction_amount, status) values (select user_id, total_price*0.9, 'Credited' from approvedvendors)) update rentals set giving = 'send' where id in (select id from approvedvendors);insert into notification (user_id, subject, details, status) values (select user_id, 'Payment Received', 'You have received a payment of '. round(total_price*0.9, 2) .'.', 'Unread' from approvedvendors)
