@@ -285,7 +285,5 @@ const handlePaymentFormSubmit = (userInfo) => async (event) => {
 };
 
 userStore.subscribe(({ userInfo }) => {
-	select("#product-form").addEventListener("submit", (event) =>
-		handlePaymentFormSubmit(userInfo)(event)
-	);
+	select("#product-form").addEventListener("submit", handlePaymentFormSubmit(userInfo));
 });

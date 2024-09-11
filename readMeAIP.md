@@ -20,23 +20,23 @@ Registers a new user with a username, email, and password.
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Body
 
 The request body should be a JSON object containing the following fields:
 
-- `username` (string, required): The desired username for the new user.
-- `email` (string, required): The email address of the new user.
-- `password` (string, required): The password for the new user.
+-  `username` (string, required): The desired username for the new user.
+-  `email` (string, required): The email address of the new user.
+-  `password` (string, required): The password for the new user.
 
 #### Example Request Body
 
 ```json
 {
-    "username": "exampleUser",
-    "email": "example@example.com",
-    "password": "examplePassword"
+	"username": "exampleUser",
+	"email": "example@example.com",
+	"password": "examplePassword"
 }
 ```
 
@@ -48,15 +48,15 @@ The response will be a JSON object indicating the success or failure of the regi
 
 If the registration is successful, the response will contain:
 
-- `success` (boolean): `true`
-- `message` (string): Success message.
+-  `success` (boolean): `true`
+-  `message` (string): Success message.
 
 #### Example Success Response
 
 ```json
 {
-    "success": true,
-    "message": "User registered successfully."
+	"success": true,
+	"message": "User registered successfully."
 }
 ```
 
@@ -64,44 +64,44 @@ If the registration is successful, the response will contain:
 
 If the registration fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. Missing required fields:
 
-    ```json
-    {
-        "success": false,
-        "message": "Missing required fields."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields."
+   }
+   ```
 
 2. Invalid email format:
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid email format."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid email format."
+   }
+   ```
 
 3. Invalid request method (not POST):
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid request method."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
 
 ### Additional Notes
 
-- All input data is sanitized to avoid code injection and spam.
-- The email is validated to ensure it follows the proper format.
-- Passwords are hashed using `password_hash` for security before storing them in the database.
-- The database connection is closed after the operation is complete.
+-  All input data is sanitized to avoid code injection and spam.
+-  The email is validated to ensure it follows the proper format.
+-  Passwords are hashed using `password_hash` for security before storing them in the database.
+-  The database connection is closed after the operation is complete.
 
 ---
 
@@ -127,21 +127,21 @@ Authenticates a user using an identifier (username or email) and password.
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Body
 
 The request body should be a JSON object containing the following fields:
 
-- `identifier` (string, required): The username or email of the user.
-- `password` (string, required): The password of the user.
+-  `identifier` (string, required): The username or email of the user.
+-  `password` (string, required): The password of the user.
 
 #### Example Request Body
 
 ```json
 {
-    "identifier": "exampleUser",
-    "password": "examplePassword"
+	"identifier": "exampleUser",
+	"password": "examplePassword"
 }
 ```
 
@@ -157,13 +157,13 @@ If the login is successful, the response will contain the appropriate user detai
 
 ```json
 {
-    "success": true,
-    "message": "Login successful.",
-    "userData": {
-        "username": "exampleUser",
-        "email": "example@example.com",
-        // additional user data as needed
-    }
+	"success": true,
+	"message": "Login successful.",
+	"userData": {
+		"username": "exampleUser",
+		"email": "example@example.com"
+		// additional user data as needed
+	}
 }
 ```
 
@@ -171,33 +171,33 @@ If the login is successful, the response will contain the appropriate user detai
 
 If the login fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. Missing required fields:
 
-    ```json
-    {
-        "success": false,
-        "message": "Missing required fields."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields."
+   }
+   ```
 
 2. Invalid request method (not POST):
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid request method. Use POST."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method. Use POST."
+   }
+   ```
 
 ### Additional Notes
 
-- All input data is sanitized to avoid code injection and spam.
-- The database connection is closed after the operation is complete.
+-  All input data is sanitized to avoid code injection and spam.
+-  The database connection is closed after the operation is complete.
 
 ---
 
@@ -223,7 +223,7 @@ Fetches all categories from the database.
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Parameters
 
@@ -237,29 +237,29 @@ The response will be a JSON object indicating the success or failure of the requ
 
 If categories are found, the response will contain:
 
-- `success` (boolean): `true`
-- `categories` (array): An array of category objects
-  - `category_id` (int): The category ID
-  - `category_name` (string): The category name
-  - `add_date` (string): The date the category was added
+-  `success` (boolean): `true`
+-  `categories` (array): An array of category objects
+   -  `category_id` (int): The category ID
+   -  `category_name` (string): The category name
+   -  `add_date` (string): The date the category was added
 
 #### Example Success Response
 
 ```json
 {
-    "success": true,
-    "categories": [
-        {
-            "category_id": 1,
-            "category_name": "Electronics",
-            "add_date": "2023-01-01"
-        },
-        {
-            "category_id": 2,
-            "category_name": "Books",
-            "add_date": "2023-01-05"
-        }
-    ]
+	"success": true,
+	"categories": [
+		{
+			"category_id": 1,
+			"category_name": "Electronics",
+			"add_date": "2023-01-01"
+		},
+		{
+			"category_id": 2,
+			"category_name": "Books",
+			"add_date": "2023-01-05"
+		}
+	]
 }
 ```
 
@@ -267,33 +267,33 @@ If categories are found, the response will contain:
 
 If the request fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. No categories found:
 
-    ```json
-    {
-        "success": false,
-        "message": "No categories found."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "No categories found."
+   }
+   ```
 
 2. Database error:
 
-    ```json
-    {
-        "success": false,
-        "message": "Database error."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Database error."
+   }
+   ```
 
 ### Additional Notes
 
-- The database connection is closed after the operation is complete.
-- If no categories are found, an appropriate message is returned.
+-  The database connection is closed after the operation is complete.
+-  If no categories are found, an appropriate message is returned.
 
 ---
 
@@ -319,24 +319,24 @@ Updates the vendor's information based on the provided user ID, profile picture,
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Parameters
 
 The request body should include the following fields:
 
-- `user_id` (int, required): The user ID of the vendor.
-- `profile_pic` (file, optional): The profile picture file to be uploaded.
-- `phone_number` (string, optional): The phone number of the vendor.
-- `state` (string, optional): The state where the vendor is located.
-- `address` (string, optional): The address of the vendor.
-- `localgovt` (string, optional): The local government area.
-- `city` (string, optional): The city.
-- `sex` (string, optional): The sex of the vendor.
-- `birth` (string, optional): The birth date of the vendor.
-- `nin` (string, optional): The National Identification Number.
-- `firstname` (string, optional): The first name of the vendor.
-- `lastname` (string, optional): The last name of the vendor.
+-  `user_id` (int, required): The user ID of the vendor.
+-  `profile_pic` (file, optional): The profile picture file to be uploaded.
+-  `phone_number` (string, optional): The phone number of the vendor.
+-  `state` (string, optional): The state where the vendor is located.
+-  `address` (string, optional): The address of the vendor.
+-  `localgovt` (string, optional): The local government area.
+-  `city` (string, optional): The city.
+-  `sex` (string, optional): The sex of the vendor.
+-  `birth` (string, optional): The birth date of the vendor.
+-  `nin` (string, optional): The National Identification Number.
+-  `firstname` (string, optional): The first name of the vendor.
+-  `lastname` (string, optional): The last name of the vendor.
 
 #### Example Request Body (Form Data)
 
@@ -363,15 +363,15 @@ The response will be a JSON object indicating the success or failure of the requ
 
 If the vendor information is updated successfully, the response will contain:
 
-- `success` (boolean): `true`
-- `message` (string): Success message.
+-  `success` (boolean): `true`
+-  `message` (string): Success message.
 
 #### Example Success Response
 
 ```json
 {
-    "success": true,
-    "message": "Vendor information has been updated successfully."
+	"success": true,
+	"message": "Vendor information has been updated successfully."
 }
 ```
 
@@ -379,70 +379,70 @@ If the vendor information is updated successfully, the response will contain:
 
 If the request fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. Missing required fields or file upload error:
 
-    ```json
-    {
-        "success": false,
-        "message": "Missing required fields or file upload error."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields or file upload error."
+   }
+   ```
 
 2. Invalid request method (not POST):
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid request method."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
 
 3. Database error:
 
-    ```json
-    {
-        "success": false,
-        "message": "Database error."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Database error."
+   }
+   ```
 
 4. Failed to create upload directory:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to create upload directory."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to create upload directory."
+   }
+   ```
 
 5. Upload directory is not writable:
 
-    ```json
-    {
-        "success": false,
-        "message": "Upload directory is not writable."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Upload directory is not writable."
+   }
+   ```
 
 6. Failed to upload profile picture:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to upload profile picture."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to upload profile picture."
+   }
+   ```
 
 ### Additional Notes
 
-- The profile picture path is converted to a URL.
-- The database connection is closed after the operation is complete.
-- The profile picture file is uploaded to a specific directory on the server.
+-  The profile picture path is converted to a URL.
+-  The database connection is closed after the operation is complete.
+-  The profile picture file is uploaded to a specific directory on the server.
 
 ---
 
@@ -468,22 +468,22 @@ Adds a new rental item along with an image and other relevant details.
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Parameters
 
 The request body should include the following fields:
 
-- `category` (string, required): The category of the rental item.
-- `ItemName` (string, required): The name of the rental item.
-- `Description` (string, required): A description of the rental item.
-- `Price` (float, required): The price of the rental item.
-- `Availability` (string, required): The availability status of the rental item.
-- `vendor_id` (int, required): The ID of the vendor adding the item.
-- `Video` (string, optional): A video URL for the rental item.
-- `number_of_items` (int, required): The number of items available for rent.
-- `images` (file, required): An image file for the rental item.
-- `location` (string, required): The location of the rental item.
+-  `category` (string, required): The category of the rental item.
+-  `ItemName` (string, required): The name of the rental item.
+-  `Description` (string, required): A description of the rental item.
+-  `Price` (float, required): The price of the rental item.
+-  `Availability` (string, required): The availability status of the rental item.
+-  `vendor_id` (int, required): The ID of the vendor adding the item.
+-  `Video` (string, optional): A video URL for the rental item.
+-  `number_of_items` (int, required): The number of items available for rent.
+-  `images` (file, required): An image file for the rental item.
+-  `location` (string, required): The location of the rental item.
 
 #### Example Request Body (Form Data)
 
@@ -508,15 +508,15 @@ The response will be a JSON object indicating the success or failure of the requ
 
 If the rental item is added successfully, the response will contain:
 
-- `success` (boolean): `true`
-- `message` (string): Success message.
+-  `success` (boolean): `true`
+-  `message` (string): Success message.
 
 #### Example Success Response
 
 ```json
 {
-    "success": true,
-    "message": "Rental item and image added successfully."
+	"success": true,
+	"message": "Rental item and image added successfully."
 }
 ```
 
@@ -524,90 +524,90 @@ If the rental item is added successfully, the response will contain:
 
 If the request fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. Missing required fields or file upload error:
 
-    ```json
-    {
-        "success": false,
-        "message": "Missing required fields or file upload error."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields or file upload error."
+   }
+   ```
 
 2. Invalid request method (not POST):
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid request method."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
 
 3. No file uploaded or invalid file upload:
 
-    ```json
-    {
-        "success": false,
-        "message": "No file uploaded or invalid file upload."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "No file uploaded or invalid file upload."
+   }
+   ```
 
 4. Failed to create upload directory:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to create upload directory."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to create upload directory."
+   }
+   ```
 
 5. Upload directory is not writable:
 
-    ```json
-    {
-        "success": false,
-        "message": "Upload directory is not writable."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Upload directory is not writable."
+   }
+   ```
 
 6. Failed to upload image:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to upload image."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to upload image."
+   }
+   ```
 
 7. Failed to add rental item:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to add rental item."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to add rental item."
+   }
+   ```
 
 8. Failed to add image path:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to add image path."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to add image path."
+   }
+   ```
 
 ### Additional Notes
 
-- The profile picture path is converted to a URL.
-- The database connection is closed after the operation is complete.
-- The profile picture file is uploaded to a specific directory on the server.
-- The function checks if a unique identifier (slogo) already exists before adding the item.
-- The rental item is added first, and then the image path is added to the database.
+-  The profile picture path is converted to a URL.
+-  The database connection is closed after the operation is complete.
+-  The profile picture file is uploaded to a specific directory on the server.
+-  The function checks if a unique identifier (slogo) already exists before adding the item.
+-  The rental item is added first, and then the image path is added to the database.
 
 ---
 
@@ -631,28 +631,28 @@ Retrieves a paginated list of rental items, optionally filtered by category.
 
 ### Request Headers
 
-- `Content-Type: application/json`
+-  `Content-Type: application/json`
 
 ### Request Parameters
 
 The request parameters should be provided as query parameters in the URL:
 
-- `page` (int, optional): The page number for pagination (default is 1).
-- `category_id` (int, optional): The ID of the category to filter items by.
+-  `page` (int, optional): The page number for pagination (default is 1).
+-  `category_id` (int, optional): The ID of the category to filter items by.
 
 #### Example Request URL
 
-- Retrieve all items (page 1):
+-  Retrieve all items (page 1):
 
-  ```
-  /backend/getRentalItems.php?page=1
-  ```
+   ```
+   /backend/getRentalItems.php?page=1
+   ```
 
-- Retrieve items from a specific category (page 1):
+-  Retrieve items from a specific category (page 1):
 
-  ```
-  /backend/getRentalItems.php?page=1&category_id=5
-  ```
+   ```
+   /backend/getRentalItems.php?page=1&category_id=5
+   ```
 
 ### Response
 
@@ -662,43 +662,43 @@ The response will be a JSON object indicating the success or failure of the requ
 
 If rental items are retrieved successfully, the response will contain:
 
-- `success` (boolean): `true`
-- `data` (array): An array of rental items, each containing:
-  - `ItemName` (string): The name of the item.
-  - `category` (string): The category of the item.
-  - `Description` (string): The description of the item.
-  - `Price` (float): The price of the item.
-  - `Availability` (string): The availability status of the item.
-  - `user_id` (int): The ID of the vendor.
-  - `Video` (string): The video URL for the item.
-  - `number_of_items` (int): The number of items available.
-  - `location` (string): The location of the item.
-  - `slogo` (string): The unique identifier for the item.
-  - `images` (array): An array of image paths for the item.
+-  `success` (boolean): `true`
+-  `data` (array): An array of rental items, each containing:
+   -  `ItemName` (string): The name of the item.
+   -  `category` (string): The category of the item.
+   -  `Description` (string): The description of the item.
+   -  `Price` (float): The price of the item.
+   -  `Availability` (string): The availability status of the item.
+   -  `user_id` (int): The ID of the vendor.
+   -  `Video` (string): The video URL for the item.
+   -  `number_of_items` (int): The number of items available.
+   -  `location` (string): The location of the item.
+   -  `slogo` (string): The unique identifier for the item.
+   -  `images` (array): An array of image paths for the item.
 
 #### Example Success Response
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "ItemName": "Projector",
-            "category": "Electronics",
-            "Description": "High-quality projector for rent",
-            "Price": 50.00,
-            "Availability": "Available",
-            "user_id": 123,
-            "Video": "http://example.com/video.mp4",
-            "number_of_items": 5,
-            "location": "New York",
-            "slogo": "Projector-123",
-            "images": [
-                "/rent24ng/backend/inc/uploads/rental_items/image1.jpg",
-                "/rent24ng/backend/inc/uploads/rental_items/image2.jpg"
-            ]
-        }
-    ]
+	"success": true,
+	"data": [
+		{
+			"ItemName": "Projector",
+			"category": "Electronics",
+			"Description": "High-quality projector for rent",
+			"Price": 50.0,
+			"Availability": "Available",
+			"user_id": 123,
+			"Video": "http://example.com/video.mp4",
+			"number_of_items": 5,
+			"location": "New York",
+			"slogo": "Projector-123",
+			"images": [
+				"/rent24ng/backend/inc/uploads/rental_items/image1.jpg",
+				"/rent24ng/backend/inc/uploads/rental_items/image2.jpg"
+			]
+		}
+	]
 }
 ```
 
@@ -706,35 +706,35 @@ If rental items are retrieved successfully, the response will contain:
 
 If the request fails, the response will contain:
 
-- `success` (boolean): `false`
-- `message` (string): Error message explaining the reason for the failure.
+-  `success` (boolean): `false`
+-  `message` (string): Error message explaining the reason for the failure.
 
 ##### Example Error Responses
 
 1. Invalid request method (not GET):
 
-    ```json
-    {
-        "success": false,
-        "message": "Invalid request method."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
 
 2. Failed to retrieve rental items:
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to retrieve rental items."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to retrieve rental items."
+   }
+   ```
 
 ### Additional Notes
 
-- The function supports pagination, with 20 items per page.
-- When retrieving rental items by category, the category ID must be provided.
-- The database connection is closed after the operation is complete.
-- The function ensures that each rental item is returned with its associated images.
+-  The function supports pagination, with 20 items per page.
+-  When retrieving rental items by category, the category ID must be provided.
+-  The database connection is closed after the operation is complete.
+-  The function ensures that each rental item is returned with its associated images.
 
 ---
 
@@ -756,27 +756,27 @@ This endpoint allows users to rent an item by providing necessary details.
 
 The request body should be sent as a JSON object with the following fields:
 
-- `paymentId` (string, required): Unique identifier for the payment.
-- `startDate` (string, required): Start date of the rental period (format: YYYY-MM-DD).
-- `endDate` (string, required): End date of the rental period (format: YYYY-MM-DD).
-- `quantity` (integer, required): Quantity of items to rent.
-- `itemId` (integer, required): ID of the item being rented.
-- `userId` (integer, required): ID of the user renting the item.
-- `vendorId` (integer, required): ID of the vendor providing the item.
-- `totalPrice` (number, required): Total price of the rental transaction.
+-  `paymentId` (string, required): Unique identifier for the payment.
+-  `startDate` (string, required): Start date of the rental period (format: YYYY-MM-DD).
+-  `endDate` (string, required): End date of the rental period (format: YYYY-MM-DD).
+-  `quantity` (integer, required): Quantity of items to rent.
+-  `itemId` (integer, required): ID of the item being rented.
+-  `userId` (integer, required): ID of the user renting the item.
+-  `vendorId` (integer, required): ID of the vendor providing the item.
+-  `totalPrice` (number, required): Total price of the rental transaction.
 
 #### Example Request
 
 ```json
 {
-    "paymentId": "PAY123456789",
-    "startDate": "2024-07-05",
-    "endDate": "2024-07-10",
-    "quantity": 2,
-    "itemId": 123,
-    "userId": 456,
-    "vendorId": 789,
-    "totalPrice": 150.00
+	"paymentId": "PAY123456789",
+	"startDate": "2024-07-05",
+	"endDate": "2024-07-10",
+	"quantity": 2,
+	"itemId": 123,
+	"userId": 456,
+	"vendorId": 789,
+	"totalPrice": 150.0
 }
 ```
 
@@ -784,56 +784,56 @@ The request body should be sent as a JSON object with the following fields:
 
 The API returns a JSON response indicating the success or failure of the operation:
 
-- `success` (boolean): Indicates whether the operation was successful.
-- `message` (string): A message providing additional information about the operation.
+-  `success` (boolean): Indicates whether the operation was successful.
+-  `message` (string): A message providing additional information about the operation.
 
 ##### Success Response Example
 
 ```json
 {
-    "success": true,
-    "message": "Item rented successfully."
+	"success": true,
+	"message": "Item rented successfully."
 }
 ```
 
 ##### Error Response Examples
 
-- Missing required fields:
+-  Missing required fields:
 
 ```json
 {
-    "success": false,
-    "message": "Missing required fields."
+	"success": false,
+	"message": "Missing required fields."
 }
 ```
 
-- Invalid date format:
+-  Invalid date format:
 
 ```json
 {
-    "success": false,
-    "message": "Invalid date format."
+	"success": false,
+	"message": "Invalid date format."
 }
 ```
 
-- Failed to rent item (database error, etc.):
+-  Failed to rent item (database error, etc.):
 
 ```json
 {
-    "success": false,
-    "message": "Failed to rent item."
+	"success": false,
+	"message": "Failed to rent item."
 }
 ```
 
 #### Error Codes
 
-- `400 Bad Request`: Missing required fields, invalid input format.
-- `500 Internal Server Error`: Server-side errors, such as database failures.
+-  `400 Bad Request`: Missing required fields, invalid input format.
+-  `500 Internal Server Error`: Server-side errors, such as database failures.
 
 #### Notes
 
-- Dates (`startDate` and `endDate`) must be provided in `YYYY-MM-DD` format.
-- Prices (`totalPrice`) should be provided as a floating-point number.
+-  Dates (`startDate` and `endDate`) must be provided in `YYYY-MM-DD` format.
+-  Prices (`totalPrice`) should be provided as a floating-point number.
 
 #### Example Usage
 
@@ -855,58 +855,62 @@ curl -X POST -H "Content-Type: application/json" -d '{
 ##### Using JavaScript (Fetch API)
 
 ```javascript
-fetch('http://example.com/backend/rentitem.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        paymentId: 'PAY123456789',
-        startDate: '2024-07-05',
-        endDate: '2024-07-10',
-        quantity: 2,
-        itemId: 123,
-        userId: 456,
-        vendorId: 789,
-        totalPrice: 150.00,
-    }),
+fetch("http://example.com/backend/rentitem.php", {
+	method: "POST",
+	headers: {
+		"Content-Type": "application/json",
+	},
+	body: JSON.stringify({
+		paymentId: "PAY123456789",
+		startDate: "2024-07-05",
+		endDate: "2024-07-10",
+		quantity: 2,
+		itemId: 123,
+		userId: 456,
+		vendorId: 789,
+		totalPrice: 150.0,
+	}),
 })
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+	.then((response) => response.json())
+	.then((data) => console.log(data))
+	.catch((error) => console.error("Error:", error));
 ```
-
-
-
 
 # Rentals Transaction API Documentation
 
 ## Overview
+
 The `backend/rentalsTransaction.php` provides endpoints to retrieve rental transaction details based on user or vendor IDs. The API supports pagination and returns data in JSON format.
 
 ## Base URL
+
 ```
 http://yourdomain.com/backend/rentalsTransaction.php
 ```
 
 ## HTTP Methods
-- `GET` - Retrieve rental transaction data.
+
+-  `GET` - Retrieve rental transaction data.
 
 ## Endpoints
 
 ### 1. Get Rental Transactions by User ID
+
 Retrieve rental transactions for a specific user.
 
 **Endpoint:**
+
 ```
 GET /backend/rentalsTransaction.php?user_id={user_id}
 ```
 
 **Query Parameters:**
-- `user_id` (optional): The ID of the user whose transactions you want to retrieve.
-- `page` (optional): The page number for pagination (default is `1`).
+
+-  `user_id` (optional): The ID of the user whose transactions you want to retrieve.
+-  `page` (optional): The page number for pagination (default is `1`).
 
 **Response:**
+
 ```json
 {
     "success": true,
@@ -930,18 +934,22 @@ GET /backend/rentalsTransaction.php?user_id={user_id}
 ```
 
 ### 2. Get Rental Transactions by Vendor ID
+
 Retrieve rental transactions for a specific vendor.
 
 **Endpoint:**
+
 ```
 GET /backend/rentalsTransaction.php?vendor_id={vendor_id}
 ```
 
 **Query Parameters:**
-- `vendor_id` (optional): The ID of the vendor whose transactions you want to retrieve.
-- `page` (optional): The page number for pagination (default is `1`).
+
+-  `vendor_id` (optional): The ID of the vendor whose transactions you want to retrieve.
+-  `page` (optional): The page number for pagination (default is `1`).
 
 **Response:**
+
 ```json
 {
     "success": true,
@@ -965,17 +973,21 @@ GET /backend/rentalsTransaction.php?vendor_id={vendor_id}
 ```
 
 ### 3. Get All Rental Transactions (Paginated)
+
 Retrieve all rental transactions, with support for pagination.
 
 **Endpoint:**
+
 ```
 GET /backend/rentalsTransaction.php
 ```
 
 **Query Parameters:**
-- `page` (optional): The page number for pagination (default is `1`).
+
+-  `page` (optional): The page number for pagination (default is `1`).
 
 **Response:**
+
 ```json
 {
     "success": true,
@@ -1003,26 +1015,30 @@ GET /backend/rentalsTransaction.php
 If an invalid request method is used or the request cannot be processed, the API will return an error response:
 
 **Response:**
+
 ```json
 {
-    "success": false,
-    "message": "Invalid request method."
+	"success": false,
+	"message": "Invalid request method."
 }
 ```
 
 ## Example Requests
 
 ### 1. Retrieve Transactions for a User (User ID: 123)
+
 ```sh
 GET /backend/rentalsTransaction.php?user_id=123
 ```
 
 ### 2. Retrieve Transactions for a Vendor (Vendor ID: 456)
+
 ```sh
 GET /backend/rentalsTransaction.php?vendor_id=456
 ```
 
 ### 3. Retrieve All Transactions (Page 2)
+
 ```sh
 GET /backend/rentalsTransaction.php?page=2
 ```
@@ -1030,13 +1046,12 @@ GET /backend/rentalsTransaction.php?page=2
 ---
 
 ### Notes for the Frontend Developer:
-- **Pagination**: If you want to retrieve the next set of transactions, increment the `page` parameter in the request.
-- **Handling Responses**: Always check the `success` field in the response to ensure the request was successful.
-- **Error Handling**: Ensure proper error handling on the frontend by checking the `message` field in case of an error response.
+
+-  **Pagination**: If you want to retrieve the next set of transactions, increment the `page` parameter in the request.
+-  **Handling Responses**: Always check the `success` field in the response to ensure the request was successful.
+-  **Error Handling**: Ensure proper error handling on the frontend by checking the `message` field in case of an error response.
 
 This documentation should now provide the frontend developer with the necessary details to work with the `rentalsTransaction` API.
-
-
 
 Certainly! Below is the comprehensive API documentation for the `backend/updateRentalItem.php` endpoint. This documentation is tailored for frontend developers to understand how to interact with the API to update existing rental items.
 
@@ -1046,10 +1061,10 @@ Certainly! Below is the comprehensive API documentation for the `backend/updateR
 
 ### **Endpoint Overview**
 
-- **Endpoint URL:** `/rent24ng/backend/updateRentalItem.php`
-- **Method:** `POST`
-- **Content-Type:** `multipart/form-data`
-- **Response Format:** `application/json`
+-  **Endpoint URL:** `/rent24ng/backend/updateRentalItem.php`
+-  **Method:** `POST`
+-  **Content-Type:** `multipart/form-data`
+-  **Response Format:** `application/json`
 
 ### **Description**
 
@@ -1057,7 +1072,7 @@ This API endpoint allows clients to update an existing rental item's details, in
 
 ### **Authentication**
 
-*Note: If your API requires authentication (e.g., via tokens or sessions), include details here. If not, you can omit this section.*
+_Note: If your API requires authentication (e.g., via tokens or sessions), include details here. If not, you can omit this section._
 
 ### **Request Parameters**
 
@@ -1065,65 +1080,75 @@ The API expects the following parameters to be sent via a `POST` request. Ensure
 
 The `item_id` parameter will be sent via a `GET` request
 
-| Parameter         | Type        | Required | Description                                                  |
-|-------------------|-------------|----------|--------------------------------------------------------------|
-| `item_id`         | `integer`   | **Yes**  | The unique ID of the rental item to be updated.             |
-| `category`        | `string`    | **Yes**  | The category of the rental item (e.g., Electronics).        |
-| `ItemName`        | `string`    | **Yes**  | The name of the rental item.                                 |
-| `Description`     | `string`    | **Yes**  | A detailed description of the rental item.                   |
-| `Price`           | `float`     | **Yes**  | The price of the rental item.                                |
-| `Availability`    | `string`    | **Yes**  | The availability status (e.g., "In Stock", "Available").     |
-| `vendor_id`       | `integer`   | **Yes**  | The ID of the vendor updating the item.                      |
-| `Video`           | `string`    | **No**   | A URL to a video related to the rental item (optional).      |
-| `number_of_items` | `integer`   | **Yes**  | The number of items available for rent.                      |
-| `location`        | `string`    | **Yes**  | The location of the rental item (e.g., "Lagos").             |
-| `images`          | `file[]`    | **No**   | Image files related to the rental item (optional).           |
+| Parameter         | Type      | Required | Description                                              |
+| ----------------- | --------- | -------- | -------------------------------------------------------- |
+| `item_id`         | `integer` | **Yes**  | The unique ID of the rental item to be updated.          |
+| `category`        | `string`  | **Yes**  | The category of the rental item (e.g., Electronics).     |
+| `ItemName`        | `string`  | **Yes**  | The name of the rental item.                             |
+| `Description`     | `string`  | **Yes**  | A detailed description of the rental item.               |
+| `Price`           | `float`   | **Yes**  | The price of the rental item.                            |
+| `Availability`    | `string`  | **Yes**  | The availability status (e.g., "In Stock", "Available"). |
+| `vendor_id`       | `integer` | **Yes**  | The ID of the vendor updating the item.                  |
+| `Video`           | `string`  | **No**   | A URL to a video related to the rental item (optional).  |
+| `number_of_items` | `integer` | **Yes**  | The number of items available for rent.                  |
+| `location`        | `string`  | **Yes**  | The location of the rental item (e.g., "Lagos").         |
+| `images`          | `file[]`  | **No**   | Image files related to the rental item (optional).       |
 
 ### **Parameter Details**
 
 1. **`item_id`**
-   - **Description:** The unique identifier for the rental item you wish to update.
-   - **Example:** `456`
+
+   -  **Description:** The unique identifier for the rental item you wish to update.
+   -  **Example:** `456`
 
 2. **`category`**
-   - **Description:** The category under which the rental item falls.
-   - **Example:** `"Electronics"`
+
+   -  **Description:** The category under which the rental item falls.
+   -  **Example:** `"Electronics"`
 
 3. **`ItemName`**
-   - **Description:** The name of the rental item.
-   - **Example:** `"Projector"`
+
+   -  **Description:** The name of the rental item.
+   -  **Example:** `"Projector"`
 
 4. **`Description`**
-   - **Description:** A detailed description of the rental item.
-   - **Example:** `"Updated HD Projector for events"`
+
+   -  **Description:** A detailed description of the rental item.
+   -  **Example:** `"Updated HD Projector for events"`
 
 5. **`Price`**
-   - **Description:** The rental price of the item.
-   - **Example:** `12000.00`
+
+   -  **Description:** The rental price of the item.
+   -  **Example:** `12000.00`
 
 6. **`Availability`**
-   - **Description:** Current availability status of the item.
-   - **Example:** `"Available"`
+
+   -  **Description:** Current availability status of the item.
+   -  **Example:** `"Available"`
 
 7. **`vendor_id`**
-   - **Description:** The ID of the vendor performing the update.
-   - **Example:** `123`
+
+   -  **Description:** The ID of the vendor performing the update.
+   -  **Example:** `123`
 
 8. **`Video`**
-   - **Description:** (Optional) A URL to a video showcasing the rental item.
-   - **Example:** `"http://example.com/updated_video.mp4"`
+
+   -  **Description:** (Optional) A URL to a video showcasing the rental item.
+   -  **Example:** `"http://example.com/updated_video.mp4"`
 
 9. **`number_of_items`**
-   - **Description:** The number of units available for rent.
-   - **Example:** `3`
 
-10. **`location`**
-    - **Description:** The location where the rental item is available.
-    - **Example:** `"Abuja"`
+   -  **Description:** The number of units available for rent.
+   -  **Example:** `3`
 
-11. **`images`**
-    - **Description:** (Optional) One or more image files representing the rental item.
-    - **Example:** Multiple image files selected via a file input.
+10.   **`location`**
+
+      -  **Description:** The location where the rental item is available.
+      -  **Example:** `"Abuja"`
+
+11.   **`images`**
+      -  **Description:** (Optional) One or more image files representing the rental item.
+      -  **Example:** Multiple image files selected via a file input.
 
 ### **Request Example**
 
@@ -1133,39 +1158,39 @@ Here's an example of how to create an HTML form to interact with the `updateRent
 
 ```html
 <form action="/rent24ng/backend/updateRentalItem.php" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="item_id" value="456">
-    
-    <label for="category">Category:</label>
-    <input type="text" name="category" id="category" value="Electronics" required>
-    
-    <label for="ItemName">Item Name:</label>
-    <input type="text" name="ItemName" id="ItemName" value="Projector" required>
-    
-    <label for="Description">Description:</label>
-    <textarea name="Description" id="Description" required>Updated HD Projector for events</textarea>
-    
-    <label for="Price">Price:</label>
-    <input type="number" name="Price" id="Price" value="12000" step="0.01" required>
-    
-    <label for="Availability">Availability:</label>
-    <input type="text" name="Availability" id="Availability" value="Available" required>
-    
-    <label for="vendor_id">Vendor ID:</label>
-    <input type="number" name="vendor_id" id="vendor_id" value="123" required>
-    
-    <label for="Video">Video URL (optional):</label>
-    <input type="url" name="Video" id="Video" value="http://example.com/updated_video.mp4">
-    
-    <label for="number_of_items">Number of Items:</label>
-    <input type="number" name="number_of_items" id="number_of_items" value="3" required>
-    
-    <label for="location">Location:</label>
-    <input type="text" name="location" id="location" value="Abuja" required>
-    
-    <label for="images">Upload Images (optional):</label>
-    <input type="file" name="images[]" id="images" multiple>
-    
-    <button type="submit">Update Rental Item</button>
+	<input type="hidden" name="item_id" value="456" />
+
+	<label for="category">Category:</label>
+	<input type="text" name="category" id="category" value="Electronics" required />
+
+	<label for="ItemName">Item Name:</label>
+	<input type="text" name="ItemName" id="ItemName" value="Projector" required />
+
+	<label for="Description">Description:</label>
+	<textarea name="Description" id="Description" required>Updated HD Projector for events</textarea>
+
+	<label for="Price">Price:</label>
+	<input type="number" name="Price" id="Price" value="12000" step="0.01" required />
+
+	<label for="Availability">Availability:</label>
+	<input type="text" name="Availability" id="Availability" value="Available" required />
+
+	<label for="vendor_id">Vendor ID:</label>
+	<input type="number" name="vendor_id" id="vendor_id" value="123" required />
+
+	<label for="Video">Video URL (optional):</label>
+	<input type="url" name="Video" id="Video" value="http://example.com/updated_video.mp4" />
+
+	<label for="number_of_items">Number of Items:</label>
+	<input type="number" name="number_of_items" id="number_of_items" value="3" required />
+
+	<label for="location">Location:</label>
+	<input type="text" name="location" id="location" value="Abuja" required />
+
+	<label for="images">Upload Images (optional):</label>
+	<input type="file" name="images[]" id="images" multiple />
+
+	<button type="submit">Update Rental Item</button>
 </form>
 ```
 
@@ -1197,8 +1222,8 @@ The API will respond with a JSON object indicating the success or failure of the
 
 ```json
 {
-    "success": true,
-    "message": "Rental item updated successfully."
+	"success": true,
+	"message": "Rental item updated successfully."
 }
 ```
 
@@ -1206,66 +1231,66 @@ The API will respond with a JSON object indicating the success or failure of the
 
 1. **Missing Required Fields or File Upload Error**
 
-    ```json
-    {
-        "success": false,
-        "message": "Missing required fields or file upload error."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields or file upload error."
+   }
+   ```
 
 2. **Rental Item Not Found**
 
-    ```json
-    {
-        "success": false,
-        "message": "Rental item not found."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Rental item not found."
+   }
+   ```
 
 3. **Failed to Create Upload Directory**
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to create upload directory."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to create upload directory."
+   }
+   ```
 
 4. **Upload Directory Not Writable**
 
-    ```json
-    {
-        "success": false,
-        "message": "Upload directory is not writable."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Upload directory is not writable."
+   }
+   ```
 
 5. **Failed to Move Uploaded File**
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to upload image: image_name.jpg"
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to upload image: image_name.jpg"
+   }
+   ```
 
 6. **Failed to Update Image Path**
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to update image path: /rent24ng/backend/inc/uploads/rental_items/unique_image_name.jpg"
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to update image path: /rent24ng/backend/inc/uploads/rental_items/unique_image_name.jpg"
+   }
+   ```
 
 7. **Failed to Update Rental Item**
 
-    ```json
-    {
-        "success": false,
-        "message": "Failed to update rental item."
-    }
-    ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to update rental item."
+   }
+   ```
 
 ### **Example Response Handling**
 
@@ -1276,73 +1301,76 @@ Here's how you might handle the response in a frontend application using JavaScr
 ```javascript
 const formData = new FormData(formElement); // Assume formElement is your form
 
-fetch('/rent24ng/backend/updateRentalItem.php', {
-    method: 'POST',
-    body: formData
+fetch("/rent24ng/backend/updateRentalItem.php", {
+	method: "POST",
+	body: formData,
 })
-.then(response => response.json())
-.then(data => {
-    if (data.success) {
-        // Handle success (e.g., notify the user, redirect, etc.)
-        console.log(data.message);
-    } else {
-        // Handle failure (e.g., display error message)
-        console.error(data.message);
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
-});
+	.then((response) => response.json())
+	.then((data) => {
+		if (data.success) {
+			// Handle success (e.g., notify the user, redirect, etc.)
+			console.log(data.message);
+		} else {
+			// Handle failure (e.g., display error message)
+			console.error(data.message);
+		}
+	})
+	.catch((error) => {
+		console.error("Error:", error);
+	});
 ```
 
 ### **Error Handling**
 
-- **Invalid Request Method:** If the request method is not `POST`, the API will return an error message indicating an invalid request method.
-  
-  ```json
-  {
-      "success": false,
-      "message": "Invalid request method."
-  }
-  ```
+-  **Invalid Request Method:** If the request method is not `POST`, the API will return an error message indicating an invalid request method.
 
-- **Server Errors:** In case of server-side issues (e.g., database connection failures), ensure that appropriate error messages are returned to assist in debugging.
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
+
+-  **Server Errors:** In case of server-side issues (e.g., database connection failures), ensure that appropriate error messages are returned to assist in debugging.
 
 ### **General Notes**
 
 1. **File Uploads:**
-   - The `images` parameter is optional. If provided, ensure that the frontend allows multiple file uploads.
-   - The backend will handle moving the uploaded files to the designated directory and updating the database with the image paths.
-   - Ensure that the frontend enforces any file size or type restrictions as per the backend requirements.
+
+   -  The `images` parameter is optional. If provided, ensure that the frontend allows multiple file uploads.
+   -  The backend will handle moving the uploaded files to the designated directory and updating the database with the image paths.
+   -  Ensure that the frontend enforces any file size or type restrictions as per the backend requirements.
 
 2. **Data Validation:**
-   - While the backend performs sanitization and validation, it is good practice for the frontend to also validate user inputs to enhance user experience and reduce server load.
+
+   -  While the backend performs sanitization and validation, it is good practice for the frontend to also validate user inputs to enhance user experience and reduce server load.
 
 3. **Security Considerations:**
-   - Ensure that appropriate authentication and authorization mechanisms are in place to prevent unauthorized updates.
-   - Validate and sanitize all inputs to protect against SQL injection, XSS, and other common vulnerabilities.
+
+   -  Ensure that appropriate authentication and authorization mechanisms are in place to prevent unauthorized updates.
+   -  Validate and sanitize all inputs to protect against SQL injection, XSS, and other common vulnerabilities.
 
 4. **Concurrency:**
-   - If multiple updates can occur simultaneously, ensure that the backend handles concurrency appropriately to prevent data inconsistencies.
+
+   -  If multiple updates can occur simultaneously, ensure that the backend handles concurrency appropriately to prevent data inconsistencies.
 
 5. **Response Times:**
-   - Optimize the backend to ensure quick response times, especially when handling file uploads.
+
+   -  Optimize the backend to ensure quick response times, especially when handling file uploads.
 
 6. **Testing:**
-   - Thoroughly test the API with various input scenarios, including edge cases like large file uploads, missing fields, and invalid data types.
+   -  Thoroughly test the API with various input scenarios, including edge cases like large file uploads, missing fields, and invalid data types.
 
 ### **Summary**
 
-- **Endpoint:** `/rent24ng/backend/updateRentalItem.php`
-- **Method:** `POST`
-- **Content-Type:** `multipart/form-data`
-- **Parameters:** `item_id`, `category`, `ItemName`, `Description`, `Price`, `Availability`, `vendor_id`, `Video` (optional), `number_of_items`, `location`, `images` (optional)
-- **Response:** JSON indicating success or failure with a relevant message.
-- **Usage:** Update existing rental items by providing the necessary fields and optionally uploading new images.
+-  **Endpoint:** `/rent24ng/backend/updateRentalItem.php`
+-  **Method:** `POST`
+-  **Content-Type:** `multipart/form-data`
+-  **Parameters:** `item_id`, `category`, `ItemName`, `Description`, `Price`, `Availability`, `vendor_id`, `Video` (optional), `number_of_items`, `location`, `images` (optional)
+-  **Response:** JSON indicating success or failure with a relevant message.
+-  **Usage:** Update existing rental items by providing the necessary fields and optionally uploading new images.
 
 ---
-
-
 
 Here's the updated API documentation for the `updateVendor` endpoint, including the new fields for a frontend developer:
 
@@ -1351,32 +1379,36 @@ Here's the updated API documentation for the `updateVendor` endpoint, including 
 ## **API Documentation: Update Vendor**
 
 ### **Endpoint**
+
 `POST /backend/updateVendor.php`
 
 ### **Description**
-Updates vendor information, including profile picture and additional fields such as bank details. 
+
+Updates vendor information, including profile picture and additional fields such as bank details.
 
 ### **Request Method**
+
 `POST`
 
 ### **Request Parameters**
 
 #### **Form Data**
-- **`user_id`** (integer, required): The unique identifier of the vendor to update.
-- **`phone_number`** (string, optional): The vendor's phone number.
-- **`state`** (string, optional): The vendor's state.
-- **`address`** (string, optional): The vendor's address.
-- **`localgovt`** (string, optional): The vendor's local government area.
-- **`city`** (string, optional): The vendor's city.
-- **`sex`** (string, optional): The vendor's sex.
-- **`birth`** (string, optional): The vendor's birthdate.
-- **`nin`** (string, optional): The vendor's National Identification Number (NIN).
-- **`firstname`** (string, optional): The vendor's first name.
-- **`lastname`** (string, optional): The vendor's last name.
-- **`bank_name`** (string, optional): The name of the bank.
-- **`account_name`** (string, optional): The account holder's name.
-- **`account_number`** (string, optional): The bank account number.
-- **`profile_pic`** (file, optional): The vendor's profile picture. 
+
+-  **`user_id`** (integer, required): The unique identifier of the vendor to update.
+-  **`phone_number`** (string, optional): The vendor's phone number.
+-  **`state`** (string, optional): The vendor's state.
+-  **`address`** (string, optional): The vendor's address.
+-  **`localgovt`** (string, optional): The vendor's local government area.
+-  **`city`** (string, optional): The vendor's city.
+-  **`sex`** (string, optional): The vendor's sex.
+-  **`birth`** (string, optional): The vendor's birthdate.
+-  **`nin`** (string, optional): The vendor's National Identification Number (NIN).
+-  **`firstname`** (string, optional): The vendor's first name.
+-  **`lastname`** (string, optional): The vendor's last name.
+-  **`bank_name`** (string, optional): The name of the bank.
+-  **`account_name`** (string, optional): The account holder's name.
+-  **`account_number`** (string, optional): The bank account number.
+-  **`profile_pic`** (file, optional): The vendor's profile picture.
 
 ### **Request Example**
 
@@ -1404,64 +1436,69 @@ curl -X POST http://yourdomain.com/backend/updateVendor.php \
 ### **Response**
 
 #### **Success Response**
+
 ```json
 {
-  "success": true,
-  "message": "Vendor information has been updated successfully."
+	"success": true,
+	"message": "Vendor information has been updated successfully."
 }
 ```
 
 #### **Error Responses**
-- **Missing Required Fields**
-  ```json
-  {
-    "success": false,
-    "message": "Missing required fields or file upload error."
-  }
-  ```
-  
-- **Invalid Request Method**
-  ```json
-  {
-    "success": false,
-    "message": "Invalid request method."
-  }
-  ```
 
-- **Upload Directory Issues**
-  ```json
-  {
-    "success": false,
-    "message": "Failed to create upload directory."
-  }
-  ```
+-  **Missing Required Fields**
 
-- **File Upload Error**
-  ```json
-  {
-    "success": false,
-    "message": "Failed to upload profile picture."
-  }
-  ```
+   ```json
+   {
+   	"success": false,
+   	"message": "Missing required fields or file upload error."
+   }
+   ```
 
-- **Database Update Failure**
-  ```json
-  {
-    "success": false,
-    "message": "Failed to update vendor information."
-  }
-  ```
+-  **Invalid Request Method**
+
+   ```json
+   {
+   	"success": false,
+   	"message": "Invalid request method."
+   }
+   ```
+
+-  **Upload Directory Issues**
+
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to create upload directory."
+   }
+   ```
+
+-  **File Upload Error**
+
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to upload profile picture."
+   }
+   ```
+
+-  **Database Update Failure**
+   ```json
+   {
+   	"success": false,
+   	"message": "Failed to update vendor information."
+   }
+   ```
 
 ### **Notes**
-- The `profile_pic` field should be a valid file upload with a valid image file.
-- All other fields are optional and can be omitted if not being updated.
-- The `user_id` is required to identify which vendor to update.
+
+-  The `profile_pic` field should be a valid file upload with a valid image file.
+-  All other fields are optional and can be omitted if not being updated.
+-  The `user_id` is required to identify which vendor to update.
 
 ---
 
 This documentation should help the frontend developer understand how to interact with the `updateVendor` API endpoint and handle the request and response correctly.
-
-
 
 Here is the API documentation for the frontend team to use when integrating the `transactionHistory` endpoint into their frontend code:
 
@@ -1478,13 +1515,14 @@ Here is the API documentation for the frontend team to use when integrating the 
 #### Parameters:
 
 1. **user_id** (required)
-   - **Type**: `integer`
-   - **Description**: The unique ID of the user whose transaction history you want to retrieve.
-   
+
+   -  **Type**: `integer`
+   -  **Description**: The unique ID of the user whose transaction history you want to retrieve.
+
 2. **page** (optional)
-   - **Type**: `integer`
-   - **Default**: `1`
-   - **Description**: The page number for paginated transaction results. Each page contains 20 transactions.
+   -  **Type**: `integer`
+   -  **Default**: `1`
+   -  **Description**: The page number for paginated transaction results. Each page contains 20 transactions.
 
 #### Example Request:
 
@@ -1496,60 +1534,64 @@ GET /backend/transactionHistoryAPI.php?user_id=123&page=1
 
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "transaction_id": 1,
-      "transaction_amount": 5000.00,
-      "status": "Credited",
-      "time": "2024-08-28 14:35:00"
-    },
-    {
-      "transaction_id": 2,
-      "transaction_amount": 2000.00,
-      "status": "Debited",
-      "time": "2024-08-27 10:15:45"
-    },
-    {
-      "transaction_id": 3,
-      "transaction_amount": 1000.00,
-      "status": "Request",
-      "time": "2024-08-25 12:45:30"
-    }
-  ]
+	"success": true,
+	"data": [
+		{
+			"transaction_id": 1,
+			"transaction_amount": 5000.0,
+			"status": "Credited",
+			"time": "2024-08-28 14:35:00"
+		},
+		{
+			"transaction_id": 2,
+			"transaction_amount": 2000.0,
+			"status": "Debited",
+			"time": "2024-08-27 10:15:45"
+		},
+		{
+			"transaction_id": 3,
+			"transaction_amount": 1000.0,
+			"status": "Request",
+			"time": "2024-08-25 12:45:30"
+		}
+	]
 }
 ```
 
 #### Response Parameters:
 
-- **success**: 
-  - **Type**: `boolean`
-  - **Description**: Indicates whether the request was successful or not.
-  
-- **data**:
-  - **Type**: `array`
-  - **Description**: Contains the list of transactions for the user.
-  
+-  **success**:
+
+   -  **Type**: `boolean`
+   -  **Description**: Indicates whether the request was successful or not.
+
+-  **data**:
+   -  **Type**: `array`
+   -  **Description**: Contains the list of transactions for the user.
+
 Each object in the `data` array represents a single transaction and includes:
-  
-- **transaction_id**:
-  - **Type**: `integer`
-  - **Description**: The unique ID of the transaction.
-  
-- **transaction_amount**:
-  - **Type**: `decimal(10, 2)`
-  - **Description**: The amount involved in the transaction.
-  
-- **status**:
-  - **Type**: `string`
-  - **Description**: The status of the transaction. Possible values are:
-    - `"Credited"`: When money has been added to the user.
-    - `"Debited"`: When money has been deducted from the user.
-    - `"Request"`: When a withdrawal request is made.
-    
-- **time**:
-  - **Type**: `timestamp`
-  - **Description**: The timestamp when the transaction was created.
+
+-  **transaction_id**:
+
+   -  **Type**: `integer`
+   -  **Description**: The unique ID of the transaction.
+
+-  **transaction_amount**:
+
+   -  **Type**: `decimal(10, 2)`
+   -  **Description**: The amount involved in the transaction.
+
+-  **status**:
+
+   -  **Type**: `string`
+   -  **Description**: The status of the transaction. Possible values are:
+      -  `"Credited"`: When money has been added to the user.
+      -  `"Debited"`: When money has been deducted from the user.
+      -  `"Request"`: When a withdrawal request is made.
+
+-  **time**:
+   -  **Type**: `timestamp`
+   -  **Description**: The timestamp when the transaction was created.
 
 #### Error Response:
 
@@ -1557,8 +1599,8 @@ If an error occurs, the response will be:
 
 ```json
 {
-  "success": false,
-  "message": "Error message describing the issue."
+	"success": false,
+	"message": "Error message describing the issue."
 }
 ```
 
@@ -1568,8 +1610,8 @@ If an error occurs, the response will be:
 
 ```json
 {
-  "success": false,
-  "message": "user_id is required."
+	"success": false,
+	"message": "user_id is required."
 }
 ```
 
@@ -1577,8 +1619,8 @@ If an error occurs, the response will be:
 
 ```json
 {
-  "success": false,
-  "message": "Invalid request method."
+	"success": false,
+	"message": "Invalid request method."
 }
 ```
 
@@ -1586,15 +1628,12 @@ If an error occurs, the response will be:
 
 ### Notes for Frontend Developers:
 
-- Ensure you send the correct `user_id` as a query parameter when making the API call.
-- If pagination is needed, increment the `page` parameter to load more transaction records.
-- Handle the error responses gracefully in the UI (e.g., show an error message if `user_id` is missing or the API fails).
-- Use the `success` field to check if the request was successful before displaying transaction data.
+-  Ensure you send the correct `user_id` as a query parameter when making the API call.
+-  If pagination is needed, increment the `page` parameter to load more transaction records.
+-  Handle the error responses gracefully in the UI (e.g., show an error message if `user_id` is missing or the API fails).
+-  Use the `success` field to check if the request was successful before displaying transaction data.
 
 ---
-
-
-
 
 ### API Documentation for `requestWithdraw` Endpoint
 
@@ -1608,118 +1647,127 @@ This API endpoint allows a user to request a withdrawal. The system will verify 
 
 ### **Method: POST**
 
-- **URL**: `/requestWithdraw.php`
-- **Description**: Submit a withdrawal request by the user.
-- **Headers**:
-  - `Content-Type: application/json`
-- **Request Body** (JSON):
-  ```json
-  {
-    "user_id": <integer>,         // The ID of the user requesting the withdrawal
-    "request_amount": <decimal>   // The amount the user wants to withdraw
-  }
-  ```
+-  **URL**: `/requestWithdrawal.php`
+-  **Description**: Submit a withdrawal request by the user.
+-  **Headers**:
+   -  `Content-Type: application/json`
+-  **Request Body** (JSON):
+   ```json
+   {
+     "user_id": <integer>,         // The ID of the user requesting the withdrawal
+     "request_amount": <decimal>   // The amount the user wants to withdraw
+   }
+   ```
 
 #### Example Request:
+
 ```json
 {
-  "user_id": 1,
-  "request_amount": 100.00
+	"user_id": 1,
+	"request_amount": 100.0
 }
 ```
 
 #### Success Response:
-- **Code**: `200 OK`
-- **Response Body**:
-  ```json
-  {
-    "success": true,
-    "message": "Withdrawal request submitted successfully."
-  }
-  ```
+
+-  **Code**: `200 OK`
+-  **Response Body**:
+   ```json
+   {
+   	"success": true,
+   	"message": "Withdrawal request submitted successfully."
+   }
+   ```
 
 #### Error Responses:
 
-- **Code**: `400 Bad Request`
-  - **Response Body** (if any required field is missing):
-    ```json
-    {
-      "success": false,
-      "message": "Both user_id and request_amount are required."
-    }
-    ```
+-  **Code**: `400 Bad Request`
 
-- **Code**: `400 Bad Request`
-  - **Response Body** (if insufficient balance):
-    ```json
-    {
-      "success": false,
-      "message": "Insufficient balance to request withdrawal."
-    }
-    ```
+   -  **Response Body** (if any required field is missing):
+      ```json
+      {
+      	"success": false,
+      	"message": "Both user_id and request_amount are required."
+      }
+      ```
+
+-  **Code**: `400 Bad Request`
+   -  **Response Body** (if insufficient balance):
+      ```json
+      {
+      	"success": false,
+      	"message": "Insufficient balance to request withdrawal."
+      }
+      ```
 
 ---
 
 ### **Method: GET**
 
-- **URL**: `/requestWithdraw.php`
-- **Description**: Retrieve withdrawal request history for a user by their user ID.
-- **Headers**:
-  - `Content-Type: application/json`
-- **Request Parameters** (Query String):
-  - `user_id` (integer) – **Required**: The user ID of the person whose transaction history is being retrieved.
+-  **URL**: `/requestWithdraw.php`
+-  **Description**: Retrieve withdrawal request history for a user by their user ID.
+-  **Headers**:
+   -  `Content-Type: application/json`
+-  **Request Parameters** (Query String):
+   -  `user_id` (integer) – **Required**: The user ID of the person whose transaction history is being retrieved.
 
 #### Example Request:
+
 ```url
 http://localhost/rent24ng/backend/requestWithdraw.php?user_id=1
 ```
 
 #### Success Response:
-- **Code**: `200 OK`
-- **Response Body**:
-  ```json
-  {
-    "success": true,
-    "data": [
-      {
-        "transaction_id": 1,
-        "transaction_amount": 100.00,
-        "status": "Request",
-        "time": "2024-09-01 10:30:00"
-      },
-      {
-        "transaction_id": 2,
-        "transaction_amount": 50.00,
-        "status": "Request",
-        "time": "2024-09-02 11:45:00"
-      }
-    ]
-  }
-  ```
+
+-  **Code**: `200 OK`
+-  **Response Body**:
+   ```json
+   {
+   	"success": true,
+   	"data": [
+   		{
+   			"transaction_id": 1,
+   			"transaction_amount": 100.0,
+   			"status": "Request",
+   			"time": "2024-09-01 10:30:00"
+   		},
+   		{
+   			"transaction_id": 2,
+   			"transaction_amount": 50.0,
+   			"status": "Request",
+   			"time": "2024-09-02 11:45:00"
+   		}
+   	]
+   }
+   ```
 
 #### Error Responses:
-- **Code**: `400 Bad Request`
-  - **Response Body**:
-    ```json
-    {
-      "success": false,
-      "message": "user_id is required."
-    }
-    ```
+
+-  **Code**: `400 Bad Request`
+   -  **Response Body**:
+      ```json
+      {
+      	"success": false,
+      	"message": "user_id is required."
+      }
+      ```
 
 ### Admin Notification
-- Whenever a user submits a withdrawal request, a notification will be sent to all users with **admin** privileges.
+
+-  Whenever a user submits a withdrawal request, a notification will be sent to all users with **admin** privileges.
 
 ---
 
 ### Error Codes
-- `200 OK`: Successful operation
-- `400 Bad Request`: Missing or invalid input
-- `500 Internal Server Error`: An error occurred on the server while processing the request
+
+-  `200 OK`: Successful operation
+-  `400 Bad Request`: Missing or invalid input
+-  `500 Internal Server Error`: An error occurred on the server while processing the request
 
 ---
 
 ### Notes for Frontend Developer:
-- Ensure you handle both POST and GET requests in your UI to support users submitting requests and viewing their withdrawal history.
-- Notify users if their balance is insufficient based on the error response.
-- Admins should have a notification system in place to handle withdrawal requests efficiently.
+
+-  Ensure you handle both POST and GET requests in your UI to support users submitting requests and viewing their withdrawal history.
+-  Notify users if their balance is insufficient based on the error response.
+-  Admins should have a notification system in place to handle withdrawal requests efficiently.
