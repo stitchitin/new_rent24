@@ -12,7 +12,7 @@ const createItemDetailsRow = (itemInfo) => `<tr data-payment-id="${itemInfo.paym
 														<td class="text-center">${itemInfo.quantity}</td>
 														<td>${itemInfo.start_date}</td>
 														<td>${itemInfo.end_date}</td>
-														<td>&#8358;${new Intl.NumberFormat("en-US").format(itemInfo.total_price)}</td>
+														<td>&#8358;${itemInfo.total_price.toLocaleString()}</td>
 														<td>
 															<span class="badge light badge-lg ${itemInfo.status === "Approved" ? "badge-success" : "badge-warning"}">
 																${itemInfo.status}

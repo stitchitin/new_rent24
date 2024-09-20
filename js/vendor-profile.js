@@ -76,7 +76,7 @@ const createItemDetailsRow = (itemInfo) => `<tr data-payment-id="${itemInfo.paym
 												<td class="py-2 text-center">${itemInfo.quantity}</td>
 												<td class="py-2">${itemInfo.start_date}</td>
 												<td class="py-2">${itemInfo.end_date}</td>
-												<td class="py-2">&#8358; ${new Intl.NumberFormat("en-US").format(itemInfo.total_price)}</td>
+												<td class="py-2">&#8358; ${itemInfo.total_price.toLocaleString()}</td>
 												<td class="py-2">
 													<span class="badge light  badge-lg ${itemInfo.status === "Approved" ? "badge-success" : "badge-warning"}">
 														${itemInfo.status}
@@ -216,7 +216,7 @@ const fetchAndDisplayTransactionHistory = async (userId) => {
 		.map((transactionInfo) => createTransactionEntry(transactionInfo))
 		.join("");
 
-	select("#transaction-body").children[0]?.remove();
+	select("#transaction-body").innerHTML = "";
 	select("#transaction-body").insertAdjacentHTML("beforeend", htmlContent);
 };
 
