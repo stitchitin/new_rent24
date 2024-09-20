@@ -281,6 +281,7 @@ userStore.subscribe(({ userInfo }) => {
 	fetchAndDisplayVendorProducts(userInfo.user.user_id);
 	displayAccountDetails(userInfo.vendor);
 	fetchAndDisplayTransactionHistory(userInfo.user.user_id);
+
 	select("#withdrawal-form").addEventListener(
 		"submit",
 		handleWithdrawalRequest(userInfo.user.user_id, userInfo.vendor)
