@@ -1771,3 +1771,133 @@ http://localhost/rent24ng/backend/requestWithdraw.php?user_id=1
 -  Ensure you handle both POST and GET requests in your UI to support users submitting requests and viewing their withdrawal history.
 -  Notify users if their balance is insufficient based on the error response.
 -  Admins should have a notification system in place to handle withdrawal requests efficiently.
+
+
+
+Here’s an API documentation for the frontend developer based on the `notificationHistory` method:
+
+---
+
+
+### **API Documentation: Notification History**
+
+#### **Endpoint**: `/backend/notificationHistory.php`
+
+#### **Method**: `GET`
+
+#### **Description**:
+This API fetches the notification history for a given user, ordered by notification status, with unread notifications listed first. It returns a JSON object containing the notifications for that user.
+
+---
+
+### **Request Format**
+
+#### **URL**:
+`http://<your-domain>/backend/notificationHistory.php`
+
+#### **Query Parameters**:
+
+| Parameter | Type   | Required | Description                        |
+|-----------|--------|----------|------------------------------------|
+| user_id   | int    | Yes      | The ID of the user whose notifications you want to retrieve. |
+
+#### **Example Request**:
+```http
+GET http://localhost/rent24ng/backend/notificationHistory.php?user_id=1
+```
+
+---
+
+### **Response Format**
+
+#### **Success Response**:
+
+- **Status Code**: `200 OK`
+- **Content-Type**: `application/json`
+
+The API returns a JSON object with the following structure:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 12,
+            "subject": "Withdrawal Request",
+            "details": "User Chima Amos has requested a withdrawal of 500.",
+            "status": "Unread",
+            "created_at": "2024-09-20 15:41:08"
+        },
+        {
+            "id": 11,
+            "subject": "Withdrawal Request",
+            "details": "User Chima Amos has requested a withdrawal of 457.",
+            "status": "Unread",
+            "created_at": "2024-09-20 15:31:47"
+        },
+        {
+            "id": 1,
+            "subject": "Payment Received",
+            "details": "You have received a payment of 4,500.00.",
+            "status": "Read",
+            "created_at": "2024-08-27 15:49:30"
+        }
+    ]
+}
+```
+
+#### **Response Fields**:
+
+| Field        | Type   | Description                                          |
+|--------------|--------|------------------------------------------------------|
+| success      | bool   | Indicates whether the request was successful or not. |
+| data         | array  | An array of notifications belonging to the user.     |
+| id           | int    | The unique ID of the notification.                   |
+| subject      | string | The subject of the notification.                     |
+| details      | string | Detailed information about the notification.         |
+| status       | string | The status of the notification (`Read` or `Unread`). |
+| created_at   | string | The timestamp when the notification was created.     |
+
+#### **Error Response**:
+
+- **Status Code**: `400 Bad Request`
+- **Content-Type**: `application/json`
+
+If the `user_id` is missing or invalid, the API will return an error message:
+
+```json
+{
+    "success": false,
+    "message": "user_id is required."
+}
+```
+
+If the request method is not `GET`:
+
+```json
+{
+    "success": false,
+    "message": "Invalid request method. Only GET is allowed."
+}
+```
+
+---
+
+### **How to Test with Postman**
+
+1. **Request Type**: `GET`
+2. **URL**: `http://localhost/rent24ng/backend/notificationHistory.php?user_id=1`
+3. **Send the request**: Click "Send" in Postman.
+4. **View Response**: Postman will display the response in JSON format. You should see a list of notifications related to the user with unread notifications first.
+
+---
+
+### **Notes for Frontend Implementation**:
+
+- **Unread notifications** should be displayed at the top.
+- Based on the notification status (`Read` or `Unread`), you can style or highlight the unread ones.
+- If no notifications are available or the `user_id` is invalid, display an appropriate error message to the user.
+
+---
+
+Let me know if you need further clarification!

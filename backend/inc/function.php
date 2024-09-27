@@ -901,6 +901,8 @@ class User {
         
                 // Check if the requested amount is less than or equal to the balance
                 if ($request_amount <= $mainBalance) {
+                    $balance = $mainBalance - $request_amount;
+                    $updateMainBalance = $this->db->getConnection()->prepare("UPDATE Vendor SET MainBalance = ? WHERE user_id= ?");
                     // Insert transaction with status 'Request'
                     $insert_stmt = $this->db->getConnection()->prepare("
                         INSERT INTO `transaction` (user_id, transaction_amount, status) 
@@ -1182,6 +1184,47 @@ class User {
                 return json_encode(["success" => false, "message" => "Failed to update vendor information."]);
             }
         }
+
+        public function notificationHistory($user_id) {
+            // Prepare the SQL statement to retrieve notifications for a specific user and order them by status (Unread first) and then by created_at.
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT id, subject, details, status, created_at
+                 FROM notification
+                 WHERE user_id = ?
+                 ORDER BY 
+                    CASE WHEN status = 'Unread' THEN 0 ELSE 1 END, created_at DESC"
+            );
+            
+            // Bind the user_id to the SQL statement
+            $stmt->bind_param("i", $user_id);
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the result
+                $result = $stmt->get_result();
+                
+                // Initialize an array to store the notifications
+                $notifications = [];
+                
+                // Loop through the result set and store each row in the notifications array
+                while ($row = $result->fetch_assoc()) {
+                    $notifications[] = [
+                        "id" => $row["id"],
+                        "subject" => $row["subject"],
+                        "details" => $row["details"],
+                        "status" => $row["status"],
+                        "created_at" => $row["created_at"]
+                    ];
+                }
+                
+                // Return the notifications as a JSON response
+                return json_encode(["success" => true, "data" => $notifications]);
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to retrieve notifications."]);
+            }
+        }
+        
 
         // Add more methods as needed, such as updateUser(), deleteUser(), getUserById(), etc.
     }
