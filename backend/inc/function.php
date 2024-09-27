@@ -1300,6 +1300,46 @@ class User {
             }
         }
         
+        //  Send Message
+        public function sendMessage($user_id, $subject, $messageContent) {
+            // Get the database connection
+            $db = $this->db->getConnection();
+        
+            // Prepare the SQL statement to insert the message into the 'message' table
+            $stmt = $db->prepare("INSERT INTO message (user_id, subject, message) VALUES (?, ?, ?)");
+            
+            // Check if the preparation was successful
+            if ($stmt === false) {
+                return json_encode(["success" => false, "message" => "Database error."]);
+            }
+        
+            // Bind the parameters (user_id, subject, and message content)
+            $stmt->bind_param("iss", $user_id, $subject, $messageContent);
+        
+            // Execute the statement
+            if ($stmt->execute()) {
+                // If message insertion is successful, send the message to the admin's email
+                $adminEmail = "admin@example.com"; // Replace with the actual admin email
+        
+                // Email subject and body
+                $emailSubject = "New Message from User ID: $user_id - $subject";
+                $emailBody = "User ID: $user_id\nSubject: $subject\nMessage: $messageContent";
+        
+                // Send the email to the admin
+                mail($adminEmail, $emailSubject, $emailBody);
+                // if (mail($adminEmail, $emailSubject, $emailBody)) {
+                //     // If email is sent successfully
+                //     return json_encode(["success" => true, "message" => "Message sent and email delivered to admin."]);
+                // } else {
+                //     // If the email fails to send
+                //     return json_encode(["success" => true, "message" => "Message sent but failed to deliver email to admin."]);
+                // }
+            } else {
+                // If message insertion fails
+                return json_encode(["success" => false, "message" => "Failed to send message."]);
+            }
+        }
+        
         
 
         // Add more methods as needed, such as updateUser(), deleteUser(), getUserById(), etc.

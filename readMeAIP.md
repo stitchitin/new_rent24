@@ -2011,4 +2011,110 @@ All parameters are passed in the body as **JSON**.
 
 ---
 
-Let the frontend developer use this structure to build the necessary functionality for the change password feature.
+
+
+### API Documentation for `sendMessage` API
+
+#### **Endpoint URL**: 
+```
+POST http://localhost/backend/sendMessage.php
+```
+
+#### **Purpose**:
+This API allows users to send messages. The message will be stored in the `message` table and also sent to the admin's email.
+
+---
+
+### **Request Method**: 
+`POST`
+
+---
+
+### **Request Headers**:
+| Key            | Value              |
+|----------------|--------------------|
+| Content-Type   | application/json   |
+
+---
+
+### **Request Body (JSON)**:
+| Parameter | Type     | Description                                | Required |
+|-----------|----------|--------------------------------------------|----------|
+| user_id   | Integer  | The ID of the user sending the message      | Yes      |
+| subject   | String   | The subject of the message                  | Yes      |
+| message   | String   | The message content                        | Yes      |
+
+#### **Example**:
+```json
+{
+  "user_id": 1,
+  "subject": "Support Request",
+  "message": "I need help with my account."
+}
+```
+
+---
+
+### **Response Format**:
+The API will return a JSON object containing either success or failure messages.
+
+#### **Success Response**:
+```json
+{
+  "success": true,
+  "message": "Message sent and email delivered to admin."
+}
+```
+
+#### **Failure Response**:
+```json
+{
+  "success": false,
+  "message": "user_id, subject, and message are required."
+}
+```
+
+#### **Invalid Method Response**:
+If the request method is not `POST`, you will get:
+```json
+{
+  "success": false,
+  "message": "Invalid request method."
+}
+```
+
+---
+
+### **Example Usage**:
+
+#### **1. Request**:
+- **Method**: `POST`
+- **URL**: `http://localhost/backend/sendMessage.php`
+- **Headers**:
+  - `Content-Type: application/json`
+- **Body**:
+```json
+{
+  "user_id": 1,
+  "subject": "Account Issue",
+  "message": "I need assistance with resetting my password."
+}
+```
+
+#### **2. Response**:
+```json
+{
+  "success": true,
+  "message": "Message sent and email delivered to admin."
+}
+```
+
+---
+
+### **Error Scenarios**:
+- **Missing Required Fields**: The `user_id`, `subject`, and `message` fields are mandatory. If any of them is missing, the API will return an error response.
+- **Invalid Request Method**: If a request method other than `POST` is used, the API will reject the request.
+
+### **Notes for Frontend**:
+- Ensure that `user_id`, `subject`, and `message` are sent as part of the request body.
+- Handle the success or failure responses appropriately in the frontend to notify the user about the status of their message.
