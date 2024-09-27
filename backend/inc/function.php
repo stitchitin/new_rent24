@@ -1185,6 +1185,7 @@ class User {
             }
         }
 
+        // Notifcation History
         public function notificationHistory($user_id) {
             // Prepare the SQL statement to retrieve notifications for a specific user and order them by status (Unread first) and then by created_at.
             $stmt = $this->db->getConnection()->prepare(
@@ -1224,6 +1225,81 @@ class User {
                 return json_encode(["success" => false, "message" => "Failed to retrieve notifications."]);
             }
         }
+
+        // Change Password Method
+        public function changePassword($identifier, $currentPassword, $newPassword) {
+            $db = $this->db->getConnection();
+        
+            // Check if the identifier is an email
+            if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+                $field = 'email';
+            } else {
+                // Otherwise, treat it as a username
+                $field = 'username';
+                // Validate the username to ensure it only contains alphanumeric characters and underscores
+                if (!preg_match('/^\w+$/', $identifier)) {
+                    return json_encode(["success" => false, "message" => "Invalid username format."]);
+                }
+            }
+        
+            // Prepare the SQL statement to fetch the user based on the identifier
+            $stmt = $db->prepare("SELECT password FROM users WHERE $field = ?");
+            if ($stmt === false) {
+                return json_encode(["success" => false, "message" => "Database error."]);
+            }
+        
+            $stmt->bind_param("s", $identifier);
+            $stmt->execute();
+            $stmt->store_result();
+        
+            if ($stmt->num_rows > 0) {
+                // Bind the hashed password result
+                $stmt->bind_result($hashedPassword);
+                $stmt->fetch();
+        
+                // Verify the current password
+                if (password_verify($currentPassword, $hashedPassword)) {
+                    // Check if the new password meets certain complexity requirements (example: minimum 8 characters)
+                    if (strlen($newPassword) < 8) {
+                        $stmt->close();
+                        return json_encode(["success" => false, "message" => "New password must be at least 8 characters long."]);
+                    }
+        
+                    // Hash the new password
+                    $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        
+                    // Prepare the SQL statement to update the password
+                    $updateStmt = $db->prepare("UPDATE users SET password = ? WHERE $field = ?");
+                    if ($updateStmt === false) {
+                        return json_encode(["success" => false, "message" => "Failed to prepare the update statement."]);
+                    }
+        
+                    $updateStmt->bind_param("ss", $newHashedPassword, $identifier);
+        
+                    if ($updateStmt->execute()) {
+                        $updateStmt->close();
+                        $stmt->close();
+                        // Return success response
+                        return json_encode([
+                            "success" => true,
+                            "message" => "Password changed successfully."
+                        ]);
+                    } else {
+                        $updateStmt->close();
+                        $stmt->close();
+                        return json_encode(["success" => false, "message" => "Failed to update the password."]);
+                    }
+                } else {
+                    $stmt->close();
+                    return json_encode(["success" => false, "message" => "Current password is incorrect."]);
+                }
+            } else {
+                $stmt->close();
+                // No user found with this identifier
+                return json_encode(["success" => false, "message" => "User not found."]);
+            }
+        }
+        
         
 
         // Add more methods as needed, such as updateUser(), deleteUser(), getUserById(), etc.

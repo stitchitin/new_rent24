@@ -1899,5 +1899,112 @@ If the request method is not `GET`:
 - If no notifications are available or the `user_id` is invalid, display an appropriate error message to the user.
 
 ---
+###
+### ---------------------------------------------------------
 
-Let me know if you need further clarification!
+
+
+### API Documentation for Change Password
+
+**Endpoint:** `backend/changePassword.php`
+
+---
+
+### **Description:**
+This API allows users to change their password by providing their identifier (username or email), current password, and new password. It will authenticate the user based on the provided credentials and update the password if the current one is correct.
+
+---
+
+### **HTTP Method:** 
+`POST`
+
+---
+
+### **Request Parameters:**
+All parameters are passed in the body as **JSON**.
+
+1. **identifier** (string, required)  
+   - The unique identifier for the user. This can be either the username or email.
+   
+   **Example:** `"john_doe"` or `"johndoe@example.com"`
+   
+2. **current_password** (string, required)  
+   - The current password of the user.
+   
+3. **new_password** (string, required)  
+   - The new password the user wants to set. This should be a strong password.
+
+---
+
+### **Request Example:**
+```json
+{
+  "identifier": "john_doe",
+  "current_password": "OldPassword123",
+  "new_password": "NewPassword456"
+}
+```
+
+---
+
+### **Response:**
+
+#### **Success (200 OK):**
+```json
+{
+  "success": true,
+  "message": "Password changed successfully."
+}
+```
+
+#### **Error Responses:**
+
+1. **Invalid Current Password:**
+   - Status Code: `400`
+   - Response:
+     ```json
+     {
+       "success": false,
+       "message": "Incorrect current password."
+     }
+     ```
+
+2. **User Not Found:**
+   - Status Code: `404`
+   - Response:
+     ```json
+     {
+       "success": false,
+       "message": "User not found."
+     }
+     ```
+
+3. **Validation Error (e.g., missing fields):**
+   - Status Code: `422`
+   - Response:
+     ```json
+     {
+       "success": false,
+       "message": "All fields are required."
+     }
+     ```
+
+---
+
+### **Testing with Postman:**
+
+1. **Method:** `POST`
+2. **URL:** `http://yourdomain.com/backend/changePassword.php`
+3. **Headers:** 
+   - `Content-Type: application/json`
+4. **Body:** 
+   - Select **raw** and **JSON** format in Postman, and input the JSON request as shown in the request example.
+
+---
+
+Let the frontend developer use this structure to build the necessary functionality for the change password feature.
+
+
+
+
+
