@@ -40,7 +40,9 @@ const createCard = (rentalItem) => `
 																																				<a href="ecom-product-detail.html?item_id=${rentalItem.ItemID}">${rentalItem.ItemName}</a>
 																																				</h4>
 																																				<p>Location: <span class="item">${rentalItem.location} </span></p>
-																																				<p>Price: <i class="fa fa-check-circle text-success"></i>&#8358;${rentalItem.Price.toLocaleString()}</p>
+																																				<p>Price: <i class="fa fa-check-circle text-success"></i>&#8358;${Number(
+																																					rentalItem.Price
+																																				).toLocaleString()}</p>
 																																				<p>Number of items: <span class="item">${rentalItem.number_of_items}</span></p>
 																																				<p>Availability: <span class="item">${rentalItem.Availability}</span></p>
 																																</div>

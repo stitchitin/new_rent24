@@ -158,7 +158,7 @@ const fetchAndDisplayDetails = async () => {
 		"beforeend",
 		`<h4>${productItem.ItemName}</h4>
 		<div class="d-table mb-2">
-			<p class="price float-start d-block">&#8358; ${productItem.Price.toLocaleString()}</p>
+			<p class="price float-start d-block">&#8358; ${Number(productItem.Price).toLocaleString()}</p>
 		</div>
 
 		<p>

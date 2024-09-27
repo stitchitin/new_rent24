@@ -1,4 +1,5 @@
 import { select, sweetAlert } from "./lib/index.js";
+import { fetchAndDisplayNotifications } from "./notification.js";
 import { userStore, userStoreActions } from "./store/userStore.js";
 
 // Function to get a cookie by name
@@ -129,6 +130,7 @@ const protectPagesAndHideVendorMenu = async (userInfo) => {
 
 // Call the function to fetch user information, and protect pages and hide vendor menu on page load
 userStore.subscribe(({ userInfo }) => {
+	fetchAndDisplayNotifications(userInfo.user.user_id, "unread");
 	fetchUserAndUpdateElements(userInfo);
 	protectPagesAndHideVendorMenu(userInfo);
 });
