@@ -22,7 +22,7 @@ export const waitUntil = (delay) => {
 /**
  *
  * @param {string} selector
- * @returns {ReturnType<typeof document.querySelector>}
+ * @returns {HTMLElement | null}
  */
 export const select = (selector, context = document) => context.querySelector(selector);
 /**

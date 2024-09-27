@@ -75,7 +75,6 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 	profilePicElement1.src = vendor.profile_pic;
 
 	if (window.location.pathname.endsWith("settings.html")) {
-		select("#userInfoId").value = user.user_id;
 		const profilePicElement2 = select("#profilePic2");
 		profilePicElement2.src = vendor.profile_pic;
 	}

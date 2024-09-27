@@ -216,7 +216,9 @@ const fetchAndDisplayTransactionHistory = async (userId) => {
 		.map((transactionInfo) => createTransactionEntry(transactionInfo))
 		.join("");
 
-	select("#transaction-body").innerHTML = htmlContent;
+	select("#transaction-body").replaceChildren();
+
+	select("#transaction-body").insertAdjacentHTML("beforeend", htmlContent);
 };
 
 const toggleLoader = (action) => {

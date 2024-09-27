@@ -2,7 +2,7 @@ import { callApi, sweetAlert } from "./lib/index.js";
 import { select } from "./lib/utils.js";
 import { userStore } from "./store/userStore.js";
 
-const onSubmit = async (event, userInfo) => {
+const onSubmit = async (event, userId) => {
 	event.preventDefault();
 
 	const formData = new FormData(event.target);
@@ -15,7 +15,7 @@ const onSubmit = async (event, userInfo) => {
 		method: "POST",
 		body: formData,
 		query: {
-			user_id: userInfo.user.user_id,
+			user_id: userId,
 		},
 	});
 
@@ -38,25 +38,23 @@ const onSubmit = async (event, userInfo) => {
 };
 
 userStore.subscribe(({ userInfo }) => {
-	select("#profileForm").addEventListener("submit", (event) => onSubmit(event, userInfo));
+	select("#profileForm").addEventListener("submit", (event) => onSubmit(event, userInfo.user.user_id));
 });
 
-const populateLateForm = async (userInfo) => {
-	const vendorInformation = userInfo.vendor;
-
+const populateLateForm = async (vendorInfo) => {
 	const profilePic = select("#profilePic2");
-	profilePic.src = vendorInformation.profile_pic;
+	profilePic.src = vendorInfo.profile_pic;
 
 	const formInputsArray = Array.from(select("#profileForm").elements);
 
 	// prettier-ignore
-	const requiredFormInputs = formInputsArray.filter((formInput) =>Object.keys(vendorInformation).includes(formInput.name) && formInput.name !== "profile_pic");
+	const requiredFormInputs = formInputsArray.filter((formInput) =>Object.keys(vendorInfo).includes(formInput.name) && formInput.name !== "profile_pic");
 
 	for (const requiredFormInput of requiredFormInputs) {
-		const inputValue = vendorInformation[requiredFormInput.name];
+		const inputValue = vendorInfo[requiredFormInput.name];
 
 		requiredFormInput.value = inputValue;
 	}
 };
 
-userStore.subscribe(({ userInfo }) => populateLateForm(userInfo));
+userStore.subscribe(({ userInfo }) => populateLateForm(userInfo.vendor));

@@ -21,6 +21,8 @@
 		<link href="vendor/lightgallery/css/lightgallery.min.css" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+
+		<script type="module" src="js/settings.js"></script>
 	</head>
 
 	<body>
@@ -56,27 +58,41 @@
 							<div class="card-header">
 								<h6 class="title">Change Password</h6>
 							</div>
-							<form class="profile-form" id="updateForm">
+
+							<form class="profile-form" id="changePasswordForm">
 								<div class="card-body">
 									<div class="column">
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Old password</label>
-											<input type="password" class="form-control" name="old_password" />
+											<input
+												type="password"
+												class="form-control"
+												name="currentPassword"
+												required
+											/>
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">New password</label>
-											<input type="password" class="form-control" name="new_password" />
+											<input
+												type="password"
+												class="form-control"
+												name="newPassword"
+												required
+											/>
 										</div>
 										<div class="col-sm-6 m-b30">
 											<label class="form-label">Confirm password</label>
-											<input type="password" class="form-control" name="confirm_password" />
+											<input
+												type="password"
+												class="form-control"
+												name="confirmPassword"
+												required
+											/>
 										</div>
 									</div>
 								</div>
 								<div class="card-footer">
-									<input type="hidden" id="status" name="status" value="inactive" />
-									<input type="hidden" id="userInfoId" name="user_id" />
-									<button class="btn btn-primary">UPDATE</button>
+									<button type="submit" class="btn btn-primary">UPDATE</button>
 								</div>
 							</form>
 						</div>

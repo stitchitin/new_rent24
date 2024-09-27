@@ -1772,12 +1772,9 @@ http://localhost/rent24ng/backend/requestWithdraw.php?user_id=1
 -  Notify users if their balance is insufficient based on the error response.
 -  Admins should have a notification system in place to handle withdrawal requests efficiently.
 
-
-
 Here’s an API documentation for the frontend developer based on the `notificationHistory` method:
 
 ---
-
 
 ### **API Documentation: Notification History**
 
@@ -1786,6 +1783,7 @@ Here’s an API documentation for the frontend developer based on the `notificat
 #### **Method**: `GET`
 
 #### **Description**:
+
 This API fetches the notification history for a given user, ordered by notification status, with unread notifications listed first. It returns a JSON object containing the notifications for that user.
 
 ---
@@ -1793,15 +1791,17 @@ This API fetches the notification history for a given user, ordered by notificat
 ### **Request Format**
 
 #### **URL**:
+
 `http://<your-domain>/backend/notificationHistory.php`
 
 #### **Query Parameters**:
 
-| Parameter | Type   | Required | Description                        |
-|-----------|--------|----------|------------------------------------|
-| user_id   | int    | Yes      | The ID of the user whose notifications you want to retrieve. |
+| Parameter | Type | Required | Description                                                  |
+| --------- | ---- | -------- | ------------------------------------------------------------ |
+| user_id   | int  | Yes      | The ID of the user whose notifications you want to retrieve. |
 
 #### **Example Request**:
+
 ```http
 GET http://localhost/rent24ng/backend/notificationHistory.php?user_id=1
 ```
@@ -1812,63 +1812,63 @@ GET http://localhost/rent24ng/backend/notificationHistory.php?user_id=1
 
 #### **Success Response**:
 
-- **Status Code**: `200 OK`
-- **Content-Type**: `application/json`
+-  **Status Code**: `200 OK`
+-  **Content-Type**: `application/json`
 
 The API returns a JSON object with the following structure:
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "id": 12,
-            "subject": "Withdrawal Request",
-            "details": "User Chima Amos has requested a withdrawal of 500.",
-            "status": "Unread",
-            "created_at": "2024-09-20 15:41:08"
-        },
-        {
-            "id": 11,
-            "subject": "Withdrawal Request",
-            "details": "User Chima Amos has requested a withdrawal of 457.",
-            "status": "Unread",
-            "created_at": "2024-09-20 15:31:47"
-        },
-        {
-            "id": 1,
-            "subject": "Payment Received",
-            "details": "You have received a payment of 4,500.00.",
-            "status": "Read",
-            "created_at": "2024-08-27 15:49:30"
-        }
-    ]
+	"success": true,
+	"data": [
+		{
+			"id": 12,
+			"subject": "Withdrawal Request",
+			"details": "User Chima Amos has requested a withdrawal of 500.",
+			"status": "Unread",
+			"created_at": "2024-09-20 15:41:08"
+		},
+		{
+			"id": 11,
+			"subject": "Withdrawal Request",
+			"details": "User Chima Amos has requested a withdrawal of 457.",
+			"status": "Unread",
+			"created_at": "2024-09-20 15:31:47"
+		},
+		{
+			"id": 1,
+			"subject": "Payment Received",
+			"details": "You have received a payment of 4,500.00.",
+			"status": "Read",
+			"created_at": "2024-08-27 15:49:30"
+		}
+	]
 }
 ```
 
 #### **Response Fields**:
 
-| Field        | Type   | Description                                          |
-|--------------|--------|------------------------------------------------------|
-| success      | bool   | Indicates whether the request was successful or not. |
-| data         | array  | An array of notifications belonging to the user.     |
-| id           | int    | The unique ID of the notification.                   |
-| subject      | string | The subject of the notification.                     |
-| details      | string | Detailed information about the notification.         |
-| status       | string | The status of the notification (`Read` or `Unread`). |
-| created_at   | string | The timestamp when the notification was created.     |
+| Field      | Type   | Description                                          |
+| ---------- | ------ | ---------------------------------------------------- |
+| success    | bool   | Indicates whether the request was successful or not. |
+| data       | array  | An array of notifications belonging to the user.     |
+| id         | int    | The unique ID of the notification.                   |
+| subject    | string | The subject of the notification.                     |
+| details    | string | Detailed information about the notification.         |
+| status     | string | The status of the notification (`Read` or `Unread`). |
+| created_at | string | The timestamp when the notification was created.     |
 
 #### **Error Response**:
 
-- **Status Code**: `400 Bad Request`
-- **Content-Type**: `application/json`
+-  **Status Code**: `400 Bad Request`
+-  **Content-Type**: `application/json`
 
 If the `user_id` is missing or invalid, the API will return an error message:
 
 ```json
 {
-    "success": false,
-    "message": "user_id is required."
+	"success": false,
+	"message": "user_id is required."
 }
 ```
 
@@ -1876,8 +1876,8 @@ If the request method is not `GET`:
 
 ```json
 {
-    "success": false,
-    "message": "Invalid request method. Only GET is allowed."
+	"success": false,
+	"message": "Invalid request method. Only GET is allowed."
 }
 ```
 
@@ -1894,15 +1894,15 @@ If the request method is not `GET`:
 
 ### **Notes for Frontend Implementation**:
 
-- **Unread notifications** should be displayed at the top.
-- Based on the notification status (`Read` or `Unread`), you can style or highlight the unread ones.
-- If no notifications are available or the `user_id` is invalid, display an appropriate error message to the user.
+-  **Unread notifications** should be displayed at the top.
+-  Based on the notification status (`Read` or `Unread`), you can style or highlight the unread ones.
+-  If no notifications are available or the `user_id` is invalid, display an appropriate error message to the user.
 
 ---
+
 ###
+
 ### ---------------------------------------------------------
-
-
 
 ### API Documentation for Change Password
 
@@ -1911,37 +1911,43 @@ If the request method is not `GET`:
 ---
 
 ### **Description:**
+
 This API allows users to change their password by providing their identifier (username or email), current password, and new password. It will authenticate the user based on the provided credentials and update the password if the current one is correct.
 
 ---
 
-### **HTTP Method:** 
+### **HTTP Method:**
+
 `POST`
 
 ---
 
 ### **Request Parameters:**
+
 All parameters are passed in the body as **JSON**.
 
-1. **identifier** (string, required)  
-   - The unique identifier for the user. This can be either the username or email.
-   
+1. **identifier** (string, required)
+
+   -  The unique identifier for the user. This can be either the username or email.
+
    **Example:** `"john_doe"` or `"johndoe@example.com"`
-   
-2. **current_password** (string, required)  
-   - The current password of the user.
-   
-3. **new_password** (string, required)  
-   - The new password the user wants to set. This should be a strong password.
+
+2. **current_password** (string, required)
+
+   -  The current password of the user.
+
+3. **new_password** (string, required)
+   -  The new password the user wants to set. This should be a strong password.
 
 ---
 
 ### **Request Example:**
+
 ```json
 {
-  "identifier": "john_doe",
-  "current_password": "OldPassword123",
-  "new_password": "NewPassword456"
+	"identifier": "john_doe",
+	"currentPassword": "OldPassword123",
+	"newPassword": "NewPassword456"
 }
 ```
 
@@ -1950,44 +1956,47 @@ All parameters are passed in the body as **JSON**.
 ### **Response:**
 
 #### **Success (200 OK):**
+
 ```json
 {
-  "success": true,
-  "message": "Password changed successfully."
+	"success": true,
+	"message": "Password changed successfully."
 }
 ```
 
 #### **Error Responses:**
 
 1. **Invalid Current Password:**
-   - Status Code: `400`
-   - Response:
-     ```json
-     {
-       "success": false,
-       "message": "Incorrect current password."
-     }
-     ```
+
+   -  Status Code: `400`
+   -  Response:
+      ```json
+      {
+      	"success": false,
+      	"message": "Incorrect current password."
+      }
+      ```
 
 2. **User Not Found:**
-   - Status Code: `404`
-   - Response:
-     ```json
-     {
-       "success": false,
-       "message": "User not found."
-     }
-     ```
+
+   -  Status Code: `404`
+   -  Response:
+      ```json
+      {
+      	"success": false,
+      	"message": "User not found."
+      }
+      ```
 
 3. **Validation Error (e.g., missing fields):**
-   - Status Code: `422`
-   - Response:
-     ```json
-     {
-       "success": false,
-       "message": "All fields are required."
-     }
-     ```
+   -  Status Code: `422`
+   -  Response:
+      ```json
+      {
+      	"success": false,
+      	"message": "All fields are required."
+      }
+      ```
 
 ---
 
@@ -1995,16 +2004,11 @@ All parameters are passed in the body as **JSON**.
 
 1. **Method:** `POST`
 2. **URL:** `http://yourdomain.com/backend/changePassword.php`
-3. **Headers:** 
-   - `Content-Type: application/json`
-4. **Body:** 
-   - Select **raw** and **JSON** format in Postman, and input the JSON request as shown in the request example.
+3. **Headers:**
+   -  `Content-Type: application/json`
+4. **Body:**
+   -  Select **raw** and **JSON** format in Postman, and input the JSON request as shown in the request example.
 
 ---
 
 Let the frontend developer use this structure to build the necessary functionality for the change password feature.
-
-
-
-
-

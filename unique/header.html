@@ -514,7 +514,7 @@
 						<li class="nav-item">
 
 						</li>
-						<li class="nav-item dropdown notification_dropdown">
+						<!-- <li class="nav-item dropdown notification_dropdown">
 							<a class="nav-link " href="javascript:void(0);" data-bs-toggle="dropdown">
 								<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M11 14.4375C9.1025 14.4375 7.5625 12.8975 7.5625 11C7.5625 9.1025 9.1025 7.5625 11 7.5625C12.8975 7.5625 14.4375 9.1025 14.4375 11C14.4375 12.8975 12.8975 14.4375 11 14.4375ZM11 8.9375C9.86333 8.9375 8.9375 9.86333 8.9375 11C8.9375 12.1367 9.86333 13.0625 11 13.0625C12.1367 13.0625 13.0625 12.1367 13.0625 11C13.0625 9.86333 12.1367 8.9375 11 8.9375Z" fill="var(--primary)" />
@@ -576,7 +576,7 @@
 									</ul>
 								</div>
 							</div>
-						</li>
+						</li> -->
 						<li class="nav-item dropdown notification_dropdown">
 							<a class="nav-link bell-icon " href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
 								<svg class="bell-animi" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -591,47 +591,21 @@
 									<a href="javascript:void(0);" class="d-none"><i class="flaticon-381-settings-6"></i></a>
 								</div>
 								<div id="DZ_W_Notification1" class="widget-media dz-scroll p-3" style="height:380px;">
-									<ul class="timeline">
-
-
-
-
-
-										<li>
-											<div class="timeline-panel">
-												<div class="media me-2 media-danger">
-													KG
-												</div>
-												<div class="media-body">
-													<h6 class="mb-1">Resport created successfully</h6>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="timeline-panel">
-												<div class="media me-2 media-primary">
-													<i class="fa fa-home"></i>
-												</div>
-												<div class="media-body">
-													<h6 class="mb-1">Reminder : Treatment Time!</h6>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-											</div>
-										</li>
+									<ul id="unread-notification-list" class="timeline">
+									<!-- Filled by js -->
 									</ul>
 								</div>
-								<a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
+								<a class="all-notification" href="notification.html">See all notifications <i class="ti-arrow-end"></i></a>
 							</div>
 						</li>
-						<li class="nav-item dropdown notification_dropdown">
+						<!-- <li class="nav-item dropdown notification_dropdown">
 							<a class="nav-link bell-link" href="javascript:void(0);">
 								<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M15.5833 19.4788H6.41659C3.07075 19.4788 1.14575 17.5538 1.14575 14.208V7.79134C1.14575 4.44551 3.07075 2.52051 6.41659 2.52051H15.5833C18.9291 2.52051 20.8541 4.44551 20.8541 7.79134V14.208C20.8541 17.5538 18.9291 19.4788 15.5833 19.4788ZM6.41659 3.89551C3.79492 3.89551 2.52075 5.16967 2.52075 7.79134V14.208C2.52075 16.8297 3.79492 18.1038 6.41659 18.1038H15.5833C18.2049 18.1038 19.4791 16.8297 19.4791 14.208V7.79134C19.4791 5.16967 18.2049 3.89551 15.5833 3.89551H6.41659Z" fill="var(--primary)" />
 									<path d="M10.9999 11.797C10.2299 11.797 9.45071 11.5587 8.85488 11.0728L5.98571 8.78115C5.69238 8.54282 5.63738 8.11198 5.87571 7.81865C6.11405 7.52532 6.54488 7.47032 6.83822 7.70865L9.70737 10.0003C10.404 10.5595 11.5865 10.5595 12.2832 10.0003L15.1524 7.70865C15.4457 7.47032 15.8857 7.51615 16.1149 7.81865C16.3532 8.11198 16.3074 8.55199 16.0049 8.78115L13.1357 11.0728C12.549 11.5587 11.7699 11.797 10.9999 11.797Z" fill="var(--primary)" />
 								</svg>
 							</a>
-						</li>
+						</li> -->
 						<li class="nav-item">
 							<div class="dropdown header-profile2">
 								<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -786,7 +760,8 @@
 					</a>
 
 				</li>
-				<li><a href="saved-items.html">
+				<!-- <li>
+					<a href="saved-items.html">
 						<div class="menu-icon">
 							<svg id="icon-forms" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M11.0001 16.3905C10.7709 16.3905 10.5326 16.308 10.3492 16.143L7.98425 14.0713C7.09508 13.2921 6.97591 11.9538 7.71841 11.028C8.47008 10.093 9.80841 9.9188 10.7709 10.643L11.0001 10.8171L11.2384 10.6338C12.2009 9.90963 13.5392 10.0838 14.2909 11.0188C15.0334 11.9446 14.9142 13.283 14.0251 14.0621L11.6601 16.1338C11.4676 16.308 11.2292 16.3905 11.0001 16.3905ZM8.88258 13.0355L11.0001 14.8871L13.1176 13.0355C13.4567 12.7421 13.5026 12.238 13.2184 11.8896C12.9342 11.5321 12.4301 11.468 12.0634 11.743L11.4126 12.2288C11.1651 12.4121 10.8351 12.4121 10.5876 12.2288L9.93675 11.743C9.57925 11.468 9.06591 11.5321 8.78175 11.8896C8.50675 12.238 8.55258 12.7421 8.88258 13.0355Z" fill="#9C99FF" />
@@ -795,19 +770,8 @@
 						</div>
 						<span class="nav-text">Saved items</span>
 					</a>
+				</li> -->
 
-				</li>
-				<!-- <li><a href="#">
-                            <div class="menu-icon">
-
-                                <img src="images/add.svg" alt="" srcset="" width="25" height="25" viewBox="0 0 22 22"
-                                    fill="none">
-                            </div>
-                            <span class="nav-text">Add item
-                            </span>
-                        </a>
-
-                    </li> -->
 				<li><a href="support.html">
 						<div class="menu-icon">
 							<svg id="icon-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22" stroke-width="3">
