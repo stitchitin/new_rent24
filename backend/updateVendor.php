@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $lastname = isset($_POST['lastname']) ? filter_var($_POST['lastname'], FILTER_SANITIZE_STRING) : null;
 
         // Additional fields for bank details
-        $bank_name = isset($_POST['bank_name']) ? filter_var($_POST['bank_name'], FILTER_SANITIZE_STRING) : null;
-        $account_name = isset($_POST['account_name']) ? filter_var($_POST['account_name'], FILTER_SANITIZE_STRING) : null;
-        $account_number = isset($_POST['account_number']) ? filter_var($_POST['account_number'], FILTER_SANITIZE_STRING) : null;
+        $bank_name = isset($_POST['BankName']) ? filter_var($_POST['BankName'], FILTER_SANITIZE_STRING) : null;
+        $account_name = isset($_POST['AccountName']) ? filter_var($_POST['AccountName'], FILTER_SANITIZE_STRING) : null;
+        $account_number = isset($_POST['AccountNumber']) ? filter_var($_POST['AccountNumber'], FILTER_SANITIZE_STRING) : null;
 
         // Handle the file upload
         $profile_pic = isset($_FILES['profile_pic']) ? $_FILES['profile_pic'] : null;
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $firstname,
             $lastname,
             $bank_name,        // Adding bank details to the update function
-            $account_name, 
+            $account_name,
             $account_number
         );
 

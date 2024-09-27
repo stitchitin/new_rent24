@@ -14,3 +14,5 @@ export * from "./typeof.js";
 export { printPaymentReceipt } from "./printReceipt.js";
 
 export * from "./createStore/index.js";
+
+import "https://cdn.twind.style";

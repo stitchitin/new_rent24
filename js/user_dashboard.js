@@ -49,7 +49,7 @@ const createCard = (rentalItem) => `
 																</div>
 												`;
 
-const fetchAndDisplayRentalItems = async (userInfo) => {
+const fetchAndDisplayRentalItems = async (userId) => {
 	// Get query parameters from the URL
 	const category_id = new URLSearchParams(window.location.search).get("category_id");
 
@@ -65,7 +65,7 @@ const fetchAndDisplayRentalItems = async (userInfo) => {
 	}
 
 	const htmlContent = data.data
-		.filter((rentalItem) => rentalItem.user_id !== userInfo.user.user_id)
+		.filter((rentalItem) => rentalItem.user_id !== userId)
 		.map((rentalItem) => createCard(rentalItem))
 		.join("");
 
@@ -73,4 +73,4 @@ const fetchAndDisplayRentalItems = async (userInfo) => {
 };
 
 // Fetch categories when the page loads
-userStore.subscribe(({ userInfo }) => fetchAndDisplayRentalItems(userInfo));
+userStore.subscribe(({ userInfo }) => fetchAndDisplayRentalItems(userInfo.user.user_id));
