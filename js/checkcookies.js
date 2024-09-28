@@ -111,7 +111,12 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 // Page Protection and hiding of vendor menu from regular user
 const protectPagesAndHideMenus = async (userPrivilege) => {
 	const inaccessibleVendorPages = ["additem.html", "vendor-profile.html"];
-	const inaccessibleAdminPages = ["admin-transaction-history.html", "admin-users-list.html", "confirm-payment.html"];
+	const inaccessibleAdminPages = [
+		"admin-transaction-history.html",
+		"admin-users-list.html",
+		"confirm-payment.html",
+		"read-user-info.html",
+	];
 
 	if (userPrivilege === "user") {
 		select("#vendorMenu").remove();
@@ -127,7 +132,7 @@ const protectPagesAndHideMenus = async (userPrivilege) => {
 
 			document.body.remove();
 
-			window.location.href = "404.html"
+			window.location.href = "404.html";
 		}
 	}
 
@@ -137,7 +142,7 @@ const protectPagesAndHideMenus = async (userPrivilege) => {
 
 			document.body.remove();
 
-			window.location.href = "404.html"
+			window.location.href = "404.html";
 		}
 	}
 };
