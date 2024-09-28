@@ -7,7 +7,8 @@ $database = new Database();
 
 // Initialize the User class with the Database object
 $userService = new User($database);
-
+// Get the request method
+$requestMethod = $_SERVER['REQUEST_METHOD'];
 if ($requestMethod === 'POST') {
     // Get the input data from the POST request
     $data = json_decode(file_get_contents('php://input'), true);
