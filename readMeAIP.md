@@ -3,6 +3,8 @@
 Here is the documentation for the "Register" API endpoint:
 
 ---
+# Table of Content
+- [API Documentation for `sendMessage` API](#api-documentation-for-sendMessage-api)
 
 ## Register Endpoint
 
@@ -2013,7 +2015,7 @@ All parameters are passed in the body as **JSON**.
 
 
 
-### API Documentation for `sendMessage` API
+## API Documentation for `sendMessage` API
 
 #### **Endpoint URL**: 
 ```
@@ -2118,3 +2120,74 @@ If the request method is not `POST`, you will get:
 ### **Notes for Frontend**:
 - Ensure that `user_id`, `subject`, and `message` are sent as part of the request body.
 - Handle the success or failure responses appropriately in the frontend to notify the user about the status of their message.
+
+
+### API Documentation: `readNotification` API
+
+#### **Endpoint**: `readNotification.php`
+
+#### **Method**: `POST`
+
+#### **Description**:
+This API marks a specific notification as "Read" by updating its status in the database.
+
+#### **Request URL**:
+```
+http://localhost/rent24ng/backend/readNotification.php
+```
+
+#### **Request Method**:
+`POST`
+
+#### **Request Headers**:
+- **Content-Type**: `application/x-www-form-urlencoded` (default when using form-data)
+
+#### **Request Parameters (Body)**:
+| Parameter        | Type   | Description                                    | Required |
+|------------------|--------|------------------------------------------------|----------|
+| `notification_id` | `int`  | The ID of the notification to be marked as read | Yes      |
+
+#### **Request Example**:
+```bash
+POST http://localhost/rent24ng/backend/readNotification.php
+Content-Type: application/x-www-form-urlencoded
+
+notification_id=5
+```
+
+#### **Response**:
+- On success, the notification will be updated, and a success message will be returned.
+- On failure, an error message will be returned.
+
+#### **Response Example (Success)**:
+```json
+{
+  "success": true,
+  "message": "Notification marked as read."
+}
+```
+
+#### **Response Example (Missing `notification_id`)**:
+```json
+{
+  "success": false,
+  "message": "notification_id is required."
+}
+```
+
+#### **Response Example (Invalid Request Method)**:
+```json
+{
+  "success": false,
+  "message": "Invalid request method. Only POST is allowed."
+}
+```
+
+#### **Error Handling**:
+- **Missing `notification_id`**: The request will return a `400` status with an error message indicating that `notification_id` is required.
+- **Invalid Request Method**: If the method is not `POST`, the request will return a `405` error with a message stating that only `POST` is allowed.
+
+#### **Frontend Notes**:
+- Ensure the `notification_id` parameter is passed correctly in the body of the request.
+- Use form-data when making the request.
+- Handle the response messages in your UI to display success or error messages accordingly.

@@ -1226,6 +1226,35 @@ class User {
             }
         }
 
+        // read notification
+        public function readNotification($notification_id) {
+            // Prepare the SQL statement to update the notification status to 'Read' where the notification id matches
+            $stmt = $this->db->getConnection()->prepare(
+                "UPDATE notification
+                 SET status = 'Read'
+                 WHERE id = ? AND status = 'Unread'"
+            );
+            
+            // Bind the notification_id to the SQL statement
+            $stmt->bind_param("i", $notification_id);
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Check if any rows were affected (i.e. if the notification was actually updated)
+                if ($stmt->affected_rows > 0) {
+                    // Return success message
+                    return json_encode(["success" => true, "message" => "Notification marked as read."]);
+                } else {
+                    // Return a message indicating that no unread notifications were found for the provided id
+                    return json_encode(["success" => false, "message" => "Notification not found or already read."]);
+                }
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to update notification status."]);
+            }
+        }
+        
+
         // Change Password Method
         public function changePassword($identifier, $currentPassword, $newPassword) {
             $db = $this->db->getConnection();
