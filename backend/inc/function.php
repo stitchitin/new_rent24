@@ -1353,6 +1353,7 @@ class User {
                 // Email subject and body
                 $emailSubject = "New Message from User ID: $user_id - $subject";
                 $emailBody = "User ID: $user_id\nSubject: $subject\nMessage: $messageContent";
+                 return json_encode(["success" => true, "message" => "Message sent and email"]); 
         
                 // Send the email to the admin
                 // mail($adminEmail, $emailSubject, $emailBody);
