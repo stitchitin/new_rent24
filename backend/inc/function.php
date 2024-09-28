@@ -1355,7 +1355,7 @@ class User {
                 $emailBody = "User ID: $user_id\nSubject: $subject\nMessage: $messageContent";
         
                 // Send the email to the admin
-                mail($adminEmail, $emailSubject, $emailBody);
+                // mail($adminEmail, $emailSubject, $emailBody);
                 // if (mail($adminEmail, $emailSubject, $emailBody)) {
                 //     // If email is sent successfully
                 //     return json_encode(["success" => true, "message" => "Message sent and email delivered to admin."]);
