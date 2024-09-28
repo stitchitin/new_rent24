@@ -1462,6 +1462,31 @@ class User {
             }
         }
         
+        public function changeUserStatus($user_id, $new_status) {
+            // Prepare the SQL query to update the user's status
+            $stmt = $this->db->getConnection()->prepare(
+                "UPDATE users SET privilege = ? WHERE user_id = ?"
+            );
+            
+            // Bind the new status and user ID to the query
+            $stmt->bind_param("si", $new_status, $user_id);
+            
+            // Execute the query
+            if ($stmt->execute()) {
+                // If successful, return a success message as a JSON response
+                return json_encode([
+                    "success" => true,
+                    "message" => "User status updated successfully."
+                ]);
+            } else {
+                // If an error occurs, return a failure message as a JSON response
+                return json_encode([
+                    "success" => false,
+                    "message" => "Failed to update user status."
+                ]);
+            }
+        }
+        
         
         
 
