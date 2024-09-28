@@ -14,12 +14,15 @@ $userService = new User($database);
 // Get the request method
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-if ($requestMethod == 'POST') {
-    // Get the notification_id from the POST data
-    $notification_id = isset($_POST['notification_id']) ? (int)$_POST['notification_id'] : null;
+if ($requestMethod === 'POST') {
+    // Get the input data from the POST request
+    $data = json_decode(file_get_contents('php://input'), true);
 
-    // Check if notification_id is provided
-    if ($notification_id !== null) {
+    // Extract the notification_id from the input data
+    $notification_id = isset($data['notification_id']) ? (int)$data['notification_id'] : null;
+
+    // Validate input
+    if ($notification_id) {
         // Call the readNotification method and get the result
         $result = $userService->readNotification($notification_id);
 
