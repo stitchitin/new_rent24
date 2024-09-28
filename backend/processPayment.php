@@ -1,4 +1,7 @@
 <?php
+// Set headers to return JSON
+header('Content-Type: application/json');
+
 // Include necessary files (e.g., function.php for User class and DB connection)
 include 'inc/function.php';
 
@@ -16,21 +19,18 @@ if ($transaction_id) {
     $transactionDetails = $userService->getTransactionDetails($transaction_id);
 
     if ($transactionDetails) {
+        // Return JSON response with transaction details
         echo json_encode([
             "success" => true,
             "data" => $transactionDetails,
             "message" => "Review the transaction and confirm payment."
         ]);
-
-        // Provide a form or button to mark as debited
-        echo '<form method="POST" action="submitPayment.php">';
-        echo '<input type="hidden" name="transaction_id" value="' . $transaction_id . '">';
-        echo '<button type="submit">Confirm Payment</button>';
-        echo '</form>';
     } else {
+        // Transaction not found
         echo json_encode(["success" => false, "message" => "Transaction not found."]);
     }
 } else {
+    // Invalid transaction ID
     echo json_encode(["success" => false, "message" => "Invalid transaction ID."]);
 }
 ?>

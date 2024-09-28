@@ -1369,6 +1369,99 @@ class User {
                 return json_encode(["success" => false, "message" => "Failed to send message."]);
             }
         }
+
+        // list Of Users
+
+        public function listOfUsers($page = 1) {
+            // Variables for pagination
+            $itemsPerPage = 20;
+            $baseUrl = 'http://localhost/rent24ng/backend/';
+            
+            // Calculate the offset for pagination
+            $offset = ($page - 1) * $itemsPerPage;
+        
+            // Prepare the SQL statement to retrieve user details and status
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT user_id, username, email, privilege, registration_date 
+                 FROM users
+                 LIMIT ? OFFSET ?"
+            );
+            
+            // Bind the items per page and offset to the SQL statement
+            $stmt->bind_param("ii", $itemsPerPage, $offset);
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the results
+                $result = $stmt->get_result();
+        
+                // Initialize an array to store the user data
+                $users = [];
+        
+                // Loop through the result set and store each row in the users array
+                while ($row = $result->fetch_assoc()) {
+                    // Action links for changing user status and viewing details
+                    $changeStatusAction = $baseUrl . 'changeUserStatus.php?user_id=' . $row['user_id'];
+                    $viewUserInfoAction = $baseUrl . 'readUserInfo.php?user_id=' . $row['user_id'];
+        
+                    $users[] = [
+                        "user_id" => $row["user_id"],
+                        "username" => $row["username"],
+                        "email" => $row["email"],
+                        "privilege" => $row["privilege"],
+                        "registration_date" => $row["registration_date"],
+                        "actions" => [
+                            "change_status" => $changeStatusAction,
+                            "view_info" => $viewUserInfoAction
+                        ]
+                    ];
+                }
+        
+                // Return the users as a JSON response
+                return json_encode(["success" => true, "data" => $users]);
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to retrieve users list."]);
+            }
+        }
+        // Read user info
+        public function readUserInfo($user_id) {
+            // Prepare the SQL statement to fetch user info from both the 'users' and 'Vendor' tables
+            $stmt = $this->db->getConnection()->prepare(
+                "SELECT u.user_id, u.username, u.email, u.privilege, u.registration_date, 
+                        v.status, v.profile_pic, v.phone_number, v.state, v.address, v.localgovt, v.city, 
+                        v.sex, v.birth, v.nin, v.firstname, v.lastname, v.MainBalance, v.BankName, 
+                        v.AccountName, v.AccountNumber
+                 FROM users u 
+                 LEFT JOIN Vendor v ON u.user_id = v.user_id
+                 WHERE u.user_id = ?"
+            );
+        
+            // Bind the user_id to the SQL statement
+            $stmt->bind_param("i", $user_id);
+            
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Fetch the result
+                $result = $stmt->get_result();
+        
+                // Check if the user is found
+                if ($result->num_rows > 0) {
+                    // Fetch the user data
+                    $user = $result->fetch_assoc();
+        
+                    // Return the user info as a JSON response
+                    return json_encode(["success" => true, "data" => $user]);
+                } else {
+                    // If no user is found, return an error message
+                    return json_encode(["success" => false, "message" => "User not found."]);
+                }
+            } else {
+                // Return an error message if the query fails
+                return json_encode(["success" => false, "message" => "Failed to retrieve user information."]);
+            }
+        }
+        
         
         
 
