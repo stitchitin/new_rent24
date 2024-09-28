@@ -7,30 +7,11 @@
 </head>
 <body>
     <h2>Rent an Item</h2>
-    <form action="rentItem.php" method="POST" id="rentItemForm">
+    <form action="submitPayment.php" method="POST" id="rentItemForm">
         <label for="paymentId">Payment ID:</label><br>
-        <input type="text" id="paymentId" name="paymentId" required><br><br>
+        <input type="text" id="paymentId" name="transaction_id" required><br><br>
         
-        <label for="startDate">Start Date:</label><br>
-        <input type="date" id="startDate" name="startDate" required><br><br>
-        
-        <label for="endDate">End Date:</label><br>
-        <input type="date" id="endDate" name="endDate" required><br><br>
-        
-        <label for="quantity">Quantity:</label><br>
-        <input type="number" id="quantity" name="quantity" required><br><br>
-        
-        <label for="itemId">Item ID:</label><br>
-        <input type="number" id="itemId" name="itemId" required><br><br>
-        
-        <label for="userId">User ID:</label><br>
-        <input type="number" id="userId" name="userId" required><br><br>
-        
-        <label for="vendorId">Vendor ID:</label><br>
-        <input type="number" id="vendorId" name="vendorId" required><br><br>
-        
-        <label for="totalPrice">Total Price:</label><br>
-        <input type="number" step="0.01" id="totalPrice" name="totalPrice" required><br><br>
+    
         
         <button type="submit">Rent Item</button>
     </form>

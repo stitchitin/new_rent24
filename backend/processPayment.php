@@ -11,26 +11,34 @@ $database = new Database();
 // Initialize the User class with the Database object
 $userService = new User($database);
 
+if ($requestMethod === 'POST') {
+    // Get the input data from the POST request
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    // Extract the user_id, subject, and message from the input data
+    $transaction_id = isset($data['transaction_id']) ? (int)$data['transaction_id'] : null;
+
 // Get the transaction_id from the query parameters
-$transaction_id = isset($_GET['transaction_id']) ? (int)$_GET['transaction_id'] : null;
+// $transaction_id = isset($_GET['transaction_id']) ? (int)$_GET['transaction_id'] : null;
 
-if ($transaction_id) {
-    // Fetch the transaction details including user bank details
-    $transactionDetails = $userService->getTransactionDetails($transaction_id);
+    if ($transaction_id) {
+        // Fetch the transaction details including user bank details
+        $transactionDetails = $userService->getTransactionDetails($transaction_id);
 
-    if ($transactionDetails) {
-        // Return JSON response with transaction details
-        echo json_encode([
-            "success" => true,
-            "data" => $transactionDetails,
-            "message" => "Review the transaction and confirm payment."
-        ]);
+        if ($transactionDetails) {
+            // Return JSON response with transaction details
+            echo json_encode([
+                "success" => true,
+                "data" => $transactionDetails,
+                "message" => "Review the transaction and confirm payment."
+            ]);
+        } else {
+            // Transaction not found
+            echo json_encode(["success" => false, "message" => "Transaction not found."]);
+        }
     } else {
-        // Transaction not found
-        echo json_encode(["success" => false, "message" => "Transaction not found."]);
+        // Invalid transaction ID
+        echo json_encode(["success" => false, "message" => "Invalid transaction ID."]);
     }
-} else {
-    // Invalid transaction ID
-    echo json_encode(["success" => false, "message" => "Invalid transaction ID."]);
 }
 ?>
