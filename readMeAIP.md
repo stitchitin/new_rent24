@@ -2229,3 +2229,163 @@ If the request fails for any reason (e.g., missing `notification_id`), the API w
 
 --- 
 
+Here’s the API documentation for the `AdminTransactionHistory` endpoint to guide the frontend developer:
+
+---
+
+# **API Documentation for `AdminTransactionHistory`**
+
+## **Endpoint Overview**
+
+This API retrieves the admin's view of transaction history with pagination. It includes user transaction details, along with their associated bank details, and provides an action link for transactions with a "Request" status.
+
+---
+
+## **Endpoint URL**
+
+```
+GET /backend/AdminTransactionHistory.php
+```
+
+## **Request Method**
+
+`GET`
+
+---
+
+## **Request Headers**
+
+| Key           | Value                |
+|---------------|----------------------|
+| Content-Type  | application/json     |
+
+---
+
+## **Request Parameters**
+
+| Parameter  | Type   | Required | Description                                          |
+|------------|--------|----------|------------------------------------------------------|
+| `page`     | int    | No       | Page number for paginating results (default: 1)      |
+
+### **Sample Request URL**
+
+```bash
+GET /backend/AdminTransactionHistory.php?page=2
+```
+
+---
+
+## **Response**
+
+### **Success Response**
+
+If the request is successful and transactions are retrieved, the API will return a JSON response with the transaction data.
+
+**Sample Response:**
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "transaction_id": 101,
+            "user_id": 12,
+            "transaction_amount": 5000,
+            "status": "Completed",
+            "time": "2024-09-26 14:30:45",
+            "bank_details": {
+                "bank_name": "First Bank",
+                "account_name": "John Doe",
+                "account_number": "1234567890"
+            },
+            "action": null
+        },
+        {
+            "transaction_id": 102,
+            "user_id": 15,
+            "transaction_amount": 8000,
+            "status": "Request",
+            "time": "2024-09-26 15:00:12",
+            "bank_details": {
+                "bank_name": "GTBank",
+                "account_name": "Jane Smith",
+                "account_number": "0987654321"
+            },
+            "action": "http://localhost/rent24ng/new_rent24/backend/processPayment.php?transaction_id=102"
+        }
+    ]
+}
+```
+
+### **Response Fields**
+
+| Field                  | Type     | Description                                                            |
+|------------------------|----------|------------------------------------------------------------------------|
+| `transaction_id`        | int      | Unique ID of the transaction                                            |
+| `user_id`               | int      | User ID associated with the transaction                                 |
+| `transaction_amount`    | float    | Amount involved in the transaction                                      |
+| `status`                | string   | Current status of the transaction (e.g., "Completed", "Request")        |
+| `time`                  | string   | Timestamp of when the transaction occurred                              |
+| `bank_details`          | object   | Object containing the bank details of the user involved in the transaction|
+| `bank_name`             | string   | Name of the user's bank                                                 |
+| `account_name`          | string   | Account holder's name                                                   |
+| `account_number`        | string   | User's account number                                                   |
+| `action`                | string   | Action URL for processing the transaction (only for "Request" status)   |
+
+---
+
+## **Error Responses**
+
+If the request fails for any reason, an appropriate error message will be returned.
+
+1. **Missing page parameter (default to page 1):**
+
+```json
+{
+    "success": true,
+    "data": [ ... ]
+}
+```
+
+2. **Invalid Request Method (if method is not `GET`):**
+
+```json
+{
+    "success": false,
+    "message": "Invalid request method. Only GET is allowed."
+}
+```
+
+3. **Database Error (if the query fails):**
+
+```json
+{
+    "success": false,
+    "message": "Failed to retrieve transaction history."
+}
+```
+
+---
+
+## **Usage Example**
+
+- To retrieve the first page of transactions:
+  ```bash
+  GET /backend/AdminTransactionHistory.php?page=1
+  ```
+
+- For paginated transactions, increment the `page` parameter:
+  ```bash
+  GET /backend/AdminTransactionHistory.php?page=2
+  ```
+
+---
+
+## **Frontend Steps**
+1. **Send GET Request**: Use the above URL to request transaction data from the server.
+2. **Paginate**: Make sure to pass the `page` parameter to retrieve the desired transactions.
+3. **Handle Response**: Process the returned JSON data and update the admin interface to display transaction history.
+4. **Action Link**: For transactions with status "Request," the `action` field contains a URL to process the payment, which can be linked directly to the admin dashboard for interaction.
+
+---
+
