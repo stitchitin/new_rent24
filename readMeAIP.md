@@ -2122,44 +2122,62 @@ If the request method is not `POST`, you will get:
 - Handle the success or failure responses appropriately in the frontend to notify the user about the status of their message.
 
 
-### API Documentation: `readNotification` API
+Here’s the API documentation for the `readNotification` endpoint that you can provide to the frontend developer:
 
-#### **Endpoint**: `readNotification.php`
+---
 
-#### **Method**: `POST`
+# **API Documentation for `readNotification`**
 
-#### **Description**:
-This API marks a specific notification as "Read" by updating its status in the database.
+## **Endpoint Overview**
 
-#### **Request URL**:
+This API marks a notification as read based on the `notification_id` provided. The frontend will call this endpoint when the user views a notification, updating its status from "Unread" to "Read".
+
+---
+
+## **Endpoint URL**
+
 ```
-http://localhost/rent24ng/backend/readNotification.php
+POST /backend/readNotification.php
 ```
 
-#### **Request Method**:
+## **Request Method**
+
 `POST`
 
-#### **Request Headers**:
-- **Content-Type**: `application/x-www-form-urlencoded` (default when using form-data)
+---
 
-#### **Request Parameters (Body)**:
-| Parameter        | Type   | Description                                    | Required |
-|------------------|--------|------------------------------------------------|----------|
-| `notification_id` | `int`  | The ID of the notification to be marked as read | Yes      |
+## **Request Headers**
 
-#### **Request Example**:
-```bash
-POST http://localhost/rent24ng/backend/readNotification.php
-Content-Type: application/x-www-form-urlencoded
+| Key           | Value                |
+|---------------|----------------------|
+| Content-Type  | application/json     |
 
-notification_id=5
+---
+
+## **Request Body**
+
+The request body should be sent as raw JSON. The following fields are required:
+
+| Field            | Type   | Description                               |
+|------------------|--------|-------------------------------------------|
+| `notification_id`| int    | The ID of the notification to mark as read|
+
+### **Sample Request Body**
+
+```json
+{
+  "notification_id": 5
+}
 ```
 
-#### **Response**:
-- On success, the notification will be updated, and a success message will be returned.
-- On failure, an error message will be returned.
+---
 
-#### **Response Example (Success)**:
+## **Response**
+
+### **Success Response**
+
+If the request is successful and the notification is marked as read, the API will return a success response:
+
 ```json
 {
   "success": true,
@@ -2167,7 +2185,12 @@ notification_id=5
 }
 ```
 
-#### **Response Example (Missing `notification_id`)**:
+### **Error Responses**
+
+If the request fails for any reason (e.g., missing `notification_id`), the API will return an appropriate error message:
+
+1. **Missing `notification_id`:**
+
 ```json
 {
   "success": false,
@@ -2175,7 +2198,8 @@ notification_id=5
 }
 ```
 
-#### **Response Example (Invalid Request Method)**:
+2. **Invalid Request Method (if method is not `POST`):**
+
 ```json
 {
   "success": false,
@@ -2183,11 +2207,25 @@ notification_id=5
 }
 ```
 
-#### **Error Handling**:
-- **Missing `notification_id`**: The request will return a `400` status with an error message indicating that `notification_id` is required.
-- **Invalid Request Method**: If the method is not `POST`, the request will return a `405` error with a message stating that only `POST` is allowed.
+3. **Database Error (if any issues occur while updating the notification):**
 
-#### **Frontend Notes**:
-- Ensure the `notification_id` parameter is passed correctly in the body of the request.
-- Use form-data when making the request.
-- Handle the response messages in your UI to display success or error messages accordingly.
+```json
+{
+  "success": false,
+  "message": "Failed to update notification status."
+}
+```
+
+---
+
+## **Usage Example**
+
+- When a user clicks on a notification in the frontend, send a `POST` request with the notification's ID in the body to mark it as read.
+
+### **Frontend Steps**
+1. **Send POST Request**: Use the above `POST` request format to mark a notification as read.
+2. **Handle Response**: Based on the success or failure response, update the notification's status in the user interface.
+3. **Error Handling**: Ensure to handle errors, like missing `notification_id` or invalid request methods, by displaying appropriate messages.
+
+--- 
+
