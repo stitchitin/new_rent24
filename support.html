@@ -27,6 +27,8 @@
 		<!-- Style css -->
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+
+		<script type="module" src="js/support.js"></script>
 	</head>
 
 	<body>
@@ -42,17 +44,29 @@
 					</div>
 					<div class="card-body">
 						<div class="basic-form">
-							<form>
+							<form id="supportForm">
 								<div class="mb-3">
 									<div class="card-body">
 										<div class="basic-form">
 											<label class="fs-3">Subject</label>
 											<div class="mb-5">
-												<input type="text" class="form-control" placeholder="Subject" />
+												<input
+													type="text"
+													name="subject"
+													class="form-control"
+													placeholder="Subject"
+													required
+												/>
 											</div>
 											<label class="fs-3">Your Message</label>
 											<div class="mb-3">
-												<textarea class="form-control" rows="4" id="comment"></textarea>
+												<textarea
+													name="message"
+													class="form-control"
+													rows="4"
+													id="comment"
+													required
+												></textarea>
 											</div>
 										</div>
 									</div>

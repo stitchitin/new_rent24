@@ -69,6 +69,8 @@ const generateReceiptHTML = (paymentData) => {
 						<meta charset="UTF-8">
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
 						<title>Rent24 Receipt - ${paymentData.payment_id}</title>
+						<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+						<link href="css/style.css" rel="stylesheet" />
 						${generateStyles()}
 						<script>
 							const printReceipt = () => {

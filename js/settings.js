@@ -2,26 +2,26 @@ import { callApi, sweetAlert } from "./lib/index.js";
 import { select } from "./lib/utils.js";
 import { userStore } from "./store/userStore.js";
 
-const onSubmit = async (event, userEmail) => {
+const handleSubmit = (userEmail) => async (event) => {
 	event.preventDefault();
 
-	const formData = new FormData(event.target);
+	const formDataObject = Object.fromEntries(new FormData(event.target));
 
-	if (formData.get("newPassword") !== formData.get("confirmPassword")) {
+	if (formDataObject.newPassword !== formDataObject.confirmPassword) {
 		sweetAlert({ icon: "error", text: "The new password doesn't match the confirmation password" });
 		return;
 	}
 
-	formData.delete("confirmPassword");
+	Reflect.deleteProperty(formDataObject, "confirmPassword");
 
 	const { data, error } = await callApi("backend/changePassword.php", {
 		method: "POST",
-		body: { ...Object.fromEntries(formData), identifier: userEmail },
+		body: { ...formDataObject, identifier: userEmail },
 	});
 
 	if (error) {
 		console.error("Fetch error:", error);
-		sweetAlert({ icon: "error", text: "An error occurred while updating vendor information." });
+		sweetAlert({ icon: "error", text: "An error occurred while changing user password." });
 		return;
 	}
 
@@ -38,7 +38,5 @@ const onSubmit = async (event, userEmail) => {
 };
 
 userStore.subscribe(({ userInfo }) => {
-	select("#changePasswordForm").addEventListener("submit", (event) => {
-		onSubmit(event, userInfo.user.email);
-	});
+	select("#changePasswordForm").addEventListener("submit", handleSubmit(userInfo.user.email));
 });

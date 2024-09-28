@@ -2017,7 +2017,7 @@ All parameters are passed in the body as **JSON**.
 
 ## API Documentation for `sendMessage` API
 
-#### **Endpoint URL**: 
+#### **Endpoint URL**:
 ```
 POST http://localhost/backend/sendMessage.php
 ```
@@ -2027,7 +2027,7 @@ This API allows users to send messages. The message will be stored in the `messa
 
 ---
 
-### **Request Method**: 
+### **Request Method**:
 `POST`
 
 ---
@@ -2227,7 +2227,7 @@ If the request fails for any reason (e.g., missing `notification_id`), the API w
 2. **Handle Response**: Based on the success or failure response, update the notification's status in the user interface.
 3. **Error Handling**: Ensure to handle errors, like missing `notification_id` or invalid request methods, by displaying appropriate messages.
 
---- 
+---
 
 Here’s the API documentation for the `AdminTransactionHistory` endpoint to guide the frontend developer:
 
@@ -2291,7 +2291,7 @@ If the request is successful and transactions are retrieved, the API will return
             "transaction_id": 101,
             "user_id": 12,
             "transaction_amount": 5000,
-            "status": "Completed",
+            "status": "Debited",
             "time": "2024-09-26 14:30:45",
             "bank_details": {
                 "bank_name": "First Bank",

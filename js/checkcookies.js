@@ -33,22 +33,23 @@ const checkUserCookie = () => {
 // Execute the check on page load
 checkUserCookie();
 
+// Function to delete all cookies
+const deleteAllCookies = () => {
+	// Function to set a cookie with an expiration in the past to delete it
+	const deleteCookie = (name) => {
+		document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	};
+
+	const cookies = document.cookie.split(";");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i].split("=");
+		const cookieName = cookie[0].trim();
+		deleteCookie(cookieName); // Delete each cookie
+	}
+};
+
 // Function to handle logout
 const logout = () => {
-	// Function to delete all cookies
-	const deleteAllCookies = () => {
-		// Function to set a cookie with an expiration in the past to delete it
-		const deleteCookie = (name) => {
-			document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-		};
-
-		const cookies = document.cookie.split(";");
-		for (let i = 0; i < cookies.length; i++) {
-			const cookie = cookies[i].split("=");
-			const cookieName = cookie[0].trim();
-			deleteCookie(cookieName); // Delete each cookie
-		}
-	};
 	// Clear all cookies to ensure a clean logout
 	deleteAllCookies();
 	// Redirect to the login page (or home page, depending on your design)
@@ -108,29 +109,42 @@ const fetchUserAndUpdateElements = async (userInfo) => {
 };
 
 // Page Protection and hiding of vendor menu from regular user
-const protectPagesAndHideVendorMenu = async (userInfo) => {
-	const vendorMenu = select("#vendorMenu");
+const protectPagesAndHideMenus = async (userPrivilege) => {
+	const inaccessibleVendorPages = ["additem.html", "vendor-profile.html"];
+	const inaccessibleAdminPages = ["admin-transaction-history.html", "admin-users-list.html", "confirm-payment.html"];
 
-	const inaccessiblePages = ["additem.html", "vendor-profile.html"];
-
-	if (userInfo.user.privilege !== "vendor") {
-		vendorMenu.style.display = "none";
+	if (userPrivilege === "user") {
+		select("#vendorMenu").remove();
 	}
 
-	inaccessiblePages.forEach((page) => {
-		if (userInfo.user.privilege !== "vendor" && window.location.pathname.endsWith(page)) {
-			sweetAlert("You are not authorized to view this page!");
+	if (userPrivilege !== "admin") {
+		select("#adminMenu").remove();
+	}
+
+	for (const page of inaccessibleVendorPages) {
+		if (userPrivilege === "user" && window.location.pathname.endsWith(page)) {
+			sweetAlert({ icon: "error", text: "You are not authorized to view this page!" });
 
 			document.body.remove();
 
-			window.location.href = "404.html";
+			window.location.href = "404.html"
 		}
-	});
+	}
+
+	for (const page of inaccessibleAdminPages) {
+		if (userPrivilege !== "admin" && window.location.pathname.endsWith(page)) {
+			sweetAlert({ icon: "error", text: "You are not authorized to view this page!" });
+
+			document.body.remove();
+
+			window.location.href = "404.html"
+		}
+	}
 };
 
 // Call the function to fetch user information, and protect pages and hide vendor menu on page load
 userStore.subscribe(({ userInfo }) => {
-	fetchAndDisplayNotifications(userInfo.user.user_id, "unread");
+	protectPagesAndHideMenus(userInfo.user.privilege);
 	fetchUserAndUpdateElements(userInfo);
-	protectPagesAndHideVendorMenu(userInfo);
+	fetchAndDisplayNotifications(userInfo.user.user_id);
 });

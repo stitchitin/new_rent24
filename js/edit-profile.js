@@ -2,7 +2,7 @@ import { callApi, sweetAlert } from "./lib/index.js";
 import { select } from "./lib/utils.js";
 import { userStore } from "./store/userStore.js";
 
-const onSubmit = async (event, userId) => {
+const handleSubmit = (userId) => async (event) => {
 	event.preventDefault();
 
 	const formData = new FormData(event.target);
@@ -38,7 +38,7 @@ const onSubmit = async (event, userId) => {
 };
 
 userStore.subscribe(({ userInfo }) => {
-	select("#profileForm").addEventListener("submit", (event) => onSubmit(event, userInfo.user.user_id));
+	select("#profileForm").addEventListener("submit", handleSubmit(userInfo.user.user_id));
 });
 
 const populateLateForm = async (vendorInfo) => {

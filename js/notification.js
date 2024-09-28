@@ -9,7 +9,7 @@ const createNotificationListItem = (notificationInfo) => `
 												.join("")}
 										</div
 
-									<div >
+									<div>
 											<div class="ml-2">
 												<h5 class="mb-1">${notificationInfo.subject}</h5>
 												<p class="mb-1">${notificationInfo.details}</p>
@@ -52,7 +52,16 @@ export const fetchAndDisplayNotifications = async (userId) => {
 		return;
 	}
 
+	const unreadData = data.data.filter((notificationInfo) => notificationInfo.status === "Unread");
+
 	if (window.location.pathname.endsWith("notification.html")) {
+		for (const notificationInfo of unreadData) {
+			callApi("backend/readNotification.php", {
+				method: "POST",
+				body: { notification_id: notificationInfo.id },
+			});
+		}
+
 		const htmlContentForAll = data.data
 			.map((notificationInfo) => createNotificationListItem(notificationInfo))
 			.join("");
@@ -60,8 +69,7 @@ export const fetchAndDisplayNotifications = async (userId) => {
 		select("#notification-list").insertAdjacentHTML("beforeend", htmlContentForAll);
 	}
 
-	const htmlContentForUnread = data.data
-		.filter((notificationInfo) => notificationInfo.status === "Unread")
+	const htmlContentForUnread = unreadData
 		.map((notificationInfo) => createNotificationIconItem(notificationInfo))
 		.join("");
 
