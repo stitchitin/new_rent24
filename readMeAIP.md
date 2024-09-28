@@ -2270,7 +2270,7 @@ GET /backend/AdminTransactionHistory.php
 ### **Sample Request URL**
 
 ```bash
-GET /backend/AdminTransactionHistory.php?page=2
+GET /backend/adminTransactionHistory.php?page=2
 ```
 
 ---

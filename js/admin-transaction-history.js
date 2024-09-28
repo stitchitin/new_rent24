@@ -34,7 +34,7 @@ const createTransactionRow = (transactionInfo) => `<tr data-transaction-id="${
 													`;
 
 const fetchAndDisplayTransactions = async () => {
-	const { data } = await callApi("backend/AdminTransactionHistory.php");
+	const { data } = await callApi("backend/adminTransactionHistory.php");
 
 	if (!data.success) {
 		sweetAlert({
