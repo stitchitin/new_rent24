@@ -250,7 +250,7 @@ CREATE TABLE `notification` (
     `details` TEXT NOT NULL,
     `status` ENUM('Read', 'Unread') DEFAULT 'Unread',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  ;
 
 CREATE TABLE message (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -258,5 +258,5 @@ CREATE TABLE message (
     subject VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  ;
 

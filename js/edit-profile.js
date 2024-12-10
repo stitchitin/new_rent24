@@ -33,7 +33,7 @@ const handleSubmit = (userId) => async (event) => {
 	sweetAlert({ icon: "success", text: "Vendor information has been updated successfully." });
 
 	setTimeout(() => {
-		window.location.href = "vendor-profile.html";
+		window.location.href = "user-profile.html";
 	}, 1000);
 };
 
@@ -43,7 +43,7 @@ userStore.subscribe(({ userInfo }) => {
 
 const populateLateForm = async (vendorInfo) => {
 	const profilePic = select("#profilePic2");
-	profilePic.src = vendorInfo.profile_pic;
+	vendorInfo.profile_pic && (profilePic.src = vendorInfo.profile_pic);
 
 	const formInputsArray = Array.from(select("#profileForm").elements);
 
