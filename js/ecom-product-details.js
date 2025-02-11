@@ -239,14 +239,6 @@ const handlePaymentFormSubmit = (userInfo) => async (event) => {
 
 	select("#close-btn").click();
 
-	if (!data.success) {
-		sweetAlert({ icon: "error", text: `Error adding product: ${data.message}` });
-
-		console.error("Error adding product:", data.message);
-
-		return;
-	}
-
 	const handler = PaystackPop.setup({
 		key: "pk_test_184f668934e96a5ee9f57ed22de795bc0379a2b4",
 		email,
@@ -257,8 +249,28 @@ const handlePaymentFormSubmit = (userInfo) => async (event) => {
 			sweetAlert("Payment window closed");
 		},
 
-		callback: (response) => {
+		callback: async (response) => {
 			sweetAlert({ icon: "success", text: `Payment complete! Reference: ${response.reference}` });
+
+			const { data } = await callApi("backend/rentItem.php", {
+				method: "POST",
+				body: {
+					...formObject,
+					paymentId,
+					vendorId: productItem.vendor_id,
+					itemId: productItem.ItemID,
+					userId: user_id,
+					totalPrice,
+				},
+			});
+
+			if (!data.success) {
+				sweetAlert({ icon: "error", text: `Error adding product: ${data.message}` });
+
+				console.error("Error adding product:", data.message);
+
+				return;
+			}
 
 			callApi("backend/callbackrentItem.php", {
 				method: "POST",
