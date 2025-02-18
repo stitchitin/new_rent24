@@ -223,18 +223,6 @@ const handlePaymentFormSubmit = (userInfo) => async (event) => {
 
 	const totalPrice = productItem.Price * formObject.quantity;
 
-	const { data } = await callApi("backend/rentItem.php", {
-		method: "POST",
-		body: {
-			...formObject,
-			paymentId,
-			vendorId: productItem.vendor_id,
-			itemId: productItem.ItemID,
-			userId: user_id,
-			totalPrice,
-		},
-	});
-
 	event.target.reset();
 
 	select("#close-btn").click();
@@ -249,43 +237,49 @@ const handlePaymentFormSubmit = (userInfo) => async (event) => {
 			sweetAlert("Payment window closed");
 		},
 
-		callback: async (response) => {
+		callback: (response) => {
 			sweetAlert({ icon: "success", text: `Payment complete! Reference: ${response.reference}` });
 
-			const { data } = await callApi("backend/rentItem.php", {
+			const itemDetailsPayload = {
+				...formObject,
+				paymentId,
+				vendorId: productItem.vendor_id,
+				itemId: productItem.ItemID,
+				userId: user_id,
+				totalPrice,
+			};
+
+			callApi("backend/rentItem.php", {
 				method: "POST",
-				body: {
-					...formObject,
-					paymentId,
-					vendorId: productItem.vendor_id,
-					itemId: productItem.ItemID,
-					userId: user_id,
-					totalPrice,
-				},
-			});
+				body: itemDetailsPayload,
 
-			if (!data.success) {
-				sweetAlert({ icon: "error", text: `Error adding product: ${data.message}` });
+				onResponse: ({ data }) => {
+					if (!data.success) {
+						sweetAlert({ icon: "error", text: `Error adding product: ${data.message}` });
 
-				console.error("Error adding product:", data.message);
+						console.error("Error adding product:", data.message);
 
-				return;
-			}
+						return;
+					}
 
-			callApi("backend/callbackrentItem.php", {
-				method: "POST",
-				body: {
-					email,
-					amount: totalPrice,
-					callbackUrl: "https://www.google.com",
-					metadata: "cancel-page.html",
-					paymentId,
-				},
+					const callbackPayload = {
+						email,
+						amount: totalPrice,
+						callbackUrl: "https://www.google.com",
+						metadata: "cancel-page.html",
+						paymentId,
+					};
 
-				onResponse: async () => {
-					await waitUntil(500);
+					callApi("backend/callbackrentItem.php", {
+						method: "POST",
+						body: callbackPayload,
 
-					window.location.href = "user-profile.html";
+						onResponse: async () => {
+							await waitUntil(500);
+
+							window.location.href = "user-profile.html";
+						},
+					});
 				},
 			});
 		},

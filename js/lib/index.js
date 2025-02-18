@@ -1,4 +1,4 @@
-import { createFetchClient } from "https://esm.run/@zayne-labs/callapi@1.5.1";
+import { createFetchClient } from "https://esm.run/@zayne-labs/callapi@1.6.7";
 
 export const callApi = createFetchClient();
 
